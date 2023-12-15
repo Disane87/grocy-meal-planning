@@ -1,25 +1,56 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Recipe } from './interfaces/recipe.interface';
 import { Meal } from './interfaces/meal.interface';
 import { MealPlanSection } from './interfaces/meal-plan-section.interface';
+import { AppConfigService } from './appconfig.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GrocyService {
 
-  private readonly GROCY_URL = 'https://grocy.disane.dev/api/';
-  private readonly GROCY_HEADER = {
-    headers: { 'GROCY-API-KEY': '2kxIaV2gMqvoNkqEMLoE0ZOv2Ej5Y8BPEUeq30YJWGnPG2m6UI' }
-  }
+  private GROCY_URL: string | undefined ;
+  private GROCY_HEADER: Object | undefined;
 
   private mealPlanSubject = new BehaviorSubject<Array<Partial<Meal>>>([]);
 
-  constructor(private httpClient: HttpClient) { 
-    this.loadMealPlan();
+  constructor(private httpClient: HttpClient, private appConfigService: AppConfigService) { 
+    this.appConfigService.isAppConfigured$.subscribe(configured => {
+
+      if(configured){
+        console.log("configured", configured)
+
+        const appConfig = this.appConfigService.getConfig();
+
+        debugger;
+        
+        if(appConfig.grocyApiKey && appConfig.grocyUrl){
+          this.GROCY_URL = `${this.adjustTrailingSlash(appConfig.grocyUrl || '')}/api/`;
+          this.GROCY_HEADER = {
+            headers: { 'GROCY-API-KEY': appConfig.grocyApiKey?.trim() }
+          };
+    
+          this.loadMealPlan()
+    
+          console.log("GROCY_URL", this.GROCY_URL);      
+          console.log("GROCY_HEADER", this.GROCY_HEADER);      
+        }
+      }
+
+     
+    });
   }
+
+  private adjustTrailingSlash(url: string) {
+    if (url.endsWith('/')) {
+      
+        return url.slice(0, -1);
+      } else {
+        return url;
+    }
+}
 
   private loadMealPlan() {
     this.httpClient.get<Array<Partial<Meal>>>(`${this.GROCY_URL}objects/meal_plan`, this.GROCY_HEADER)

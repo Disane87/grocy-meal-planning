@@ -5,5 +5,8 @@
   "PREVIOUS_WEEK": "Letzte Woche",
   "THIS_WEEK": "Diese Woche",
   "NEXT_WEEK": "Nächste Woche",
+  "GROCY_URL": "URL zu Grocy",
+  "GROCY_APP_KEY": "Dein Grocy-API-Key",
+  "CONFIGURE": "Konfigurieren",
   "SELECT_SECTION": "Abschnitt wählen"
 }

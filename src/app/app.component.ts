@@ -8,6 +8,7 @@ import { Meal } from './interfaces/meal.interface';
 import { Recipe } from './interfaces/recipe.interface';
 import { RecipeDragData } from './interfaces/recipe-drag-data.interface';
 import { DndDropEvent } from 'ngx-drag-drop';
+import { AppConfigService } from './appconfig.service';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +19,20 @@ import { DndDropEvent } from 'ngx-drag-drop';
 export class AppComponent implements OnInit {
   public btoa = btoa;
 
-  constructor(private grocyService: GrocyService, private route: ActivatedRoute) { }
+  constructor(private grocyService: GrocyService, private route: ActivatedRoute, private appConfigService: AppConfigService) { }
   recipes$ = this.grocyService.getRecipes();
+
+  isAppConfigured$ = this.appConfigService.isAppConfigured$;
   mealPlanSections$ = this.grocyService.getMealPlanSections();
   refreshMealPlan$ = new Subject<void>();
 
   selectedMealPlanSection: number | null = parseInt(localStorage.getItem('selectedMealPlanSection') || '');
+
+  grocyUrl: string | undefined = this.appConfigService.getConfig().grocyUrl;
+  grocyApiKey: string | undefined = this.appConfigService.getConfig().grocyApiKey;
+
+  appConfig = this.appConfigService.getConfig();
+
   currentWeek: number | undefined;
 
   draggable = {
@@ -42,8 +51,6 @@ export class AppComponent implements OnInit {
   recipeSearch: string | null = null
 
   ngOnInit() {
-
-    debugger;
     if (this.currentWeek === undefined) {
       const queryWeek = parseInt(this.route.snapshot.queryParamMap.get('week') ?? '');
       this.currentWeek = queryWeek || dayjs().week();
@@ -76,6 +83,12 @@ export class AppComponent implements OnInit {
   doneMeal(meal: Meal){
     meal.done = 1;
     this.grocyService.updateMeal(meal)
+  }
+
+  setConfig(){
+    if(this.grocyUrl && this.grocyApiKey){
+      this.appConfigService.setConfig(this.grocyUrl.trim(), this.grocyApiKey.trim())
+    }
   }
 
   onDrop(event: DndDropEvent, day: Date) {

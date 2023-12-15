@@ -5,5 +5,8 @@
   "PREVIOUS_WEEK": "Previous week",
   "THIS_WEEK": "Current week",
   "NEXT_WEEK": "Next week",
+  "GROCY_URL": "Grocy url",
+  "GROCY_APP_KEY": "Grocy api key",
+  "CONFIGURE": "Configure",
   "SELECT_SECTION": "Select section"
 }

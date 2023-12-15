@@ -9,7 +9,6 @@ import { Base64Pipe } from './_pipes/base64.pipe';
 import { GrocyImagePipe } from './_pipes/grocy-image.pipe';
 import { OrderByPipe } from './_pipes/order-by.pipe';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {CdkDrag} from '@angular/cdk/drag-drop';
 import { DaysOfWeekPipe } from './_pipes/days-of-week.pipe';
 import { CurrentWeekPipe } from './_pipes/current-week.pipe';
 
