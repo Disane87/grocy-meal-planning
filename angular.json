@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "grocy-meal-planning:build:production"
+              "buildTarget": "grocy-meal-planning:build:production"
             },
             "development": {
-              "browserTarget": "grocy-meal-planning:build:development"
+              "buildTarget": "grocy-meal-planning:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "grocy-meal-planning:build"
+            "buildTarget": "grocy-meal-planning:build"
           }
         },
         "test": {
