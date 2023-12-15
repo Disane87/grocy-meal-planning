@@ -1,44 +1,70 @@
-<div class="flex flex-row h-screen w-screen" *ngIf="(recipes$ | async) as recipes">
-  <div class="recipes flex flex-col gap-y-3 p-4 overflow-auto">
-    <ng-container *ngFor="let recipe of recipes | orderBy:'name' || []; trackByProperty:'id'">
-      <ng-container *ngTemplateOutlet="recipeTemplate; context:{ recipe }"></ng-container>
-    </ng-container>
+<!-- {{droppedRecipe$ | async | json}} -->
+<div class="flex flex-row w-screen h-screen cursor-default" *ngIf="(recipes$ | async) as recipes">
+
+  <div class="flex flex-col p-4 gap-y-4 recipes w-[20%]">
+    <h1 class="font-bold text-2xl">{{ 'RECIPES' | transloco }}</h1>
+    <input 
+    [(ngModel)]="recipeSearch" 
+    type="text" 
+    [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco" 
+    class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded"
+/>
+    <div class="recipe-container overflow-auto gap-y-3 flex flex-col">
+      <ng-container *ngFor="let recipe of (recipes | filterArray:recipeSearch:['name'] | orderBy:'name' || []); trackByProperty:'id'">
+        <ng-container *ngTemplateOutlet="recipeTemplate; context:{ recipe, currentDay: null }"></ng-container>
+      </ng-container>
+    </div>
   </div>
-  <div class="scheduler flex flex-col w-full h-screen px-4 pb-4" *ngIf="(mealplan$ | async) as mealPlan">
-    <div class="info flex flex-row w-full items-center">
-      <div class="weeknumber p-4 text-2xl whitespace-nowrap">
-        Woche: {{ currentWeek }}
+
+  <div class="flex flex-col px-4 pb-4 w-full h-screen scheduler" *ngIf="(mealPlan$ | async) as mealPlan">
+    <div class="flex flex-row items-center w-full info">
+      <div class="p-4 text-2xl whitespace-nowrap weeknumber justify-start w-full">
+        <span>{{ 'WEEK' | transloco }}</span>: {{ currentWeek }}
       </div>
-      <div class="controls flex flex-row gap-1 p-4 w-full justify-end">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-10"
-          (click)="changeWeek(1)">Previous</button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-10"
-          (click)="resetWeek()">Today</button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-10"
-          (click)="changeWeek(-1)">Next</button>
+      <div class="controls flex flex-row gap-1 p-4">
+        <select [ngModel]="selectedMealPlanSection" (ngModelChange)="selectSection($event)" class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded">
+          <option [ngValue]="section.id" *ngFor="let section of (mealPlanSections$ | async)">{{section.name}}</option>
+        </select>
+
+        <div class="flex flex-row gap-1 justify-end scheduler-controls">
+          <button (click)="changeWeek(-1)" [title]="'PREVIOUS_WEEK' | transloco"
+            class="bg-gray-100 flex flex-row items-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
+            <mat-icon svgIcon="chevron-left"></mat-icon>
+          </button>
+          <button (click)="changeWeek(0)" [title]="'THIS_WEEK' | transloco"
+            class="bg-green-100 flex flex-row items-center hover:bg-green-500 text-green-700 hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">
+            <mat-icon svgIcon="calendar-today"></mat-icon>
+          </button>
+          <button (click)="changeWeek(1)" [title]="'NEXT_WEEK' | transloco"
+            class="bg-gray-100 flex flex-row items-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
+            <mat-icon svgIcon="chevron-right"></mat-icon>
+          </button>
+        </div>
+
       </div>
     </div>
 
-
-    <div class="planning flex flex-row h-full w-full ml-4 divide-x" *ngIf="currentWeek | daysOfWeek as daysOfWeek">
-      <div class="day w-1/7" *ngFor="let day of daysOfWeek" [ngClass]="{
+    <div class="flex flex-row ml-4 w-full h-full divide-x planning" *ngIf="currentWeek | daysOfWeek as daysOfWeek">
+      <div class="day w-1/7 hover:bg-stone-50 h-full overflow-hidden flex flex-col" *ngFor="let day of daysOfWeek"
+        [ngClass]="{
         'bg-green-200': day | isToday,
         'bg-gray-100': day | isWeekend 
       }">
-        <!-- Kopfzeile für jeden Tag -->
-        <div class="days-header border-b flex flex-col w-full p-4 text-center ">
-          <div class="font-bold w-full">{{ day | date:'EEEE' }}</div>
+        <div class="flex flex-col p-4 w-full text-center border-b days-header">
+          <div class="w-full font-bold">{{ day | date:'EEEE' }}</div>
           {{ day | date:'longDate'}}
         </div>
 
-        <!-- Inhaltsbereich für jeden Tag -->
-        <div id class="meals flex flex-row w-full divide-x p-4" cdkDropList [id]="day.toISOString()">
-          <!-- Hier können weitere Inhalte für jeden Tag hinzugefügt werden -->
+        <div class="flex flex-col gap-y-2 p-4 w-full meals h-full " [id]="day.toISOString()">
           <div
             *ngFor="let plannedMeal of (mealPlan | pickObjectByValue:'day':(day | date:'yyyy-MM-dd')); trackByProperty:'id'">
             <ng-container *ngIf="plannedMeal.recipe_id | getRecipe:recipes as recipe">
-              <ng-container *ngTemplateOutlet="recipeTemplate; context: { recipe }"></ng-container>
+              <ng-container
+                *ngTemplateOutlet="recipeTemplate; context: { recipe, currentDay: (day | date:'yyyy-MM-dd'), meal: plannedMeal }"></ng-container>
             </ng-container>
+          </div>
+          <div class="dropzone h-full" dndDropzone (dndDragover)="onDragover($event, day)"
+            (dndDrop)="onDrop($event, day)">
           </div>
         </div>
       </div>
@@ -46,12 +72,26 @@
   </div>
 </div>
 
-<ng-template #recipeTemplate let-recipe="recipe">
-  <div class="recipe border max-w-sm rounded shadow-lg cursor-grab bg-white active:border-red" cdkDrag>
+<ng-template #recipeTemplate let-recipe="recipe" let-currentDay="currentDay" let-meal="meal">
+  <div class="max-w-sm bg-white rounded border shadow-lg group recipe hover:border-blue-400 hover:bg-blue-200" [class.opacity-50]="meal?.done" [class.line-through]="meal?.done"
+    [dndDraggable]="{ recipe, meal }" [dndEffectAllowed]="$any(draggable.effectAllowed)"
+    [dndDisableIf]="draggable.disable">
     <img class="w-full" *ngIf="recipe.picture_file_name"
       [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" alt="Sunset in the mountains">
-    <div class="px-6 py-4">
-      <div class="text-xl">{{ recipe.name }}</div>
+    <div class="px-6 py-4 w-full flex" [class.flex-col]="meal" [class.flex-row]="!meal">
+
+      <!-- <div class="overflow-hidden w-full text-ellipsis" *ngIf="!meal && recipeSearch" [innerHTML]="recipe.name | highlightSearch:recipeSearch"></div> -->
+      <!-- *ngIf="meal || !recipeSearch" -->
+      <div class="overflow-hidden w-full text-ellipsis" >{{ recipe.name }}</div>
+
+      <div class="recipe-controls hidden flex-row group-hover:flex justify-between" [class.mt-4]="meal" >
+        <mat-icon class="text-green-400 cursor-pointer" svgIcon="check" *ngIf="meal?.done == 0"
+          (click)="doneMeal(meal)"></mat-icon>
+      
+        <mat-icon class="text-red-400 cursor-pointer" svgIcon="delete-outline" *ngIf="meal && meal?.done == 0"
+          (click)="deleteMeal(meal)"></mat-icon>
+        <mat-icon dndHandle svgIcon="drag" class="cursor-grab"></mat-icon>
+      </div>
     </div>
   </div>
 </ng-template>

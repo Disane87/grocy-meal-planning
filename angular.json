@@ -27,7 +27,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "mdi.svg",
+                "input": "./node_modules/@mdi/angular-material",
+                "output": "./assets"
+              }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
@@ -58,19 +63,23 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "progress": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "grocy-meal-planning:build:production"
             },
             "development": {
-              "buildTarget": "grocy-meal-planning:build:development"
+              "buildTarget": "grocy-meal-planning:build:development",
+              "publicHost": "code.disane.dev",
+              "servePath": "/absproxy/4200",
+              "hmr": true
             }
           },
           "defaultConfiguration": "development"

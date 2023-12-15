@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,10 +21,16 @@ import * as dayjs from 'dayjs';
 import { PickObjectByValuePipe } from './_pipes/pick-object-by-value.pipe';
 import { GetRecipePipe } from './_pipes/get-recipe.pipe';
 import { NgForTrackByPropertyModule } from 'ng-for-track-by-property';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { TranslocoRootModule } from './transloco-root.module';
+import { DndModule } from 'ngx-drag-drop';
+import { FormsModule } from '@angular/forms';
+import { FilterArrayPipe } from './_pipes/filter-array.pipe';
+import { HighlightSearchPipe } from './_pipes/highlight-search.pipe';
 
 registerLocaleData(localeDe);
 
-dayjs.locale(navigator.language)
+dayjs.locale(["de", "en"].includes(navigator.language) ? navigator.language : "en")
 
 @NgModule({
   declarations: [
@@ -37,20 +43,30 @@ dayjs.locale(navigator.language)
     IsTodayPipe,
     IsWeekendPipe,
     PickObjectByValuePipe,
-    GetRecipePipe
+    GetRecipePipe,
+    FilterArrayPipe,
+    HighlightSearchPipe
   ],
   imports: [
     BrowserModule,
-    CdkDrag,
+    DndModule,
+    FormsModule,
+    MatIconModule,
     NgForTrackByPropertyModule,
     HttpClientModule,
     AppRoutingModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    TranslocoRootModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: navigator.language }
+    { provide: LOCALE_ID, useValue: ["de", "en"].includes(navigator.language) ? navigator.language : "en" }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    iconRegistry.addSvgIconSet(
+      domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')
+    );
+  }
+}

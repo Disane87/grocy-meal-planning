@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --extra-webpack-config webpack-dev.config.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "i18n:extract": "transloco-keys-manager extract",
+    "i18n:find": "transloco-keys-manager find"
   },
   "private": true,
   "dependencies": {
@@ -20,11 +22,14 @@
     "@angular/platform-browser": "^17.0.7",
     "@angular/platform-browser-dynamic": "^17.0.7",
     "@angular/router": "^17.0.7",
+    "@mdi/angular-material": "^7.2.96",
+    "@ngneat/transloco": "^6.0.4",
     "angular-calendar": "^0.31.0",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.10",
     "dragon": "^0.3.0",
     "ng-for-track-by-property": "^16.0.1",
+    "ngx-drag-drop": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -33,6 +38,8 @@
     "@angular-devkit/build-angular": "^17.0.7",
     "@angular/cli": "~17.0.7",
     "@angular/compiler-cli": "^17.0.7",
+    "@angular/localize": "^17.0.7",
+    "@ngneat/transloco-keys-manager": "^3.8.0",
     "@types/jasmine": "~4.3.0",
     "autoprefixer": "^10.4.16",
     "jasmine-core": "~4.6.0",
@@ -41,6 +48,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "ngx-build-plus": "^17.0.0",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "~5.2.2"
