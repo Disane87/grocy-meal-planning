@@ -1,0 +1,5 @@
+<ng-container *ngIf="recipes && recipes.length > 0">
+  <ng-container *ngFor="let recipe of recipes; trackByProperty:'id'">
+    <app-grocy-recipe-card [recipe]="recipe"></app-grocy-recipe-card>
+  </ng-container>
+</ng-container>

@@ -8,11 +8,17 @@ import {
   take,
   tap,
   map,
+  catchError,
+  of,
+  distinctUntilChanged,
 } from 'rxjs';
 import { AppConfigService } from './appconfig.service'; // Adjust this import based on your actual file paths
 import { MealPlanSection } from './interfaces/meal-plan-section.interface';
 import { Meal } from './interfaces/meal.interface';
 import { Recipe } from './interfaces/recipe.interface';
+import { GrocySystemInfo } from './interfaces/grocy-system-info-interface';
+import { HotToastService } from '@ngneat/hot-toast';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable({
   providedIn: 'root',
@@ -20,20 +26,32 @@ import { Recipe } from './interfaces/recipe.interface';
 export class GrocyService {
   private GROCY_URL: string | undefined;
   private GROCY_HEADER: Object | undefined;
-  private mealPlanSubject = new BehaviorSubject<Array<Partial<Meal>>>([]);
+  private mealPlanSubject$ = new BehaviorSubject<Array<Partial<Meal>>>([]);
+
+  public grocySystemInfo$ = new BehaviorSubject<GrocySystemInfo | null>(null);
 
   constructor(
     private httpClient: HttpClient,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+
+    private hotToastService: HotToastService,
+    private translocoService: TranslocoService
   ) {
     this.appConfigService.isAppConfigured$.subscribe((configured) => {
       if (configured) {
         const appConfig = this.appConfigService.getConfig();
-        this.GROCY_URL = this.adjustUrl(appConfig.grocyUrl || '');
-        this.GROCY_HEADER = {
-          headers: { 'GROCY-API-KEY': appConfig.grocyApiKey?.trim() },
-        };
-        this.loadMealPlan();
+
+        if (appConfig.grocyUrl && appConfig.grocyApiKey) {
+          this.GROCY_URL = this.adjustUrl(appConfig.grocyUrl || '');
+          this.GROCY_HEADER = {
+            headers: { 'GROCY-API-KEY': appConfig.grocyApiKey?.trim() },
+          };
+
+          this.getInfo(appConfig.grocyUrl, appConfig.grocyApiKey)
+            .pipe(take(1))
+            .subscribe();
+          this.loadMealPlan();
+        }
       }
     });
   }
@@ -44,6 +62,7 @@ export class GrocyService {
 
   private waitForConfiguration<T>(): Observable<boolean> {
     return this.appConfigService.isAppConfigured$.pipe(
+      distinctUntilChanged(),
       filter((configured) => configured),
       take(1)
     );
@@ -59,43 +78,78 @@ export class GrocyService {
         `${this.GROCY_URL}objects/meal_plan`,
         this.GROCY_HEADER
       );
+    // .pipe(
+    //   this.hotToastService.observe({
+    //     loading: this.translocoService.translate('LOADING'),
+    //     success: this.translocoService.translate('MEAL_PLAN_LOADED'),
+    //     error: this.translocoService.translate('MEAL_PLAN_ERROR'),
+    //   }),
+    //   catchError((error) => of(error))
+    // );
+
     this.httpRequest(request).subscribe((mealPlan) =>
-      this.mealPlanSubject.next(mealPlan)
+      this.mealPlanSubject$.next(mealPlan)
     );
   }
 
   getMealPlan(): Observable<Array<Partial<Meal>>> {
-    return this.mealPlanSubject.asObservable();
+    return this.mealPlanSubject$.asObservable();
   }
 
   postMeal(meal: Partial<Meal>): Observable<any> {
     const request = () =>
-      this.httpClient.post<{ created_object_id: string }>(
-        `${this.GROCY_URL}objects/meal_plan`,
-        meal,
-        this.GROCY_HEADER
-      );
+      this.httpClient
+        .post<{ created_object_id: string }>(
+          `${this.GROCY_URL}objects/meal_plan`,
+          meal,
+          this.GROCY_HEADER
+        )
+        .pipe(
+          this.hotToastService.observe({
+            loading: this.translocoService.translate('MEAL_SAVING'),
+            success: this.translocoService.translate('MEAL_SAVED'),
+            error: this.translocoService.translate('MEAL_SAVED_ERROR'),
+          }),
+          catchError((error) => of(error))
+        );
     return this.httpRequest(request).pipe(tap(() => this.loadMealPlan()));
   }
 
   deleteMeal(mealId: number): Observable<any> {
     const request = () =>
-      this.httpClient.delete(
-        `${this.GROCY_URL}objects/meal_plan/${mealId}`,
-        this.GROCY_HEADER
-      );
+      this.httpClient
+        .delete(
+          `${this.GROCY_URL}objects/meal_plan/${mealId}`,
+          this.GROCY_HEADER
+        )
+        .pipe(
+          this.hotToastService.observe({
+            loading: this.translocoService.translate('MEAL_DELETING'),
+            success: this.translocoService.translate('MEAL_DELETED'),
+            error: this.translocoService.translate('MEAL_DELETED_ERROR'),
+          }),
+          catchError((error) => of(error))
+        );
     return this.httpRequest(request).pipe(tap(() => this.loadMealPlan()));
   }
 
   getRecipes(): Observable<Array<Recipe>> {
     const request = () =>
-      this.httpClient.get<Array<Recipe>>(
-        `${this.GROCY_URL}objects/recipes`,
-        this.GROCY_HEADER
-      );
-    return this.httpRequest(request).pipe(
-      map((recipes) => recipes.filter((recipe) => recipe.type == 'normal'))
-    );
+      this.httpClient
+        .get<Array<Recipe>>(
+          `${this.GROCY_URL}objects/recipes`,
+          this.GROCY_HEADER
+        )
+        .pipe(
+          this.hotToastService.observe({
+            loading: this.translocoService.translate('LOADING_RECIPES'),
+            success: this.translocoService.translate('RECIPES_LOADED'),
+            error: this.translocoService.translate('RECIPES_LOADING_ERROR'),
+          }),
+          map((recipes) => recipes.filter((recipe) => recipe.type == 'normal')),
+          catchError((error) => of(error))
+        );
+    return this.httpRequest(request).pipe();
   }
 
   getGrocyImage(fileGroup: string, fileName: string): Observable<string> {
@@ -121,11 +175,47 @@ export class GrocyService {
 
   updateMeal(meal: Partial<Meal>): Observable<any> {
     const request = () =>
-      this.httpClient.put(
-        `${this.GROCY_URL}objects/meal_plan/${meal.id}`,
-        meal,
-        this.GROCY_HEADER
-      );
+      this.httpClient
+        .put(
+          `${this.GROCY_URL}objects/meal_plan/${meal.id}`,
+          meal,
+          this.GROCY_HEADER
+        )
+        .pipe(
+          this.hotToastService.observe({
+            loading: this.translocoService.translate('UPDATING_MEAL'),
+            success: this.translocoService.translate('UPDATING_MEAL_SUCCESS'),
+            error: this.translocoService.translate('UPDATING_MEAL_ERROR'),
+          }),
+          catchError((error) => of(error))
+        );
     return this.httpRequest(request).pipe(tap(() => this.loadMealPlan()));
+  }
+
+  getInfo(
+    grocyUrl: string,
+    grocyApiKey: string
+  ): Observable<GrocySystemInfo | null> {
+    return this.httpClient
+      .get<GrocySystemInfo>(`${this.adjustUrl(grocyUrl)}system/info`, {
+        headers: { 'GROCY-API-KEY': grocyApiKey },
+      })
+      .pipe(
+        distinctUntilChanged(),
+        this.hotToastService.observe({
+          loading: this.translocoService.translate('GETTING_GROCY_INFO'),
+          success: this.translocoService.translate(
+            'GETTING_GROCY_INFO_SUCCESS'
+          ),
+          error: this.translocoService.translate('GETTING_GROCY_INFO_ERROR'),
+        }),
+        catchError((error) => of(error)),
+        tap((info) => {
+          if (info && info.grocy_version.Version) {
+            this.appConfigService.setConfig(grocyUrl, grocyApiKey);
+            this.grocySystemInfo$.next(info);
+          }
+        })
+      );
   }
 }

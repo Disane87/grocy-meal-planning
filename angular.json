@@ -7,7 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": false
         }
       },
       "root": "",
@@ -17,6 +18,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "dayjs"
+            ],
             "outputPath": "dist/grocy-meal-planning",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -71,6 +75,10 @@
         },
         "serve": {
           "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "ssl": true,
+            "open": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "grocy-meal-planning:build:production"

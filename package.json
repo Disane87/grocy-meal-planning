@@ -23,6 +23,8 @@
     "@angular/platform-browser-dynamic": "^17.0.7",
     "@angular/router": "^17.0.7",
     "@mdi/angular-material": "^7.2.96",
+    "@ngneat/hot-toast": "^6.0.2",
+    "@ngneat/overview": "5.1.1",
     "@ngneat/transloco": "^6.0.4",
     "angular-calendar": "^0.31.0",
     "date-fns": "^2.29.3",
