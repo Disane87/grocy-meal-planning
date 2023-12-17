@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,14 +27,18 @@ import { HighlightSearchPipe } from './_pipes/highlight-search.pipe';
 import { GrocyConfigComponent } from './_components/grocy-config/grocy-config.component';
 import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
-import { HotToastModule, provideHotToastConfig } from '@ngneat/hot-toast';
+import { HotToastModule } from '@ngneat/hot-toast';
 import { MadeByBannerComponent } from './_components/made-by-banner/made-by-banner.component';
+import {
+  language,
+  preloadTranslation,
+  preloadTransloco,
+} from './transloco.initializer';
+import { TranslocoService } from '@ngneat/transloco';
 
 registerLocaleData(localeDe);
 
-dayjs.locale(
-  ['de', 'en'].includes(navigator.language) ? navigator.language : 'en'
-);
+dayjs.locale(language);
 
 @NgModule({
   declarations: [
@@ -71,10 +75,14 @@ dayjs.locale(
   ],
   providers: [
     {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: preloadTranslation,
+      deps: [TranslocoService],
+    },
+    {
       provide: LOCALE_ID,
-      useValue: ['de', 'en'].includes(navigator.language)
-        ? navigator.language
-        : 'en',
+      useValue: language,
     },
   ],
   bootstrap: [AppComponent],
