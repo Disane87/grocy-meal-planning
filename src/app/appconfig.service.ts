@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, distinctUntilChanged } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppConfigService {
   private isAppConfiguredSubject = new BehaviorSubject<boolean>(false);
-  public isAppConfigured$ = this.isAppConfiguredSubject.asObservable();
+  public isAppConfigured$ = this.isAppConfiguredSubject
+    .asObservable()
+    .pipe(distinctUntilChanged());
 
   private grocyUrl: string | undefined;
   private grocyApiKey: string | undefined;
@@ -30,7 +32,7 @@ export class AppConfigService {
   getConfig() {
     return {
       grocyUrl: this.grocyUrl,
-      grocyApiKey: this.grocyApiKey
+      grocyApiKey: this.grocyApiKey,
     };
   }
 
@@ -40,5 +42,11 @@ export class AppConfigService {
     this.grocyUrl = url;
     this.grocyApiKey = apiKey;
     this.isAppConfiguredSubject.next(true);
+  }
+
+  resetConfig() {
+    localStorage.removeItem('grocyUrl');
+    localStorage.removeItem('grocyApiKey');
+    this.isAppConfiguredSubject.next(false);
   }
 }

@@ -1,0 +1,22 @@
+<div class="max-w-sm bg-white rounded border shadow-lg group recipe hover:border-blue-400 hover:bg-blue-200"
+  [class.opacity-50]="meal?.done" [class.line-through]="meal?.done" [dndDraggable]="{ recipe, meal }"
+  [dndEffectAllowed]="$any(draggable.effectAllowed)" [dndDisableIf]="draggable.disable" *ngIf="recipe">
+  <img class="w-full" *ngIf="recipe.picture_file_name"
+    [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" alt="Sunset in the mountains">
+  <div class="px-6 py-4 w-full flex" [class.flex-col]="meal" [class.flex-row]="!meal">
+
+    <!-- <div class="overflow-hidden w-full text-ellipsis" *ngIf="!meal && recipeSearch" [innerHTML]="recipe.name | highlightSearch:recipeSearch"></div> -->
+    <!-- *ngIf="meal || !recipeSearch" -->
+    <div class="overflow-hidden w-full text-ellipsis">{{ recipe.name }}</div>
+
+    <div class="recipe-controls hidden flex-row group-hover:flex justify-between" [class.mt-4]="meal">
+      <mat-icon class="text-green-400 cursor-pointer" svgIcon="check" *ngIf="meal && meal?.done == 0"
+        (click)="doneMeal(meal)"></mat-icon>
+
+      <mat-icon class="text-red-400 cursor-pointer" svgIcon="delete-outline" *ngIf="meal && meal?.done == 0"
+        (click)="deleteMeal(meal)"></mat-icon>
+
+      <mat-icon dndHandle svgIcon="drag" class="cursor-grab"></mat-icon>
+    </div>
+  </div>
+</div>
