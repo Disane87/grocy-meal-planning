@@ -1,29 +1,47 @@
-# GrocyMealPlanning
+![Logo](https://github.com/Disane87/grocy-meal-planning/blob/main/src/assets/images/logo.png?raw=true)
 
-Test 🎉
+# Grocy meal planning 🥗
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+Comfortable meal planning for Grocy with pleasure.
 
-## Development server
+## Why did I code this? 🤔
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The UI for planning your week with meals feels pretty old fashioned in grocy. Therefore another UI has to be done where you can quickly plan your meals for the next week.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- 📅 Weekly planning
+- 👋 Drag and drop: from recipe to planned meal
+- 🎓 Assign sections to meals
+- 🏠 Fully private. Your browser connects to your Grocy instance
+- 📷 Duplicate planned meals holding `SHIFT` while dragging onto another day
+- 🖼️ Beautiful UI
+- 🌍 Localized for german and english
 
-## Build
+> [!IMPORTANT]  
+> Currently the application is best viewd on minimum resolution of 1920x1080. > There are plans to make it mobile ready for smal devices.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Screenshots 🖼️
 
-## Running unit tests
+![App Screenshot](docs/screenshot.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Using as a native app 🈸
 
-## Running end-to-end tests
+In modern browsers you can install PWA apps on your machine and use them as they were native applications (with desktop icon and such). We support that and you can install that app according to the browser docs.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+![PWA Screenshot](docs/screenshot_pwa.png)
 
-## Further help
+## Demo 👨‍💻
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Just head to [https://grocy-meal-planning.disane.dev/](https://grocy-meal-planning.disane.dev/) fill in your grocy details `URL` and `API-Key` and you're good to go.
+
+> [!IMPORTANT]  
+> At this point, your grocy instance must be reachable from your device via HTTPs
+
+> [!NOTE]  
+> Your data stays private. This application is only runnign in your local browser and connects to your instance. Even if your grocy iinstance is not exposed to the internet, you can use this.
+
+## Found issues? 🪲
+
+Just file an issue. 👉
+https://github.com/Disane87/grocy-meal-planning/issues
