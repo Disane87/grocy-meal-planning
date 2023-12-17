@@ -77,9 +77,7 @@
             },
             "development": {
               "buildTarget": "grocy-meal-planning:build:development",
-              "publicHost": "code.disane.dev",
-              "servePath": "/absproxy/4200",
-              "hmr": true
+              "hmr": false
             }
           },
           "defaultConfiguration": "development"

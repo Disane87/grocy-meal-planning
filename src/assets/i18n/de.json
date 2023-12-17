@@ -5,8 +5,12 @@
   "PREVIOUS_WEEK": "Letzte Woche",
   "THIS_WEEK": "Diese Woche",
   "NEXT_WEEK": "Nächste Woche",
+  "CONFIG_HEADLINE": "Grocy meal planning",
+  "CONFIG_SUBTITLE": "Bitte konfiguriere deine Grocy-Instanz, um zu starten",
   "GROCY_URL": "URL zu Grocy",
   "GROCY_APP_KEY": "Dein Grocy-API-Key",
   "CONFIGURE": "Konfigurieren",
+  "CONFIG_PRIVACY_HINT": "Hinweis zur Privatsphäre",
+  "CONFIG_PRIVACY_HINT_TEXT": "Die Daten werden nur lokal in deinem Browser gespeichert und nicht von uns verwendet.",
   "SELECT_SECTION": "Abschnitt wählen"
 }
