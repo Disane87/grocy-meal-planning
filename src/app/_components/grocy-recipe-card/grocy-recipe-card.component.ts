@@ -30,4 +30,8 @@ export class GrocyRecipeCardComponent {
     meal.done = 1;
     this.grocyService.updateMeal(meal);
   }
+
+  openRecipe(recipeId: number) {
+    this.grocyService.openGrocyRecipe(recipeId);
+  }
 }

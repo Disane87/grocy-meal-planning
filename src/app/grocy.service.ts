@@ -24,7 +24,10 @@ import { TranslocoService } from '@ngneat/transloco';
   providedIn: 'root',
 })
 export class GrocyService {
+  private GROCY_API_URL: string | undefined;
+
   private GROCY_URL: string | undefined;
+
   private GROCY_HEADER: Object | undefined;
   private mealPlanSubject$ = new BehaviorSubject<Array<Partial<Meal>>>([]);
 
@@ -42,7 +45,8 @@ export class GrocyService {
         const appConfig = this.appConfigService.getConfig();
 
         if (appConfig.grocyUrl && appConfig.grocyApiKey) {
-          this.GROCY_URL = this.adjustUrl(appConfig.grocyUrl || '');
+          this.GROCY_API_URL = this.adjustUrl(appConfig.grocyUrl || '');
+          this.GROCY_URL = this.GROCY_API_URL.replace('api/', '');
           this.GROCY_HEADER = {
             headers: { 'GROCY-API-KEY': appConfig.grocyApiKey?.trim() },
           };
@@ -60,6 +64,10 @@ export class GrocyService {
     return url.endsWith('/') ? url.slice(0, -1) + '/api/' : url + '/api/';
   }
 
+  public openGrocyRecipe(recipeId: number) {
+    window.open(`${this.GROCY_URL}recipe/${recipeId}`);
+  }
+
   private waitForConfiguration<T>(): Observable<boolean> {
     return this.appConfigService.isAppConfigured$.pipe(
       distinctUntilChanged(),
@@ -75,7 +83,7 @@ export class GrocyService {
   private loadMealPlan() {
     const request = () =>
       this.httpClient.get<Array<Partial<Meal>>>(
-        `${this.GROCY_URL}objects/meal_plan`,
+        `${this.GROCY_API_URL}objects/meal_plan`,
         this.GROCY_HEADER
       );
     // .pipe(
@@ -100,7 +108,7 @@ export class GrocyService {
     const request = () =>
       this.httpClient
         .post<{ created_object_id: string }>(
-          `${this.GROCY_URL}objects/meal_plan`,
+          `${this.GROCY_API_URL}objects/meal_plan`,
           meal,
           this.GROCY_HEADER
         )
@@ -119,7 +127,7 @@ export class GrocyService {
     const request = () =>
       this.httpClient
         .delete(
-          `${this.GROCY_URL}objects/meal_plan/${mealId}`,
+          `${this.GROCY_API_URL}objects/meal_plan/${mealId}`,
           this.GROCY_HEADER
         )
         .pipe(
@@ -137,7 +145,7 @@ export class GrocyService {
     const request = () =>
       this.httpClient
         .get<Array<Recipe>>(
-          `${this.GROCY_URL}objects/recipes`,
+          `${this.GROCY_API_URL}objects/recipes`,
           this.GROCY_HEADER
         )
         .pipe(
@@ -155,7 +163,7 @@ export class GrocyService {
   getGrocyImage(fileGroup: string, fileName: string): Observable<string> {
     const request = () =>
       this.httpClient.get(
-        `${this.GROCY_URL}files/${fileGroup}/${btoa(fileName)}`,
+        `${this.GROCY_API_URL}files/${fileGroup}/${btoa(fileName)}`,
         {
           ...this.GROCY_HEADER,
           responseType: 'blob',
@@ -167,7 +175,7 @@ export class GrocyService {
   getMealPlanSections(): Observable<Array<MealPlanSection>> {
     const request = () =>
       this.httpClient.get<Array<MealPlanSection>>(
-        `${this.GROCY_URL}objects/meal_plan_sections`,
+        `${this.GROCY_API_URL}objects/meal_plan_sections`,
         this.GROCY_HEADER
       );
     return this.httpRequest(request);
@@ -177,7 +185,7 @@ export class GrocyService {
     const request = () =>
       this.httpClient
         .put(
-          `${this.GROCY_URL}objects/meal_plan/${meal.id}`,
+          `${this.GROCY_API_URL}objects/meal_plan/${meal.id}`,
           meal,
           this.GROCY_HEADER
         )
