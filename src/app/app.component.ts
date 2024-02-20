@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 
   grocyInfo$ = this.grocyService.grocySystemInfo$;
 
-  currentWeek: number | undefined;
+  currentWeek: number | undefined = dayjs().week();
 
   draggable = {
     effectAllowed: 'all',

@@ -1,7 +1,7 @@
 <div class="max-w-sm bg-white rounded border shadow-lg group recipe hover:border-blue-400 hover:bg-blue-200"
   [class.opacity-50]="meal?.done" [class.line-through]="meal?.done" [dndDraggable]="{ recipe, meal }"
   [dndEffectAllowed]="$any(draggable.effectAllowed)" [dndDisableIf]="draggable.disable" *ngIf="recipe">
-  <img class="w-full" *ngIf="recipe.picture_file_name"
+  <img class="w-full aspect-video object-cover" *ngIf="recipe.picture_file_name"
     [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" alt="Sunset in the mountains">
   <div class="px-6 py-4 w-full flex" [class.flex-col]="meal" [class.flex-row]="!meal">
 

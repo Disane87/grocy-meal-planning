@@ -13,12 +13,10 @@
       <app-made-by-banner></app-made-by-banner>
     </div>
 
-    <div class="flex flex-col px-4 pb-4 w-full h-screen scheduler" *ngIf="(mealPlan$ | async) as mealPlan">
+    <div class="flex flex-col pb-4 w-full h-screen scheduler overflow-hidden" *ngIf="(mealPlan$ | async) as mealPlan">
       <div class="flex flex-row items-center w-full info">
-        <div class="p-4 text-2xl whitespace-nowrap weeknumber justify-start w-full">
-          <span>{{ 'WEEK' | transloco }}</span>: {{ currentWeek }}
-        </div>
-        <div class="controls flex flex-row gap-1 p-4 h-16">
+
+        <div class="controls flex flex-row gap-1 p-4 h-16 ml-auto">
           <div class="socials text-slate-400 text-2xl flex flex-row gap-2 items-center mr-3">
             <a href="https://github.com/Disane87/grocy-meal-planning" target="_blank"
               class="items-center flex flex-col"><mat-icon class="hover:text-slate-500 "
@@ -44,47 +42,71 @@
               <mat-icon svgIcon="calendar-today"></mat-icon>
             </button>
 
-            <button (click)="changeWeek(1)" [title]="'NEXT_WEEK' | transloco"
+            <button type="button" (click)="changeWeek(1)" [title]="'NEXT_WEEK' | transloco"
               class="bg-gray-100 flex flex-row items-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
               <mat-icon svgIcon="chevron-right"></mat-icon>
             </button>
 
-            <button (click)="resetConfig()" [title]="'RESET_CONFIG' | transloco"
+            <button type="button" (click)="resetConfig()" [title]="'RESET_CONFIG' | transloco"
               class="bg-gray-100 flex flex-row items-center hover:bg-red-500 text-red-700 hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
               <mat-icon svgIcon="logout"></mat-icon>
             </button>
+
+
           </div>
 
         </div>
       </div>
 
       <div class="flex flex-col h-screen">
-        <div class="flex flex-row ml-4 w-full h-full divide-x planning" *ngIf="currentWeek | daysOfWeek as daysOfWeek">
-          <div class="day w-1/7 hover:bg-stone-50 h-full overflow-hidden flex flex-col" *ngFor="let day of daysOfWeek"
-            [ngClass]="{
-            'bg-green-200': day | isToday,
-            'bg-gray-100': day | isWeekend
-          }">
-            <div class="flex flex-col p-4 w-full text-center border-b days-header">
-              <div class="w-full font-bold">{{ day | date:'EEEE' }}</div>
-              {{ day | date:'longDate'}}
+        <div class="weeks h-full justify-stretch flex flex-col overflow-hidden" *ngIf="currentWeek">
+          <ng-container *ngFor="let week of [currentWeek, currentWeek + 1]">
+            <div class="flex flex-col h-full">
+              <div
+                class="p-4 text-2xl whitespace-nowrap weeknumber w-full bg-gray-100 border-y flex flex-row justify-between">
+                <div class="flex flex-col h-full justify-center ">
+                  <span>{{ 'WEEK' | transloco }}: {{ week }}</span>
+                </div>
+                <!-- <button type="button" (click)="changeWeek(0)" [title]="'THIS_WEEK' | transloco"
+                  class="bg-green-100 flex flex-row items-center hover:bg-green-500 text-green-700 hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">
+                  <mat-icon svgIcon="check"></mat-icon>
+                </button> -->
+              </div>
+              <div class="flex flex-row ml-4 w-full h-full divide-x planning" *ngIf="week | daysOfWeek as daysOfWeek">
+
+                <div class="day w-1/7 hover:bg-stone-50 h-full overflow-hidden flex flex-col"
+                  *ngFor="let day of daysOfWeek" [ngClass]="{
+
+                  'bg-gray-100': day | isWeekend
+                }">
+                  <div class="flex flex-col p-4 w-full text-center border-b days-header" [ngClass]="{
+                    'text-green-600': day | isToday
+                  }">
+                    <div class="w-full font-bold">{{ day | date:'EEEE' }}</div>
+                    {{ day | date:'longDate'}}
+                  </div>
+
+                  <div class="flex flex-col gap-y-2 p-4 w-full meals h-full " [id]="day.toISOString()">
+                    <div
+                      *ngFor="let plannedMeal of (mealPlan | pickObjectByValue:'day':(day | date:'yyyy-MM-dd')); trackByProperty:'id'">
+                      <ng-container *ngIf="plannedMeal.recipe_id | getRecipe:recipes as recipe">
+                        <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal"></app-grocy-recipe-card>
+                        <!-- <ng-container
+                          *ngTemplateOutlet="recipeTemplate; context: { recipe, currentDay: (day | date:'yyyy-MM-dd'), meal: plannedMeal }"></ng-container> -->
+                      </ng-container>
+                    </div>
+                    <div class="dropzone h-full" dndDropzone (dndDragover)="onDragover($event, day)"
+                      (dndDrop)="onDrop($event, day)">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="flex flex-col gap-y-2 p-4 w-full meals h-full " [id]="day.toISOString()">
-              <div
-                *ngFor="let plannedMeal of (mealPlan | pickObjectByValue:'day':(day | date:'yyyy-MM-dd')); trackByProperty:'id'">
-                <ng-container *ngIf="plannedMeal.recipe_id | getRecipe:recipes as recipe">
-                  <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal"></app-grocy-recipe-card>
-                  <!-- <ng-container
-                    *ngTemplateOutlet="recipeTemplate; context: { recipe, currentDay: (day | date:'yyyy-MM-dd'), meal: plannedMeal }"></ng-container> -->
-                </ng-container>
-              </div>
-              <div class="dropzone h-full" dndDropzone (dndDragover)="onDragover($event, day)"
-                (dndDrop)="onDrop($event, day)">
-              </div>
-            </div>
-          </div>
+          </ng-container>
         </div>
+
+
         <div class="text-xs text-center border-t pt-4 gap-2 flex flex-row justify-center items-center h-12"
           *ngIf="(grocyInfo$ | async)?.grocy_version as grocyConfigVersion">
 
