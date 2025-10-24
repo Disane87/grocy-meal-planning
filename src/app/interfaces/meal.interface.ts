@@ -6,4 +6,10 @@ export interface Meal {
   day: string;
   section_id: string;
   done: number;
+  userfields?: UserFields
+}
+
+
+export interface UserFields {
+  ai_planned?: string;
 }
