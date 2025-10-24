@@ -39,6 +39,7 @@ import { TranslocoService } from '@jsverse/transloco';
 import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
+import { ThemeToggleComponent } from './_components/theme-toggle/theme-toggle.component';
 
 registerLocaleData(localeDe);
 
@@ -52,6 +53,7 @@ dayjs.locale(language);
     GrocyRecipeListComponent,
     MadeByBannerComponent,
     ReleaseNotesModalComponent,
+    ThemeToggleComponent,
     Base64Pipe,
     GrocyImagePipe,
     OrderByPipe,
@@ -77,9 +79,6 @@ dayjs.locale(language);
     AppRoutingModule,
     BrowserAnimationsModule,
     TranslocoRootModule,
-    // HotToastModule.forRoot({
-    //   position: 'bottom-center',
-    // })
   ],
   providers: [
     provideAppInitializer(() => {

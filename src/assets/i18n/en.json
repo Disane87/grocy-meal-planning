@@ -35,6 +35,12 @@
   "MEAL_PLAN_ERROR": "Error loading the meal plan",
   "SELECT_SECTION": "Select section",
   "GROCY_MEALPLAN_SECTION_NONE": "No section",
+  "THEME_LIGHT": "Light",
+  "THEME_DARK": "Dark",
+  "THEME_SYSTEM": "System",
+  "THEME_LIGHT_DESCRIPTION": "Light mode",
+  "THEME_DARK_DESCRIPTION": "Dark mode",
+  "THEME_SYSTEM_DESCRIPTION": "Follow system setting",
   "RELEASE_NOTES": {
     "TITLE": "What's New",
     "NEW_FEATURES": "New Features",
@@ -47,5 +53,11 @@
     "OTHER_CHANGES": "Other Changes",
     "VIEW_ALL": "View All Release Notes",
     "GOT_IT": "Got it"
+  },
+  "DARK_MODE": {
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "SYSTEM": "System",
+    "TOGGLE": "Toggle theme"
   }
 }

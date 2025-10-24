@@ -3,7 +3,7 @@
   @if ((recipes$ | async); as recipes) {
   <div class="flex flex-row w-screen h-screen cursor-default">
     <div class="flex flex-col p-4 gap-y-4 recipes w-[20%] border-r">
-      <h1 class="font-bold text-2xl">{{ 'RECIPES' | transloco }}</h1>
+      <h1 class="font-bold text-2xl h-12 flex items-center justify-center">{{ 'RECIPES' | transloco }}</h1>
       <input [(ngModel)]="recipeSearch" type="text" [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
         class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded" />
       <div class="recipe-container overflow-auto gap-y-3 h-full flex flex-col">
@@ -13,9 +13,11 @@
       <app-made-by-banner></app-made-by-banner>
     </div>
     @if ((mealPlan$ | async); as mealPlan) {
-    <div class="flex flex-col pb-4 w-full h-screen scheduler overflow-hidden">
-      <div class="flex flex-row items-center w-full info">
-        <div class="controls flex flex-row gap-1 p-4 h-16 ml-auto">
+    <div class="flex flex-col pb-4 w-full h-screen scheduler">
+      <div class="flex flex-row items-center w-full info relative z-50">
+        <div class="controls flex flex-row gap-1 p-4 h-18 ml-auto relative">
+          <!-- Dark Mode Toggle wird später hinzugefügt -->
+
           <div class="socials text-slate-400 text-2xl flex flex-row gap-2 items-center mr-3">
             <a href="https://github.com/Disane87/grocy-meal-planning" target="_blank"
               class="items-center flex flex-col"><mat-icon class="hover:text-slate-500 "
@@ -23,35 +25,41 @@
             <a href="https://blog.disane.dev/en" target="_blank" class="items-center flex flex-col">
               <mat-icon class="hover:text-slate-500" svgIcon="post-outline"></mat-icon></a>
           </div>
-          <select [ngModel]="selectedMealPlanSection" (ngModelChange)="selectSection($event)"
-            class="bg-gray-100 text-gray-700 py-1 px-2 border border-gray-500 rounded">
-            <option [value]="null" disabled selected>{{ 'GROCY_MEALPLAN_SECTION_PLACEHOLDER' | transloco }}</option>
-            @for (section of (mealPlanSections$ | async); track section) {
-            <option [ngValue]="section.id">{{section.name ??
-              'GROCY_MEALPLAN_SECTION_NONE' | transloco }}</option>
-            }
-          </select>
-          <div class="flex flex-row gap-1 justify-end scheduler-controls">
+          <div class="flex items-center space-x-3 h-10">
+            <!-- Theme Toggle -->
+            <app-theme-toggle></app-theme-toggle>
+
+            <!-- Section Selector -->
+            <select [ngModel]="selectedMealPlanSection" (ngModelChange)="selectSection($event)"
+              class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded h-10">
+              <option [value]="null" disabled selected>{{ 'GROCY_MEALPLAN_SECTION_PLACEHOLDER' | transloco }}</option>
+              @for (section of (mealPlanSections$ | async); track section) {
+              <option [ngValue]="section.id">{{section.name ??
+                'GROCY_MEALPLAN_SECTION_NONE' | transloco }}</option>
+              }
+            </select>
+          </div>
+          <div class="flex items-center gap-1 justify-end scheduler-controls h-10">
             <button (click)="changeWeek(-1)" [title]="'PREVIOUS_WEEK' | transloco"
-              class="bg-gray-100 flex flex-row items-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
+              class="bg-gray-100 flex items-center justify-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded h-10">
               <mat-icon svgIcon="chevron-left"></mat-icon>
             </button>
             <button (click)="changeWeek(0)" [title]="'THIS_WEEK' | transloco"
-              class="bg-green-100 flex flex-row items-center hover:bg-green-500 text-green-700 hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">
+              class="bg-green-100 flex items-center justify-center hover:bg-green-500 text-green-700 hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded h-10">
               <mat-icon svgIcon="calendar-today"></mat-icon>
             </button>
             <button type="button" (click)="changeWeek(1)" [title]="'NEXT_WEEK' | transloco"
-              class="bg-gray-100 flex flex-row items-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">
+              class="bg-gray-100 flex items-center justify-center hover:bg-gray-500 text-gray-700 hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded h-10">
               <mat-icon svgIcon="chevron-right"></mat-icon>
             </button>
             <button type="button" (click)="resetConfig()" [title]="'RESET_CONFIG' | transloco"
-              class="bg-gray-100 flex flex-row items-center hover:bg-red-500 text-red-700 hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+              class="bg-gray-100 flex items-center justify-center hover:bg-red-500 text-red-700 hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded h-10">
               <mat-icon svgIcon="logout"></mat-icon>
             </button>
           </div>
         </div>
       </div>
-      <div class="flex flex-col h-screen">
+      <div class="flex flex-col h-screen overflow-hidden">
         @if (currentWeek) {
         <div class="weeks h-full justify-stretch flex flex-col overflow-hidden">
           @for (week of [currentWeek, currentWeek + 1]; track week) {
@@ -70,11 +78,13 @@
             <div class="flex flex-row w-full h-full divide-x planning">
               @for (day of daysOfWeek; track day) {
               <div class="day w-1/7 hover:bg-stone-50 h-full overflow-hidden flex flex-col" [ngClass]="{
-
-                  'bg-gray-100': day | isWeekend
+                  'bg-green-50': day | isToday,
+                  'bg-red-50': (day | isWeekend) && !(day | isToday),
+                  'bg-gray-100': !(day | isWeekend) && !(day | isToday)
                 }">
                 <div class="flex flex-col p-4 w-full text-center border-b days-header" [ngClass]="{
-                    'text-green-600': day | isToday
+                    'text-green-600': day | isToday,
+                    'text-red-600': (day | isWeekend) && !(day | isToday)
                   }">
                   <div class="w-full font-bold">{{ day | date:'EEEE' }}</div>
                   {{ day | date:'longDate'}}

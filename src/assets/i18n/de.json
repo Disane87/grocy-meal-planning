@@ -35,6 +35,12 @@
   "MEAL_PLAN_ERROR": "Fehler beim Laden des Speiseplans",
   "SELECT_SECTION": "Abschnitt wählen",
   "GROCY_MEALPLAN_SECTION_NONE": "Kein Abschnitt",
+  "THEME_LIGHT": "Hell",
+  "THEME_DARK": "Dunkel",
+  "THEME_SYSTEM": "System",
+  "THEME_LIGHT_DESCRIPTION": "Heller Modus",
+  "THEME_DARK_DESCRIPTION": "Dunkler Modus",
+  "THEME_SYSTEM_DESCRIPTION": "Systemeinstellung folgen",
   "RELEASE_NOTES": {
     "TITLE": "Was ist neu",
     "NEW_FEATURES": "Neue Features",
@@ -47,5 +53,11 @@
     "OTHER_CHANGES": "Sonstige Änderungen",
     "VIEW_ALL": "Alle Release Notes",
     "GOT_IT": "Verstanden"
+  },
+  "DARK_MODE": {
+    "LIGHT": "Hell",
+    "DARK": "Dunkel",
+    "SYSTEM": "System",
+    "TOGGLE": "Theme umschalten"
   }
 }
