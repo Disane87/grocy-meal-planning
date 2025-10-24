@@ -2,7 +2,7 @@
     "version": 2,
     "name": "grocy-meal-planning",
     "buildCommand": "npm run vercel-build",
-    "outputDirectory": "dist/browser",
+    "outputDirectory": "dist/grocy-meal-planning/browser",
     "installCommand": "npm install",
     "devCommand": "npm start",
     "framework": "angular",
