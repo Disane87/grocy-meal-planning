@@ -1,7 +1,27 @@
+@use "tailwindcss";
 @import '@ngxpert/hot-toast/src/styles/styles.scss';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+/* Tailwind v4 Theme Extension */
+@layer theme {
+  :root {
+    --width-1-7: 14.28571428571429%;
+  }
+}
+
+/* Override default border colors for Tailwind v4 */
+@layer base {
+  * {
+    border-color: #e5e7eb;
+  }
+}
+
+// /* Dark mode */
+// @media (prefers-color-scheme: dark) {
+//   * {
+//     border-color: #374151;
+//   }
+// }
+
 
 html,
 body {
