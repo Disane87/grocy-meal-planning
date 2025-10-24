@@ -221,171 +221,215 @@
     /* Pure white */
     color: #111827 !important;
     /* gray-900 */
-    border-color: #e2e8f0 !important;
-    /* slate-200 */
   }
 
+  /* Grocy Config Component */
+  .bg-slate-200 {
+    background-color: #e2e8f0 !important;
+    /* slate-200 - Light mode config background */
+  }
+
+  /* Config card styling */
+  .card {
+    background-color: #ffffff !important;
+    /* Pure white */
+    color: #111827 !important;
+    /* gray-900 */
+    border-color: #cbd5e1 !important;
+    /* slate-300 */
+  }
+
+  /* Input fields for config */
   .bg-gray-100 {
     background-color: #f1f5f9 !important;
     /* slate-100 */
     color: #111827 !important;
     /* gray-900 */
-  }
-
-  .bg-stone-50 {
-    background-color: #f8fafc !important;
-    /* slate-50 */
-    color: #111827 !important;
-    /* gray-900 */
-  }
-
-  /* Input fields in light mode */
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  select,
-  textarea {
-    background-color: #ffffff !important;
-    /* Pure white */
-    color: #111827 !important;
-    /* gray-900 */
-    border-color: #d1d5db !important;
-    /* gray-300 */
+    border-color: #64748b !important;
+    /* slate-500 */
 
     &:focus {
-      border-color: #60a5fa !important;
-      /* blue-400 */
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
-      background-color: #ffffff !important;
-      /* Pure white */
-    }
-
-    &::placeholder {
-      color: #6b7280 !important;
-      /* gray-500 */
+      border-color: #3b82f6 !important;
+      /* blue-500 */
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
     }
   }
 
-  /* Buttons in light mode */
-  button {
-    &.bg-gray-100 {
-      background-color: #f3f4f6 !important;
-      /* gray-100 */
-      color: #374151 !important;
-      /* gray-700 */
-      border-color: #d1d5db !important;
-      /* gray-300 */
-
-      &:hover {
-        background-color: #e5e7eb !important;
-        /* gray-200 */
-        color: #111827 !important;
-        /* gray-900 */
-      }
-    }
-
-    &.bg-green-100 {
-      background-color: #dcfce7 !important;
-      /* green-100 */
-      color: #166534 !important;
-      /* green-800 */
-      border-color: #bbf7d0 !important;
-      /* green-200 */
-
-      &:hover {
-        background-color: #bbf7d0 !important;
-        /* green-200 */
-        color: #14532d !important;
-        /* green-900 */
-      }
-    }
+  /* Info alert box */
+  .bg-teal-100 {
+    background-color: #ccfbf1 !important;
+    /* teal-100 */
+    color: #134e4a !important;
+    /* teal-900 */
+    border-color: #14b8a6 !important;
+    /* teal-500 */
   }
 
-  /* Text colors */
-  .text-gray-700 {
-    color: #374151 !important;
-    /* gray-700 */
+  /* Pure white */
+  color: #111827 !important;
+  /* gray-900 */
+  border-color: #e2e8f0 !important;
+  /* slate-200 */
+}
+
+.bg-gray-100 {
+  background-color: #f1f5f9 !important;
+  /* slate-100 */
+  color: #111827 !important;
+  /* gray-900 */
+}
+
+.bg-stone-50 {
+  background-color: #f8fafc !important;
+  /* slate-50 */
+  color: #111827 !important;
+  /* gray-900 */
+}
+
+/* Input fields in light mode */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  background-color: #ffffff !important;
+  /* Pure white */
+  color: #111827 !important;
+  /* gray-900 */
+  border-color: #d1d5db !important;
+  /* gray-300 */
+
+  &:focus {
+    border-color: #60a5fa !important;
+    /* blue-400 */
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
+    background-color: #ffffff !important;
+    /* Pure white */
   }
 
-  .text-gray-600 {
-    color: #4b5563 !important;
-    /* gray-600 */
-  }
-
-  .text-gray-800 {
-    color: #1f2937 !important;
-    /* gray-800 */
-  }
-
-  .text-gray-900 {
-    color: #111827 !important;
-    /* gray-900 */
-  }
-
-  /* Border colors */
-  .border-gray-200 {
-    border-color: #e5e7eb !important;
-    /* gray-200 */
-  }
-
-  .border-gray-500 {
-    border-color: #6b7280 !important;
+  &::placeholder {
+    color: #6b7280 !important;
     /* gray-500 */
-  }
-
-  /* Shadows for light mode */
-  .shadow-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .shadow-md {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  /* Theme Toggle Light Mode Fix */
-  app-theme-toggle button {
-    background-color: #f3f4f6 !important;
-    /* gray-100 */
-    color: #374151 !important;
-    /* gray-700 */
-    border-color: #6b7280 !important;
-    /* gray-500 */
-    height: 2.5rem !important;
-    /* h-10 = 40px */
-
-    &:hover {
-      background-color: #6b7280 !important;
-      /* gray-500 */
-      color: #ffffff !important;
-      /* white */
-      border-color: transparent !important;
-    }
-  }
-
-  app-theme-toggle .dropdown-menu {
-    background-color: #f3f4f6 !important;
-    /* gray-100 */
-    border-color: #6b7280 !important;
-    /* gray-500 */
-  }
-
-  /* Einheitliche Höhe für alle Controls */
-  .scheduler-controls button,
-  select,
-  app-theme-toggle button {
-    height: 2.5rem !important;
-    /* 40px */
-    min-height: 2.5rem !important;
-    display: flex !important;
-    align-items: center !important;
   }
 }
 
-/* Dark mode system preference */
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Buttons in light mode */
+button {
+  &.bg-gray-100 {
+    background-color: #f3f4f6 !important;
+    /* gray-100 */
+    color: #374151 !important;
+    /* gray-700 */
+    border-color: #d1d5db !important;
+    /* gray-300 */
+
+    &:hover {
+      background-color: #e5e7eb !important;
+      /* gray-200 */
+      color: #111827 !important;
+      /* gray-900 */
+    }
   }
+
+  &.bg-green-100 {
+    background-color: #dcfce7 !important;
+    /* green-100 */
+    color: #166534 !important;
+    /* green-800 */
+    border-color: #bbf7d0 !important;
+    /* green-200 */
+
+    &:hover {
+      background-color: #bbf7d0 !important;
+      /* green-200 */
+      color: #14532d !important;
+      /* green-900 */
+    }
+  }
+}
+
+/* Text colors */
+.text-gray-700 {
+  color: #374151 !important;
+  /* gray-700 */
+}
+
+.text-gray-600 {
+  color: #4b5563 !important;
+  /* gray-600 */
+}
+
+.text-gray-800 {
+  color: #1f2937 !important;
+  /* gray-800 */
+}
+
+.text-gray-900 {
+  color: #111827 !important;
+  /* gray-900 */
+}
+
+/* Border colors */
+.border-gray-200 {
+  border-color: #e5e7eb !important;
+  /* gray-200 */
+}
+
+.border-gray-500 {
+  border-color: #6b7280 !important;
+  /* gray-500 */
+}
+
+/* Shadows for light mode */
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Theme Toggle Light Mode Fix */
+app-theme-toggle button {
+  background-color: #f3f4f6 !important;
+  /* gray-100 */
+  color: #374151 !important;
+  /* gray-700 */
+  border-color: #6b7280 !important;
+  /* gray-500 */
+  height: 2.5rem !important;
+  /* h-10 = 40px */
+
+  &:hover {
+    background-color: #6b7280 !important;
+    /* gray-500 */
+    color: #ffffff !important;
+    /* white */
+    border-color: transparent !important;
+  }
+}
+
+app-theme-toggle .dropdown-menu {
+  background-color: #f3f4f6 !important;
+  /* gray-100 */
+  border-color: #6b7280 !important;
+  /* gray-500 */
+}
+
+/* Einheitliche Höhe für alle Controls */
+.scheduler-controls button,
+select,
+app-theme-toggle button {
+  height: 2.5rem !important;
+  /* 40px */
+  min-height: 2.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+
+.dark {
+  color-scheme: dark;
 
   * {
     border-color: #374151 !important;
@@ -727,12 +771,72 @@
     /* slate-600 */
   }
 
+  /* Grocy Config Component - Dark Mode */
+  .bg-slate-200 {
+    background-color: #0f172a !important;
+    /* slate-900 - Dark mode config background */
+  }
+
+  /* Config card styling - Dark Mode */
+  .card {
+    background-color: #1e293b !important;
+    /* slate-800 */
+    color: #f1f5f9 !important;
+    /* slate-100 */
+    border-color: #475569 !important;
+    /* slate-600 */
+  }
+
   /* Override bg-gray-100 classes */
   .bg-gray-100 {
     background-color: #334155 !important;
     /* slate-700 */
     color: #e2e8f0 !important;
     /* slate-200 */
+    border-color: #64748b !important;
+    /* slate-500 */
+
+    &:focus {
+      border-color: #60a5fa !important;
+      /* blue-400 */
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
+    }
+  }
+
+  /* Info alert box - Dark Mode */
+  .bg-teal-100 {
+    background-color: #042f2e !important;
+    /* teal-950 */
+    color: #5eead4 !important;
+    /* teal-300 */
+    border-color: #14b8a6 !important;
+    /* teal-500 */
+
+    .text-teal-500 {
+      color: #5eead4 !important;
+      /* teal-300 */
+    }
+
+    .text-teal-900 {
+      color: #5eead4 !important;
+      /* teal-300 */
+    }
+  }
+
+  /* Text colors for dark mode */
+  .text-slate-500 {
+    color: #94a3b8 !important;
+    /* slate-400 */
+  }
+
+  .text-gray-600 {
+    color: #9ca3af !important;
+    /* gray-400 */
+  }
+
+  .text-slate-400 {
+    color: #64748b !important;
+    /* slate-500 */
   }
 
   /* Override bg-gray-50 classes */
