@@ -31,9 +31,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let feature of releaseNote?.features"
-                    class="text-green-700 dark:text-green-200 flex items-start gap-2">
-                    <span class="text-green-500 mt-1">•</span>
-                    <span>{{ feature }}</span>
+                    class="text-green-700 dark:text-green-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-green-500 flex-shrink-0 w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="flex-1">{{ feature }}</span>
                 </li>
             </ul>
         </div>
@@ -46,9 +46,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let fix of releaseNote?.fixes"
-                    class="text-blue-700 dark:text-blue-200 flex items-start gap-2">
-                    <span class="text-blue-500 mt-1">•</span>
-                    <span>{{ fix }}</span>
+                    class="text-blue-700 dark:text-blue-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-blue-500 flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full"></span>
+                    <span class="flex-1">{{ fix }}</span>
                 </li>
             </ul>
         </div>
@@ -62,9 +62,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let improvement of releaseNote?.improvements"
-                    class="text-purple-700 dark:text-purple-200 flex items-start gap-2">
-                    <span class="text-purple-500 mt-1">•</span>
-                    <span>{{ improvement }}</span>
+                    class="text-purple-700 dark:text-purple-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-purple-500 flex-shrink-0 w-2 h-2 bg-purple-500 rounded-full"></span>
+                    <span class="flex-1">{{ improvement }}</span>
                 </li>
             </ul>
         </div>
@@ -77,9 +77,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let style of releaseNote?.styling"
-                    class="text-pink-700 dark:text-pink-200 flex items-start gap-2">
-                    <span class="text-pink-500 mt-1">•</span>
-                    <span>{{ style }}</span>
+                    class="text-pink-700 dark:text-pink-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-pink-500 flex-shrink-0 w-2 h-2 bg-pink-500 rounded-full"></span>
+                    <span class="flex-1">{{ style }}</span>
                 </li>
             </ul>
         </div>
@@ -92,9 +92,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let maintenance of releaseNote?.maintenance"
-                    class="text-gray-700 dark:text-gray-200 flex items-start gap-2">
-                    <span class="text-gray-500 mt-1">•</span>
-                    <span>{{ maintenance }}</span>
+                    class="text-gray-700 dark:text-gray-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-gray-500 flex-shrink-0 w-2 h-2 bg-gray-500 rounded-full"></span>
+                    <span class="flex-1">{{ maintenance }}</span>
                 </li>
             </ul>
         </div>
@@ -108,9 +108,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let doc of releaseNote?.documentation"
-                    class="text-indigo-700 dark:text-indigo-200 flex items-start gap-2">
-                    <span class="text-indigo-500 mt-1">•</span>
-                    <span>{{ doc }}</span>
+                    class="text-indigo-700 dark:text-indigo-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-indigo-500 flex-shrink-0 w-2 h-2 bg-indigo-500 rounded-full"></span>
+                    <span class="flex-1">{{ doc }}</span>
                 </li>
             </ul>
         </div>
@@ -123,9 +123,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let breaking of releaseNote?.breaking"
-                    class="text-red-700 dark:text-red-200 flex items-start gap-2 font-medium">
-                    <span class="text-red-500 mt-1">•</span>
-                    <span>{{ breaking }}</span>
+                    class="text-red-700 dark:text-red-200 flex items-center gap-3 leading-relaxed font-medium">
+                    <span class="text-red-500 flex-shrink-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                    <span class="flex-1">{{ breaking }}</span>
                 </li>
             </ul>
         </div>
@@ -138,9 +138,9 @@
             </h3>
             <ul class="space-y-2">
                 <li *ngFor="let other of releaseNote?.other"
-                    class="text-orange-700 dark:text-orange-200 flex items-start gap-2">
-                    <span class="text-orange-500 mt-1">•</span>
-                    <span>{{ other }}</span>
+                    class="text-orange-700 dark:text-orange-200 flex items-center gap-3 leading-relaxed">
+                    <span class="text-orange-500 flex-shrink-0 w-2 h-2 bg-orange-500 rounded-full"></span>
+                    <span class="flex-1">{{ other }}</span>
                 </li>
             </ul>
         </div>
