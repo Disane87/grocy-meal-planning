@@ -26,14 +26,14 @@ import { FormsModule } from '@angular/forms';
 import { FilterArrayPipe } from './_pipes/filter-array.pipe';
 import { HighlightSearchPipe } from './_pipes/highlight-search.pipe';
 import { GrocyConfigComponent } from './_components/grocy-config/grocy-config.component';
-// import { HotToastModule } from '@ngneat/hot-toast';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { MadeByBannerComponent } from './_components/made-by-banner/made-by-banner.component';
 import {
   language,
   preloadTranslation,
   preloadTransloco,
 } from './transloco.initializer';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
 
@@ -85,6 +85,9 @@ dayjs.locale(language);
       useValue: language,
     },
     provideHttpClient(withInterceptorsFromDi()),
+    provideHotToastConfig({
+      position: 'bottom-center',
+    }),
   ]
 })
 export class AppModule {

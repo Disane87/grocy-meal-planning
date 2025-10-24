@@ -1,5 +1,5 @@
 import { inject, provideAppInitializer } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { lastValueFrom } from 'rxjs';
 
 export const language = ['de', 'en'].includes(navigator.language)

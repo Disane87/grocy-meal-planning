@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { HotToastService } from '@ngneat/hot-toast';
+import { HotToastService } from '@ngxpert/hot-toast';
 import { catchError, of, tap, throwError } from 'rxjs';
 import { AppConfigService } from '../../appconfig.service';
 import { GrocyService } from '../../grocy.service';

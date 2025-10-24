@@ -17,8 +17,8 @@ import { MealPlanSection } from './interfaces/meal-plan-section.interface';
 import { Meal } from './interfaces/meal.interface';
 import { Recipe } from './interfaces/recipe.interface';
 import { GrocySystemInfo } from './interfaces/grocy-system-info-interface';
-import { HotToastService } from '@ngneat/hot-toast';
-import { TranslocoService } from '@ngneat/transloco';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({
   providedIn: 'root',
