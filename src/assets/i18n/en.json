@@ -34,5 +34,18 @@
   "MEAL_PLAN_LOADED": "Meal plan has been loaded",
   "MEAL_PLAN_ERROR": "Error loading the meal plan",
   "SELECT_SECTION": "Select section",
-  "GROCY_MEALPLAN_SECTION_NONE": "No section"
+  "GROCY_MEALPLAN_SECTION_NONE": "No section",
+  "RELEASE_NOTES": {
+    "TITLE": "What's New",
+    "NEW_FEATURES": "New Features",
+    "BUG_FIXES": "Bug Fixes",
+    "BREAKING_CHANGES": "Breaking Changes",
+    "IMPROVEMENTS": "Improvements",
+    "MAINTENANCE": "Maintenance",
+    "STYLING": "Styling",
+    "DOCUMENTATION": "Documentation",
+    "OTHER_CHANGES": "Other Changes",
+    "VIEW_ALL": "View All Release Notes",
+    "GOT_IT": "Got it"
+  }
 }

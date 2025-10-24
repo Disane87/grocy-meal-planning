@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "grocy-meal-planning",
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "dist/grocy-meal-planning",
+  "installCommand": "npm install",
+  "devCommand": "npm start",
+  "framework": "angular",
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}

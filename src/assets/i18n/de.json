@@ -34,5 +34,18 @@
   "MEAL_PLAN_LOADED": "Speiseplan wurde geladen",
   "MEAL_PLAN_ERROR": "Fehler beim Laden des Speiseplans",
   "SELECT_SECTION": "Abschnitt wählen",
-  "GROCY_MEALPLAN_SECTION_NONE": "Kein Abschnitt"
+  "GROCY_MEALPLAN_SECTION_NONE": "Kein Abschnitt",
+  "RELEASE_NOTES": {
+    "TITLE": "Was ist neu",
+    "NEW_FEATURES": "Neue Features",
+    "BUG_FIXES": "Fehlerbehebungen",
+    "BREAKING_CHANGES": "Breaking Changes",
+    "IMPROVEMENTS": "Verbesserungen",
+    "MAINTENANCE": "Wartung",
+    "STYLING": "Design",
+    "DOCUMENTATION": "Dokumentation",
+    "OTHER_CHANGES": "Sonstige Änderungen",
+    "VIEW_ALL": "Alle Release Notes",
+    "GOT_IT": "Verstanden"
+  }
 }

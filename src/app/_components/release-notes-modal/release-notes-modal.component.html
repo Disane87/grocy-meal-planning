@@ -1,0 +1,161 @@
+<!-- Modernes Tailwind-basiertes Release Notes Modal -->
+<div
+    class="border border-gray-500 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full mx-auto overflow-hidden">
+    <!-- Header mit Gradient -->
+    <div class="bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700 p-6 text-white">
+        <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold">{{ 'RELEASE_NOTES.TITLE' | transloco }}</h2>
+                <div class="text-blue-100 text-sm">Version {{ releaseNote?.version }}</div>
+            </div>
+        </div>
+        <div class="text-blue-100 text-sm">
+            {{ releaseNote?.date | date:'longDate' }}
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="p-6 max-h-96 overflow-y-auto space-y-4">
+
+        <!-- New Features -->
+        <div *ngIf="hasFeatures()" class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 border-l-4 border-green-500">
+            <h3 class="text-lg font-semibold text-green-800 dark:text-green-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">✨</span>
+                {{ 'RELEASE_NOTES.NEW_FEATURES' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let feature of releaseNote?.features"
+                    class="text-green-700 dark:text-green-200 flex items-start gap-2">
+                    <span class="text-green-500 mt-1">•</span>
+                    <span>{{ feature }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Bug Fixes -->
+        <div *ngIf="hasFixes()" class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border-l-4 border-blue-500">
+            <h3 class="text-lg font-semibold text-blue-800 dark:text-blue-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">🐛</span>
+                {{ 'RELEASE_NOTES.BUG_FIXES' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let fix of releaseNote?.fixes"
+                    class="text-blue-700 dark:text-blue-200 flex items-start gap-2">
+                    <span class="text-blue-500 mt-1">•</span>
+                    <span>{{ fix }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Improvements -->
+        <div *ngIf="hasImprovements()"
+            class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 border-l-4 border-purple-500">
+            <h3 class="text-lg font-semibold text-purple-800 dark:text-purple-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">⚡</span>
+                {{ 'RELEASE_NOTES.IMPROVEMENTS' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let improvement of releaseNote?.improvements"
+                    class="text-purple-700 dark:text-purple-200 flex items-start gap-2">
+                    <span class="text-purple-500 mt-1">•</span>
+                    <span>{{ improvement }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Styling -->
+        <div *ngIf="hasStyling()" class="bg-pink-50 dark:bg-pink-900/20 rounded-xl p-4 border-l-4 border-pink-500">
+            <h3 class="text-lg font-semibold text-pink-800 dark:text-pink-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">🎨</span>
+                {{ 'RELEASE_NOTES.STYLING' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let style of releaseNote?.styling"
+                    class="text-pink-700 dark:text-pink-200 flex items-start gap-2">
+                    <span class="text-pink-500 mt-1">•</span>
+                    <span>{{ style }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Maintenance -->
+        <div *ngIf="hasMaintenance()" class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border-l-4 border-gray-500">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">🔧</span>
+                {{ 'RELEASE_NOTES.MAINTENANCE' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let maintenance of releaseNote?.maintenance"
+                    class="text-gray-700 dark:text-gray-200 flex items-start gap-2">
+                    <span class="text-gray-500 mt-1">•</span>
+                    <span>{{ maintenance }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Documentation -->
+        <div *ngIf="hasDocumentation()"
+            class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-4 border-l-4 border-indigo-500">
+            <h3 class="text-lg font-semibold text-indigo-800 dark:text-indigo-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">📚</span>
+                {{ 'RELEASE_NOTES.DOCUMENTATION' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let doc of releaseNote?.documentation"
+                    class="text-indigo-700 dark:text-indigo-200 flex items-start gap-2">
+                    <span class="text-indigo-500 mt-1">•</span>
+                    <span>{{ doc }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Breaking Changes -->
+        <div *ngIf="hasBreaking()" class="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border-l-4 border-red-500">
+            <h3 class="text-lg font-semibold text-red-800 dark:text-red-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">⚠️</span>
+                {{ 'RELEASE_NOTES.BREAKING_CHANGES' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let breaking of releaseNote?.breaking"
+                    class="text-red-700 dark:text-red-200 flex items-start gap-2 font-medium">
+                    <span class="text-red-500 mt-1">•</span>
+                    <span>{{ breaking }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Other Changes -->
+        <div *ngIf="hasOther()" class="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-4 border-l-4 border-orange-500">
+            <h3 class="text-lg font-semibold text-orange-800 dark:text-orange-300 flex items-center gap-2 mb-3">
+                <span class="text-xl">📝</span>
+                {{ 'RELEASE_NOTES.OTHER_CHANGES' | transloco }}
+            </h3>
+            <ul class="space-y-2">
+                <li *ngFor="let other of releaseNote?.other"
+                    class="text-orange-700 dark:text-orange-200 flex items-start gap-2">
+                    <span class="text-orange-500 mt-1">•</span>
+                    <span>{{ other }}</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="bg-gray-50 dark:bg-gray-800 px-6 py-4 flex justify-between items-center rounded-b-2xl">
+        <button (click)="showAllReleaseNotes()"
+            class="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200 text-sm font-medium">
+            {{ 'RELEASE_NOTES.VIEW_ALL' | transloco }}
+        </button>
+        <button (click)="close()"
+            class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-2 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 shadow-lg">
+            {{ 'RELEASE_NOTES.GOT_IT' | transloco }}
+        </button>
+    </div>
+</div>

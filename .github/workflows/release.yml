@@ -1,0 +1,161 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Get current version
+        id: current-version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog and bump version
+        id: changelog
+        run: |
+          # Install conventional-changelog-cli globally for the action
+          npm install -g conventional-changelog-cli
+          
+          # Generate changelog entries for the current changes
+          CHANGELOG_CONTENT=$(conventional-changelog -p conventionalcommits -u)
+          
+          # Check if there are any changes worth releasing
+          if [ -z "$CHANGELOG_CONTENT" ] || [ "$CHANGELOG_CONTENT" = "" ]; then
+            echo "No changes to release"
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Determine version bump type from conventional commits
+          if echo "$CHANGELOG_CONTENT" | grep -q "BREAKING CHANGE"; then
+            BUMP_TYPE="major"
+          elif echo "$CHANGELOG_CONTENT" | grep -q "^### Features"; then
+            BUMP_TYPE="minor"
+          else
+            BUMP_TYPE="patch"
+          fi
+          
+          echo "bump-type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          
+          # Bump version
+          npm version $BUMP_TYPE --no-git-tag-version
+          
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "new-version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          
+          # Generate full changelog
+          conventional-changelog -p conventionalcommits -i CHANGELOG.md -s
+          
+          # Update environment files with new version
+          sed -i "s/version: '[^']*'/version: '$NEW_VERSION'/" src/environments/environment.ts
+          sed -i "s/version: '[^']*'/version: '$NEW_VERSION'/" src/environments/environment.prod.ts
+
+      - name: Generate release notes JSON
+        if: steps.changelog.outputs.skip != 'true'
+        run: |
+          node -e "
+          const fs = require('fs');
+          const { execSync } = require('child_process');
+          
+          // Create release notes directory
+          if (!fs.existsSync('src/assets/release-notes')) {
+            fs.mkdirSync('src/assets/release-notes', { recursive: true });
+          }
+          
+          const version = '${{ steps.changelog.outputs.new-version }}';
+          const date = new Date().toISOString();
+          
+          // Get conventional commits since last tag
+          let commits = [];
+          try {
+            const gitLog = execSync('git log --format=\"%s\" --since=\"1 day ago\"', { encoding: 'utf8' });
+            commits = gitLog.trim().split('\n').filter(commit => commit.trim());
+          } catch (e) {
+            console.log('No recent commits found');
+          }
+          
+          const releaseNote = {
+            version: version,
+            date: date,
+            features: commits.filter(c => c.startsWith('feat:')).map(c => c.replace(/^feat(\([^)]*\))?:\s*/, '').trim()),
+            fixes: commits.filter(c => c.startsWith('fix:')).map(c => c.replace(/^fix(\([^)]*\))?:\s*/, '').trim()),
+            breaking: commits.filter(c => c.includes('BREAKING CHANGE')).map(c => c.trim()),
+            improvements: commits.filter(c => c.startsWith('refactor:') || c.startsWith('perf:')).map(c => c.replace(/^(refactor|perf)(\([^)]*\))?:\s*/, '').trim()),
+            maintenance: commits.filter(c => c.startsWith('chore:') || c.startsWith('build:') || c.startsWith('ci:')).map(c => c.replace(/^(chore|build|ci)(\([^)]*\))?:\s*/, '').trim()).filter(c => !c.includes('release)')),
+            styling: commits.filter(c => c.startsWith('style:')).map(c => c.replace(/^style(\([^)]*\))?:\s*/, '').trim()),
+            documentation: commits.filter(c => c.startsWith('docs:')).map(c => c.replace(/^docs(\([^)]*\))?:\s*/, '').trim()),
+            other: commits.filter(c => !c.startsWith('feat:') && !c.startsWith('fix:') && !c.startsWith('refactor:') && !c.startsWith('perf:') && !c.startsWith('chore:') && !c.startsWith('build:') && !c.startsWith('ci:') && !c.startsWith('style:') && !c.startsWith('docs:') && !c.includes('BREAKING CHANGE')).map(c => c.trim())
+          };
+          
+          // Write release notes for this version
+          fs.writeFileSync(\`src/assets/release-notes/\${version}.json\`, JSON.stringify(releaseNote, null, 2));
+          
+          // Update or create index
+          let index = { versions: [] };
+          if (fs.existsSync('src/assets/release-notes/index.json')) {
+            index = JSON.parse(fs.readFileSync('src/assets/release-notes/index.json', 'utf8'));
+          }
+          
+          if (!index.versions.includes(version)) {
+            index.versions.unshift(version);
+          }
+          
+          fs.writeFileSync('src/assets/release-notes/index.json', JSON.stringify(index, null, 2));
+          "
+
+      - name: Build application
+        if: steps.changelog.outputs.skip != 'true'
+        run: npm run build
+
+      - name: Commit and push changes
+        if: steps.changelog.outputs.skip != 'true'
+        run: |
+          git add .
+          git commit -m "chore(release): ${{ steps.changelog.outputs.new-version }}"
+          git tag "v${{ steps.changelog.outputs.new-version }}"
+          git push origin main
+          git push origin "v${{ steps.changelog.outputs.new-version }}"
+
+      - name: Create GitHub Release
+        if: steps.changelog.outputs.skip != 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.changelog.outputs.new-version }}
+          release_name: Release v${{ steps.changelog.outputs.new-version }}
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+
+      - name: Deploy to GitHub Pages (optional)
+        if: steps.changelog.outputs.skip != 'true'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/grocy-meal-planning

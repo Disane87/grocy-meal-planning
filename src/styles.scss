@@ -8,6 +8,17 @@ body {
   height: 100%;
 }
 
+/* Release Notes Modal Styles */
+.release-notes-dialog .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 1rem !important;
+  overflow: hidden;
+}
+
+.release-notes-dialog .mat-mdc-dialog-surface {
+  border-radius: 1rem !important;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

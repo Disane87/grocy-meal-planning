@@ -9,6 +9,9 @@ import { Recipe } from './interfaces/recipe.interface';
 import { RecipeDragData } from './interfaces/recipe-drag-data.interface';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { AppConfigService } from './appconfig.service';
+import { ReleaseNotesService } from './services/release-notes.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 
 @Component({
     selector: 'app-root',
@@ -23,7 +26,9 @@ export class AppComponent implements OnInit {
   constructor(
     private grocyService: GrocyService,
     private route: ActivatedRoute,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+    private releaseNotesService: ReleaseNotesService,
+    private dialog: MatDialog
   ) { }
   recipes$ = this.grocyService.getRecipes();
 
@@ -66,6 +71,39 @@ export class AppComponent implements OnInit {
       this.currentWeek = queryWeek || dayjs().week();
     }
     this.refreshMealPlan$.next();
+    
+    // Check for new version and show release notes
+    this.checkForReleaseNotes();
+  }
+
+  private checkForReleaseNotes(): void {
+    this.releaseNotesService.shouldShowReleaseNotes().subscribe(shouldShow => {
+      if (shouldShow) {
+        this.releaseNotesService.versionInfo$.subscribe(versionInfo => {
+          if (versionInfo.releaseNotes && versionInfo.hasUpdate) {
+            this.showReleaseNotesModal(versionInfo.releaseNotes, versionInfo.current);
+          }
+        });
+      }
+    });
+  }
+
+  private showReleaseNotesModal(releaseNote: any, version: string): void {
+    const dialogRef = this.dialog.open(ReleaseNotesModalComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      disableClose: false,
+      panelClass: 'release-notes-dialog',
+      data: {
+        releaseNote,
+        version
+      }
+    });
+
+    // Optional: Do something when modal is closed
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Release notes modal was closed');
+    });
   }
 
   changeWeek(week: number) {

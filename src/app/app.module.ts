@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { Base64Pipe } from './_pipes/base64.pipe';
 import { GrocyImagePipe } from './_pipes/grocy-image.pipe';
 import { OrderByPipe } from './_pipes/order-by.pipe';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DaysOfWeekPipe } from './_pipes/days-of-week.pipe';
 import { CurrentWeekPipe } from './_pipes/current-week.pipe';
 
@@ -20,6 +20,8 @@ import { PickObjectByValuePipe } from './_pipes/pick-object-by-value.pipe';
 import { GetRecipePipe } from './_pipes/get-recipe.pipe';
 import { NgForTrackByPropertyModule } from 'ng-for-track-by-property';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslocoRootModule } from './transloco-root.module';
 import { DndModule } from 'ngx-drag-drop';
 import { FormsModule } from '@angular/forms';
@@ -36,6 +38,7 @@ import {
 import { TranslocoService } from '@jsverse/transloco';
 import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
+import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 
 registerLocaleData(localeDe);
 
@@ -48,6 +51,7 @@ dayjs.locale(language);
     GrocyRecipeCardComponent,
     GrocyRecipeListComponent,
     MadeByBannerComponent,
+    ReleaseNotesModalComponent,
     Base64Pipe,
     GrocyImagePipe,
     OrderByPipe,
@@ -67,9 +71,11 @@ dayjs.locale(language);
     DndModule,
     FormsModule,
     MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
     NgForTrackByPropertyModule,
     AppRoutingModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     TranslocoRootModule,
     // HotToastModule.forRoot({
     //   position: 'bottom-center',
