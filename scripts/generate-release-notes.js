@@ -9,6 +9,12 @@ const path = require('path');
 
 function generateReleaseNotes() {
     console.log('🔍 Generating release notes...');
+    
+    // Check if we're in a Vercel environment
+    const isVercel = process.env.VERCEL === '1' || process.env.NOW_BUILDER;
+    if (isVercel) {
+        console.log('🔧 Detected Vercel environment - using optimized release notes generation');
+    }
 
     // Create release notes directory if it doesn't exist
     const releaseNotesDir = path.join(__dirname, '..', 'src', 'assets', 'release-notes');
@@ -33,20 +39,59 @@ function generateReleaseNotes() {
         });
         commits = gitLog.trim().split('\n').filter(commit => commit.trim());
     } catch (e) {
-        console.log('⚠️  No previous tags found, getting recent commits instead...');
+        console.log('⚠️  No previous tags found, trying alternative methods...');
+        
+        // Try getting commits since last version tag that matches semantic versioning
         try {
-            const gitLog = execSync('git log --format="%s" --since="1 week ago"', {
+            const gitLog = execSync('git log $(git tag -l "v*" --sort=-version:refname | head -1)..HEAD --format="%s"', {
                 encoding: 'utf8',
                 cwd: path.join(__dirname, '..')
             });
             commits = gitLog.trim().split('\n').filter(commit => commit.trim());
+            console.log(`📝 Found commits since last version tag`);
         } catch (e2) {
-            console.log('❌ No commits found');
-            commits = [];
+            console.log('⚠️  No version tags found, getting recent commits...');
+            
+            // Fallback: get last 10 commits or commits from last week
+            try {
+                const gitLog = execSync('git log --format="%s" --max-count=10', {
+                    encoding: 'utf8',
+                    cwd: path.join(__dirname, '..')
+                });
+                commits = gitLog.trim().split('\n').filter(commit => commit.trim());
+                console.log(`📝 Using last ${commits.length} commits`);
+            } catch (e3) {
+                console.log('⚠️  Limited git history, trying to get any available commits...');
+                
+                // Last resort: try to get any commits
+                try {
+                    const gitLog = execSync('git log --format="%s"', {
+                        encoding: 'utf8',
+                        cwd: path.join(__dirname, '..')
+                    });
+                    const allCommits = gitLog.trim().split('\n').filter(commit => commit.trim());
+                    // Take only recent commits to avoid too much noise
+                    commits = allCommits.slice(0, 5);
+                    console.log(`📝 Using ${commits.length} most recent commits from available history`);
+                } catch (e4) {
+                    console.log('❌ No git history available - this might be a fresh deployment');
+                    commits = [];
+                }
+            }
         }
     }
 
     console.log(`📊 Found ${commits.length} commits to analyze`);
+    
+    // If no commits found and we're in Vercel, try to use current commit info
+    if (commits.length === 0 && isVercel) {
+        console.log('🔍 No commit history available, checking current commit from environment...');
+        
+        if (process.env.VERCEL_GIT_COMMIT_MESSAGE) {
+            commits = [process.env.VERCEL_GIT_COMMIT_MESSAGE];
+            console.log(`📝 Using current commit message: ${process.env.VERCEL_GIT_COMMIT_MESSAGE}`);
+        }
+    }
 
     // Parse conventional commits
     const releaseNote = {
@@ -132,13 +177,23 @@ function generateReleaseNotes() {
         releaseNote.other.length;
 
     if (totalChanges === 0) {
-        console.log('\n⚠️  No significant changes found. Consider making some commits with conventional commit format:');
+        console.log('\n⚠️  No significant changes found.');
+        
+        if (isVercel) {
+            console.log('ℹ️  This is normal for Vercel deployments where each commit is built separately.');
+            console.log('💡 Release notes will be generated when commits follow conventional format:');
+        } else {
+            console.log('💡 Consider making some commits with conventional commit format:');
+        }
+        
         console.log('   feat: add new feature');
         console.log('   fix: resolve bug');
         console.log('   docs: update documentation');
         console.log('   style: improve styling');
         console.log('   refactor: refactor code');
         console.log('   chore: maintenance tasks');
+    } else {
+        console.log(`\n✅ Generated release notes with ${totalChanges} changes`);
     }
 
     return releaseNote;
