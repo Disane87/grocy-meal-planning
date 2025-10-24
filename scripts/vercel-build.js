@@ -8,20 +8,20 @@ try {
     // Get current git commit info (with fallbacks for Vercel environment)
     let commitHash = 'unknown';
     let commitMessage = 'No commit message available';
-    
+
     try {
         commitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim();
         commitMessage = execSync('git log -1 --pretty=%B', { encoding: 'utf8' }).trim();
         console.log(`📝 Commit: ${commitHash} - ${commitMessage}`);
     } catch (gitError) {
         console.log('⚠️  Git information not available, using environment variables if present');
-        
+
         // Try to get info from Vercel environment variables
         if (process.env.VERCEL_GIT_COMMIT_SHA) {
             commitHash = process.env.VERCEL_GIT_COMMIT_SHA.slice(0, 7);
             console.log(`📝 Using Vercel commit hash: ${commitHash}`);
         }
-        
+
         if (process.env.VERCEL_GIT_COMMIT_MESSAGE) {
             commitMessage = process.env.VERCEL_GIT_COMMIT_MESSAGE;
             console.log(`📝 Using Vercel commit message: ${commitMessage}`);

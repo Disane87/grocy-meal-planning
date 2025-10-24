@@ -9,7 +9,7 @@ const path = require('path');
 
 function generateReleaseNotes() {
     console.log('🔍 Generating release notes...');
-    
+
     // Check if we're in a Vercel environment
     const isVercel = process.env.VERCEL === '1' || process.env.NOW_BUILDER;
     if (isVercel) {
@@ -40,7 +40,7 @@ function generateReleaseNotes() {
         commits = gitLog.trim().split('\n').filter(commit => commit.trim());
     } catch (e) {
         console.log('⚠️  No previous tags found, trying alternative methods...');
-        
+
         // Try getting commits since last version tag that matches semantic versioning
         try {
             const gitLog = execSync('git log $(git tag -l "v*" --sort=-version:refname | head -1)..HEAD --format="%s"', {
@@ -51,7 +51,7 @@ function generateReleaseNotes() {
             console.log(`📝 Found commits since last version tag`);
         } catch (e2) {
             console.log('⚠️  No version tags found, getting recent commits...');
-            
+
             // Fallback: get last 10 commits or commits from last week
             try {
                 const gitLog = execSync('git log --format="%s" --max-count=10', {
@@ -62,7 +62,7 @@ function generateReleaseNotes() {
                 console.log(`📝 Using last ${commits.length} commits`);
             } catch (e3) {
                 console.log('⚠️  Limited git history, trying to get any available commits...');
-                
+
                 // Last resort: try to get any commits
                 try {
                     const gitLog = execSync('git log --format="%s"', {
@@ -82,11 +82,11 @@ function generateReleaseNotes() {
     }
 
     console.log(`📊 Found ${commits.length} commits to analyze`);
-    
+
     // If no commits found and we're in Vercel, try to use current commit info
     if (commits.length === 0 && isVercel) {
         console.log('🔍 No commit history available, checking current commit from environment...');
-        
+
         if (process.env.VERCEL_GIT_COMMIT_MESSAGE) {
             commits = [process.env.VERCEL_GIT_COMMIT_MESSAGE];
             console.log(`📝 Using current commit message: ${process.env.VERCEL_GIT_COMMIT_MESSAGE}`);
@@ -178,14 +178,14 @@ function generateReleaseNotes() {
 
     if (totalChanges === 0) {
         console.log('\n⚠️  No significant changes found.');
-        
+
         if (isVercel) {
             console.log('ℹ️  This is normal for Vercel deployments where each commit is built separately.');
             console.log('💡 Release notes will be generated when commits follow conventional format:');
         } else {
             console.log('💡 Consider making some commits with conventional commit format:');
         }
-        
+
         console.log('   feat: add new feature');
         console.log('   fix: resolve bug');
         console.log('   docs: update documentation');
