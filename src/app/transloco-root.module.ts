@@ -19,4 +19,4 @@ import { language } from './transloco.initializer';
     }),
   ],
 })
-export class TranslocoRootModule {}
+export class TranslocoRootModule { }

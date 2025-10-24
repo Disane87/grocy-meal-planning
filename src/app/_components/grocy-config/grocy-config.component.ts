@@ -5,10 +5,10 @@ import { AppConfigService } from '../../appconfig.service';
 import { GrocyService } from '../../grocy.service';
 
 @Component({
-    selector: 'app-grocy-config',
-    templateUrl: './grocy-config.component.html',
-    styleUrl: './grocy-config.component.scss',
-    standalone: false
+  selector: 'app-grocy-config',
+  templateUrl: './grocy-config.component.html',
+  styleUrl: './grocy-config.component.scss',
+  standalone: false
 })
 export class GrocyConfigComponent {
   constructor(

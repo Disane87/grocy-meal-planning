@@ -11,6 +11,6 @@ export function preloadTranslation(transloco: TranslocoService) {
 }
 
 export const preloadTransloco = provideAppInitializer(() => {
-        const initializerFn = (preloadTranslation)(inject(TranslocoService));
-        return initializerFn();
-      });
+  const initializerFn = (preloadTranslation)(inject(TranslocoService));
+  return initializerFn();
+});
