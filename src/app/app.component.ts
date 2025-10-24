@@ -14,11 +14,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class AppComponent implements OnInit {
   public btoa = btoa;
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
       this.currentWeek = queryWeek || dayjs().week();
     }
     this.refreshMealPlan$.next();
-    
+
     // Check for new version and show release notes
     this.checkForReleaseNotes();
   }

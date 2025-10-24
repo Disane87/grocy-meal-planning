@@ -17,7 +17,7 @@ export class ReleaseNotesModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { releaseNote: ReleaseNote, version: string },
     private releaseNotesService: ReleaseNotesService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.releaseNote = this.data.releaseNote;
