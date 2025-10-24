@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'pickObjectByValue'
+    name: 'pickObjectByValue',
+    standalone: false
 })
 export class PickObjectByValuePipe<T extends Record<string, any>> implements PipeTransform {
 

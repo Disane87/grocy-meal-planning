@@ -3,7 +3,8 @@ import { GrocyService } from '../grocy.service';
 import { Observable } from 'rxjs';
 
 @Pipe({
-  name: 'grocyImage'
+    name: 'grocyImage',
+    standalone: false
 })
 export class GrocyImagePipe implements PipeTransform {
   constructor(private grocyService: GrocyService){}

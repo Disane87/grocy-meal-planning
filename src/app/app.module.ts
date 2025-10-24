@@ -1,6 +1,7 @@
-import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Base64Pipe } from './_pipes/base64.pipe';
@@ -14,7 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { IsTodayPipe } from './_pipes/is-today.pipe';
 import { IsWeekendPipe } from './_pipes/is-weekend.pipe';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { PickObjectByValuePipe } from './_pipes/pick-object-by-value.pipe';
 import { GetRecipePipe } from './_pipes/get-recipe.pipe';
 import { NgForTrackByPropertyModule } from 'ng-for-track-by-property';
@@ -25,9 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterArrayPipe } from './_pipes/filter-array.pipe';
 import { HighlightSearchPipe } from './_pipes/highlight-search.pipe';
 import { GrocyConfigComponent } from './_components/grocy-config/grocy-config.component';
-import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
-import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
-import { HotToastModule } from '@ngneat/hot-toast';
+// import { HotToastModule } from '@ngneat/hot-toast';
 import { MadeByBannerComponent } from './_components/made-by-banner/made-by-banner.component';
 import {
   language,
@@ -35,6 +34,8 @@ import {
   preloadTransloco,
 } from './transloco.initializer';
 import { TranslocoService } from '@ngneat/transloco';
+import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
+import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
 
 registerLocaleData(localeDe);
 
@@ -59,33 +60,32 @@ dayjs.locale(language);
     FilterArrayPipe,
     HighlightSearchPipe,
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
+    CommonModule,
     DndModule,
     FormsModule,
     MatIconModule,
     NgForTrackByPropertyModule,
-    HttpClientModule,
     AppRoutingModule,
     NoopAnimationsModule,
     TranslocoRootModule,
-    HotToastModule.forRoot({
-      position: 'bottom-center',
-    }),
+    // HotToastModule.forRoot({
+    //   position: 'bottom-center',
+    // })
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: preloadTranslation,
-      deps: [TranslocoService],
-    },
+    provideAppInitializer(() => {
+      const initializerFn = (preloadTranslation)(inject(TranslocoService));
+      return initializerFn();
+    }),
     {
       provide: LOCALE_ID,
       useValue: language,
     },
-  ],
-  bootstrap: [AppComponent],
+    provideHttpClient(withInterceptorsFromDi()),
+  ]
 })
 export class AppModule {
   constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

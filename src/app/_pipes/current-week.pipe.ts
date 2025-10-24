@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'currentWeek'
+    name: 'currentWeek',
+    standalone: false
 })
 export class CurrentWeekPipe implements PipeTransform {
 

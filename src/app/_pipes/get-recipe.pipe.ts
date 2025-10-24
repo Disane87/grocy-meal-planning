@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Recipe } from '../interfaces/recipe.interface';
 
 @Pipe({
-  name: 'getRecipe'
+    name: 'getRecipe',
+    standalone: false
 })
 export class GetRecipePipe implements PipeTransform {
 

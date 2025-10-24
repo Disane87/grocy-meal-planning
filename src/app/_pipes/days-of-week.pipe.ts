@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as dayjs from 'dayjs';
-import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 dayjs.extend(weekOfYear);
 
 @Pipe({
-  name: 'daysOfWeek'
+    name: 'daysOfWeek',
+    standalone: false
 })
 export class DaysOfWeekPipe implements PipeTransform {
 

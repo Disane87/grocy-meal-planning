@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 import { GrocyService } from './grocy.service';
@@ -11,10 +11,11 @@ import { DndDropEvent } from 'ngx-drag-drop';
 import { AppConfigService } from './appconfig.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppComponent implements OnInit {
   public btoa = btoa;
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
     private grocyService: GrocyService,
     private route: ActivatedRoute,
     private appConfigService: AppConfigService
-  ) {}
+  ) { }
   recipes$ = this.grocyService.getRecipes();
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;

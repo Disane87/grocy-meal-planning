@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { GrocyService } from 'src/app/grocy.service';
-import { Meal } from 'src/app/interfaces/meal.interface';
-import { Recipe } from 'src/app/interfaces/recipe.interface';
+import { GrocyService } from '../../grocy.service';
+import { Meal } from '../../interfaces/meal.interface';
+import { Recipe } from '../../interfaces/recipe.interface';
+
 
 @Component({
-  selector: 'app-grocy-recipe-card',
-  templateUrl: './grocy-recipe-card.component.html',
-  styleUrl: './grocy-recipe-card.component.scss',
+    selector: 'app-grocy-recipe-card',
+    templateUrl: './grocy-recipe-card.component.html',
+    styleUrl: './grocy-recipe-card.component.scss',
+    standalone: false
 })
 export class GrocyRecipeCardComponent {
   @Input() meal: Meal | undefined;
@@ -18,7 +20,7 @@ export class GrocyRecipeCardComponent {
     handle: false,
   };
 
-  constructor(private grocyService: GrocyService) {}
+  constructor(private grocyService: GrocyService) { }
 
   deleteMeal(meal: Meal) {
     this.grocyService.deleteMeal(meal.id).subscribe(() => {

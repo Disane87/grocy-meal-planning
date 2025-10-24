@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Pipe({
-  name: 'isWeekend'
+    name: 'isWeekend',
+    standalone: false
 })
 export class IsWeekendPipe implements PipeTransform {
 

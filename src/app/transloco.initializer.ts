@@ -1,4 +1,4 @@
-import { APP_INITIALIZER } from '@angular/core';
+import { inject, provideAppInitializer } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { lastValueFrom } from 'rxjs';
 
@@ -10,9 +10,7 @@ export function preloadTranslation(transloco: TranslocoService) {
   return () => lastValueFrom(transloco.load(language));
 }
 
-export const preloadTransloco = {
-  provide: APP_INITIALIZER,
-  multi: true,
-  useFactory: preloadTranslation,
-  deps: [TranslocoService],
-};
+export const preloadTransloco = provideAppInitializer(() => {
+        const initializerFn = (preloadTranslation)(inject(TranslocoService));
+        return initializerFn();
+      });
