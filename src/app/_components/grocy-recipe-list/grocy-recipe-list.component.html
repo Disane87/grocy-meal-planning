@@ -1,5 +1,5 @@
 @if (recipes && recipes.length > 0) {
-  @for (recipe of recipes; track recipe) {
-    <app-grocy-recipe-card [recipe]="recipe"></app-grocy-recipe-card>
-  }
+@for (recipe of recipes; track recipe.id) {
+<app-grocy-recipe-card [recipe]="recipe"></app-grocy-recipe-card>
+}
 }

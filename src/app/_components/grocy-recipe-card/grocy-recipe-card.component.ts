@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { GrocyService } from '../../grocy.service';
 import { Meal } from '../../interfaces/meal.interface';
 import { Recipe } from '../../interfaces/recipe.interface';
@@ -8,7 +8,8 @@ import { Recipe } from '../../interfaces/recipe.interface';
   selector: 'app-grocy-recipe-card',
   templateUrl: './grocy-recipe-card.component.html',
   styleUrl: './grocy-recipe-card.component.scss',
-  standalone: false
+  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GrocyRecipeCardComponent {
   @Input() meal: Partial<Meal> | undefined;

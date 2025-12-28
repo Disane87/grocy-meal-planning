@@ -1,13 +1,14 @@
 <div class="flex flex-row items-center w-full info">
-  <div class="controls flex flex-row gap-1 p-4 h-16 ml-auto">
-    <app-scheduler-controls [selectedMealPlanSection]="selectedMealPlanSection" [mealPlanSections]="mealPlanSections"
-        (sectionChange)="onSectionChange($event)" (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()">
-    </app-scheduler-controls>
-  </div>
+    <div class="controls flex flex-row gap-1 p-4 h-16 ml-auto">
+        <app-scheduler-controls [selectedMealPlanSection]="selectedMealPlanSection"
+            [mealPlanSections]="mealPlanSections" (sectionChange)="onSectionChange($event)"
+            (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()">
+        </app-scheduler-controls>
+    </div>
 </div>
-<div class="flex flex-col h-screen">
-    <app-week-view [currentWeek]="currentWeek" [mealPlan]="mealPlan" [recipes]="recipes"
-        (dragOver)="onDragOver($event)" (drop)="onDrop($event)">
+<div class="flex flex-col h-full overflow-hidden">
+    <app-week-view [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek" [mealPlan]="mealPlan"
+        [recipes]="recipes" (dragOver)="onDragOver($event)" (drop)="onDrop($event)">
     </app-week-view>
 
     @if (grocyInfo?.grocy_version; as grocyConfigVersion) {

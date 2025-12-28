@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import { Subject, BehaviorSubject } from 'rxjs';
+
+dayjs.extend(isoWeek);
 
 import { GrocyService } from './grocy.service';
 import { Meal } from './interfaces/meal.interface';
@@ -46,7 +49,7 @@ export class AppComponent implements OnInit {
 
   grocyInfo$ = this.grocyService.grocySystemInfo$;
 
-  currentWeek: number | undefined = dayjs().week();
+  currentWeekStart: dayjs.Dayjs = dayjs().startOf('isoWeek');
 
   draggable = {
     effectAllowed: 'all',
@@ -64,11 +67,10 @@ export class AppComponent implements OnInit {
   recipeSearch: string | null = null;
 
   ngOnInit() {
-    if (this.currentWeek === undefined) {
-      const queryWeek = parseInt(
-        this.route.snapshot.queryParamMap.get('week') ?? ''
-      );
-      this.currentWeek = queryWeek || dayjs().week();
+    const queryWeek = this.route.snapshot.queryParamMap.get('week');
+    if (queryWeek) {
+      const weekNum = parseInt(queryWeek);
+      this.currentWeekStart = dayjs().isoWeek(weekNum).startOf('isoWeek');
     }
     this.refreshMealPlan$.next();
 
@@ -106,10 +108,16 @@ export class AppComponent implements OnInit {
     });
   }
 
-  changeWeek(week: number) {
-    if (this.currentWeek) {
-      this.currentWeek = week === 0 ? dayjs().week() : this.currentWeek + week;
+  changeWeek(weekOffset: number) {
+    if (weekOffset === 0) {
+      this.currentWeekStart = dayjs().startOf('isoWeek');
+    } else {
+      this.currentWeekStart = this.currentWeekStart.add(weekOffset, 'week');
     }
+  }
+
+  get currentWeek(): number {
+    return this.currentWeekStart.isoWeek();
   }
 
   onDragover(event: DragEvent, day: Date) {

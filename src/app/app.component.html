@@ -1,24 +1,22 @@
 @if (isAppConfigured$ | async) {
-<div>
-  @if ((recipes$ | async); as recipes) {
-  <div class="flex flex-row w-screen h-screen cursor-default">
-    <div class="flex flex-col p-4 gap-y-4 recipes w-[20%] border-r">
-      <app-recipe-sidebar [recipes]="recipes" [recipeSearch]="recipeSearch" (recipeSearchChange)="recipeSearch = $event">
-      </app-recipe-sidebar>
-    </div>
-    @if ((mealPlan$ | async); as mealPlan) {
-    <div class="flex flex-col pb-4 w-full h-screen scheduler overflow-hidden">
-      <app-scheduler [currentWeek]="currentWeek" [selectedMealPlanSection]="selectedMealPlanSection"
-        [mealPlanSections]="(mealPlanSections$ | async)" [mealPlan]="mealPlan" [recipes]="recipes"
-        [grocyInfo]="(grocyInfo$ | async)" (sectionChange)="selectSection($event)" (weekChange)="changeWeek($event)"
-        (resetConfig)="resetConfig()" (dragOver)="onDragover($event.event, $event.day)"
-        (drop)="onDrop($event.event, $event.day)">
-      </app-scheduler>
-    </div>
-    }
+@if ((recipes$ | async); as recipes) {
+<div class="flex flex-row w-screen h-screen cursor-default overflow-hidden">
+  <div class="flex flex-col p-4 gap-y-4 recipes w-[15%] border-r min-h-0 overflow-hidden">
+    <app-recipe-sidebar [recipes]="recipes" [recipeSearch]="recipeSearch" (recipeSearchChange)="recipeSearch = $event">
+    </app-recipe-sidebar>
+  </div>
+  @if ((mealPlan$ | async); as mealPlan) {
+  <div class="flex flex-col flex-1 h-full scheduler overflow-hidden min-w-0">
+    <app-scheduler [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek"
+      [selectedMealPlanSection]="selectedMealPlanSection" [mealPlanSections]="(mealPlanSections$ | async)"
+      [mealPlan]="mealPlan" [recipes]="recipes" [grocyInfo]="(grocyInfo$ | async)"
+      (sectionChange)="selectSection($event)" (weekChange)="changeWeek($event)" (resetConfig)="resetConfig()"
+      (dragOver)="onDragover($event.event, $event.day)" (drop)="onDrop($event.event, $event.day)">
+    </app-scheduler>
   </div>
   }
 </div>
+}
 } @else {
 <app-grocy-config></app-grocy-config>
 }

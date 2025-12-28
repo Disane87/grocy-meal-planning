@@ -1,9 +1,11 @@
-<h1 class="font-bold text-2xl">{{ 'RECIPES' | transloco }}</h1>
-<input [ngModel]="recipeSearch" (ngModelChange)="onRecipeSearchChange($event)" type="text"
-    [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
-    class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded" />
-<div class="recipe-container overflow-auto gap-y-3 h-full flex flex-col">
-    <app-grocy-recipe-list
-        [recipes]="(recipes | filterArray:recipeSearch:['name'] | orderBy:'name')"></app-grocy-recipe-list>
+<div class="flex flex-col h-full gap-4">
+    <h1 class="font-bold text-2xl">{{ 'RECIPES' | transloco }}</h1>
+    <input [ngModel]="recipeSearch" (ngModelChange)="onRecipeSearchChange($event)" type="text"
+        [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
+        class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded" />
+    <div class="recipe-container overflow-auto gap-y-3 flex-1 min-h-0 flex flex-col">
+        <app-grocy-recipe-list
+            [recipes]="(recipes | filterArray:recipeSearch:['name'] | orderBy:'name')"></app-grocy-recipe-list>
+    </div>
+    <app-made-by-banner></app-made-by-banner>
 </div>
-<app-made-by-banner></app-made-by-banner>

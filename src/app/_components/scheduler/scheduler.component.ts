@@ -4,6 +4,7 @@ import { Meal } from '../../interfaces/meal.interface';
 import { Recipe } from '../../interfaces/recipe.interface';
 import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
 import { GrocySystemInfo } from '../../interfaces/grocy-system-info-interface';
+import { Dayjs } from 'dayjs';
 
 @Component({
   selector: 'app-scheduler',
@@ -12,6 +13,7 @@ import { GrocySystemInfo } from '../../interfaces/grocy-system-info-interface';
   styleUrl: './scheduler.component.scss',
 })
 export class SchedulerComponent {
+  @Input() currentWeekStart!: Dayjs;
   @Input() currentWeek: number | undefined;
   @Input() selectedMealPlanSection: number | null = null;
   @Input() mealPlanSections: MealPlanSection[] | null = null;
