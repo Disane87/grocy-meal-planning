@@ -1,0 +1,20 @@
+{
+    "version": "0.1.0",
+    "date": "2025-10-24T20:48:16.032Z",
+    "features": [
+        "Enhance recipe card with AI planning indicator and update meal interface"
+    ],
+    "fixes": [],
+    "breaking": [],
+    "improvements": [
+        "update dependencies and migrate to new packages"
+    ],
+    "maintenance": [
+        "update Angular dependencies and remove webpack-dev.config.js"
+    ],
+    "styling": [
+        "format code for consistency and readability"
+    ],
+    "documentation": [],
+    "other": []
+}
