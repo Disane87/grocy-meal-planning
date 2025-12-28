@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -148,15 +148,15 @@ jobs:
 
       - name: Create GitHub Release
         if: steps.changelog.outputs.skip != 'true'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.changelog.outputs.new-version }}
-          release_name: Release v${{ steps.changelog.outputs.new-version }}
+          name: Release v${{ steps.changelog.outputs.new-version }}
           body_path: CHANGELOG.md
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages (optional)
         if: steps.changelog.outputs.skip != 'true'
