@@ -1,3 +1,8 @@
+## [0.2.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.2.0...v0.2.1) (2025-12-28)
+
+### Bug Fixes
+
+* disable automatic deployments in Vercel workflow and add .npmrc for legacy peer dependencies ([1800c5c](https://github.com/Disane87/grocy-meal-planning/commit/1800c5cdcc4e519513b5cd40dac00f18579b593e))
 ## 0.2.0 (2025-12-28)
 
 ### Features
