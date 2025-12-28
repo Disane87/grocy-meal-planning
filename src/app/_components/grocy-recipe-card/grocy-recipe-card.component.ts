@@ -5,13 +5,13 @@ import { Recipe } from '../../interfaces/recipe.interface';
 
 
 @Component({
-    selector: 'app-grocy-recipe-card',
-    templateUrl: './grocy-recipe-card.component.html',
-    styleUrl: './grocy-recipe-card.component.scss',
-    standalone: false
+  selector: 'app-grocy-recipe-card',
+  templateUrl: './grocy-recipe-card.component.html',
+  styleUrl: './grocy-recipe-card.component.scss',
+  standalone: false
 })
 export class GrocyRecipeCardComponent {
-  @Input() meal: Meal | undefined;
+  @Input() meal: Partial<Meal> | undefined;
   @Input() recipe: Recipe | undefined;
 
   draggable = {
@@ -22,15 +22,19 @@ export class GrocyRecipeCardComponent {
 
   constructor(private grocyService: GrocyService) { }
 
-  deleteMeal(meal: Meal) {
-    this.grocyService.deleteMeal(meal.id).subscribe(() => {
-      // this.refreshMealPlan$.next();
-    });
+  deleteMeal(meal: Partial<Meal>) {
+    if (meal.id) {
+      this.grocyService.deleteMeal(meal.id).subscribe(() => {
+        // this.refreshMealPlan$.next();
+      });
+    }
   }
 
-  doneMeal(meal: Meal) {
-    meal.done = 1;
-    this.grocyService.updateMeal(meal);
+  doneMeal(meal: Partial<Meal>) {
+    if (meal.id) {
+      meal.done = 1;
+      this.grocyService.updateMeal(meal as Meal);
+    }
   }
 
   openRecipe(recipeId: number) {

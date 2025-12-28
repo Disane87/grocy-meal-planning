@@ -1,0 +1,24 @@
+<div class="flex flex-row items-center w-full info">
+  <div class="controls flex flex-row gap-1 p-4 h-16 ml-auto">
+    <app-scheduler-controls [selectedMealPlanSection]="selectedMealPlanSection" [mealPlanSections]="mealPlanSections"
+        (sectionChange)="onSectionChange($event)" (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()">
+    </app-scheduler-controls>
+  </div>
+</div>
+<div class="flex flex-col h-screen">
+    <app-week-view [currentWeek]="currentWeek" [mealPlan]="mealPlan" [recipes]="recipes"
+        (dragOver)="onDragOver($event)" (drop)="onDrop($event)">
+    </app-week-view>
+
+    @if (grocyInfo?.grocy_version; as grocyConfigVersion) {
+    <div class="text-xs text-center border-t pt-4 gap-2 flex flex-row justify-center items-center h-12">
+        <span
+            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 ring-1 ring-inset ring-blue-500/10">
+            Grocy version: {{grocyConfigVersion.Version }}
+        </span>
+        <span
+            class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-600 ring-1 ring-inset ring-yellow-500/10">
+            Date: {{ grocyConfigVersion.ReleaseDate | date }}</span>
+    </div>
+    }
+</div>

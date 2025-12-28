@@ -26,7 +26,7 @@
         <mat-icon class="text-red-400 cursor-pointer" svgIcon="delete-outline" (click)="deleteMeal(meal)"></mat-icon>
         }
         <mat-icon class="cursor-pointer" svgIcon="open-in-app"
-          (click)="openRecipe(meal ? meal.recipe_id : recipe.id)"></mat-icon>
+          (click)="openRecipe(meal?.recipe_id || recipe.id)"></mat-icon>
         <mat-icon dndHandle svgIcon="drag" class="cursor-grab"></mat-icon>
       </div>
     </div>

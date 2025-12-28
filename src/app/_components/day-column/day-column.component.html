@@ -1,0 +1,21 @@
+<div class="day w-1/7 hover:bg-stone-50 h-full overflow-hidden flex flex-col" [ngClass]="{
+    'bg-gray-100': day | isWeekend
+  }">
+    <div class="flex flex-col p-4 w-full text-center border-b days-header" [ngClass]="{
+      'text-green-600': day | isToday
+    }">
+        <div class="w-full font-bold">{{ day | date:'EEEE' }}</div>
+        {{ day | date:'longDate'}}
+    </div>
+    <div class="flex flex-col gap-y-2 p-4 w-full meals h-full" [id]="day.toISOString()">
+        @for (plannedMeal of plannedMeals; track plannedMeal) {
+        <div>
+            @if (plannedMeal.recipe_id && (plannedMeal.recipe_id | getRecipe:recipes); as recipe) {
+            <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal"></app-grocy-recipe-card>
+            }
+        </div>
+        }
+        <div class="dropzone h-full" dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)">
+        </div>
+    </div>
+</div>

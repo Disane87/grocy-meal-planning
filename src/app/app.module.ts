@@ -40,6 +40,11 @@ import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 import { ThemeToggleComponent } from './_components/theme-toggle/theme-toggle.component';
+import { RecipeSidebarComponent } from './_components/recipe-sidebar/recipe-sidebar.component';
+import { SchedulerComponent } from './_components/scheduler/scheduler.component';
+import { SchedulerControlsComponent } from './_components/scheduler-controls/scheduler-controls.component';
+import { WeekViewComponent } from './_components/week-view/week-view.component';
+import { DayColumnComponent } from './_components/day-column/day-column.component';
 
 registerLocaleData(localeDe);
 
@@ -65,6 +70,11 @@ dayjs.locale(language);
     GetRecipePipe,
     FilterArrayPipe,
     HighlightSearchPipe,
+    RecipeSidebarComponent,
+    SchedulerComponent,
+    SchedulerControlsComponent,
+    WeekViewComponent,
+    DayColumnComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

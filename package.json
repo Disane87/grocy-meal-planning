@@ -58,6 +58,7 @@
     "@semantic-release/git": "^10.0.1",
     "@types/jasmine": "~5.1.12",
     "autoprefixer": "^10.4.21",
+    "baseline-browser-mapping": "^2.9.11",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
     "jasmine-core": "~5.12.0",
