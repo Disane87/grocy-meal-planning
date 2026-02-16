@@ -1,8 +1,9 @@
 <div class="flex flex-row items-center w-full info">
-    <div class="controls flex flex-row gap-1 p-4 h-16 ml-auto">
+    <div class="controls flex flex-row gap-1 p-4 h-16 mx-auto md:ml-auto md:mr-0">
         <app-scheduler-controls [selectedMealPlanSection]="selectedMealPlanSection"
             [mealPlanSections]="mealPlanSections" (sectionChange)="onSectionChange($event)"
-            (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()">
+            (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()"
+            (refreshRecipes)="onRefreshRecipes()">
         </app-scheduler-controls>
     </div>
 </div>

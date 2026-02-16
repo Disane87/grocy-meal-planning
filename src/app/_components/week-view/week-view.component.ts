@@ -21,7 +21,7 @@ export class WeekViewComponent implements OnChanges {
   @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date }>();
   @Output() addRecipe = new EventEmitter<Date>();
 
-  weeks: Array<{ weekStart: Dayjs, weekNumber: number }> = [];
+  weeks: Array<{ weekStart: Dayjs, weekNumber: number, startDate: Date, endDate: Date }> = [];
   mealsByDay: Map<string, Partial<Meal>[]> = new Map();
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -51,8 +51,8 @@ export class WeekViewComponent implements OnChanges {
     const firstWeek = this.currentWeekStart;
     const secondWeek = this.currentWeekStart.add(1, 'week');
     this.weeks = [
-      { weekStart: firstWeek, weekNumber: firstWeek.isoWeek() },
-      { weekStart: secondWeek, weekNumber: secondWeek.isoWeek() }
+      { weekStart: firstWeek, weekNumber: firstWeek.isoWeek(), startDate: firstWeek.toDate(), endDate: firstWeek.add(6, 'day').toDate() },
+      { weekStart: secondWeek, weekNumber: secondWeek.isoWeek(), startDate: secondWeek.toDate(), endDate: secondWeek.add(6, 'day').toDate() }
     ];
   }
 

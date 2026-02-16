@@ -5,10 +5,15 @@
       <mat-icon svgIcon="close"></mat-icon>
     </button>
   </div>
-  <div class="p-4 border-b">
+  <div class="p-4 border-b flex flex-row gap-2">
     <input type="text" [(ngModel)]="searchTerm"
       [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
-      class="w-full bg-gray-100 text-gray-700 py-3 px-4 border border-gray-500 rounded text-base" />
+      [title]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
+      class="flex-1 min-w-0 bg-gray-100 text-gray-700 py-3 px-4 border border-gray-500 rounded text-base" />
+    <button type="button" (click)="onRefreshRecipes()" title="Rezepte neu laden"
+      class="control-btn !rounded !px-3 !py-3">
+      <mat-icon svgIcon="refresh"></mat-icon>
+    </button>
   </div>
   <div class="flex-1 overflow-auto p-2 flex flex-col gap-2">
     @for (recipe of filteredRecipes; track recipe.id) {

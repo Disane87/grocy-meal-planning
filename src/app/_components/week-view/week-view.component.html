@@ -1,15 +1,23 @@
 @if (currentWeekStart) {
-<div class="weeks h-full justify-stretch flex flex-col overflow-auto md:overflow-hidden w-full">
+<div class="weeks h-full justify-stretch flex flex-col overflow-auto md:overflow-hidden w-full md:gap-4 md:p-4">
     @for (weekData of weeks; track weekData.weekNumber; let i = $index) {
-    <div class="flex flex-col flex-1 min-h-0 week" [ngClass]="i > 0 ? 'hidden md:flex' : ''">
-        <div
-            class="p-2 md:p-4 text-lg md:text-2xl whitespace-nowrap weeknumber w-full bg-gray-100 border-y flex flex-row justify-between">
-            <div class="flex flex-col h-full justify-center">
+    <div class="flex flex-col flex-none md:flex-1 md:min-h-0 week-card" [ngClass]="i > 0 ? 'hidden md:flex' : ''">
+        <div class="sticky top-0 z-20
+            mx-3 md:mx-0 mb-2 md:mb-0
+            rounded-xl md:rounded-none shadow-sm md:shadow-none
+            day-normal">
+            <!-- Mobile: looks like a day card -->
+            <div class="md:hidden flex flex-row px-3 py-2 items-center days-header">
+                <div class="font-semibold mr-2">{{ 'WEEK' | transloco }} {{ weekData.weekNumber }}</div>
+                <div class="text-sm opacity-50">{{ weekData.startDate | date:'d. MMM' }} – {{ weekData.endDate | date:'d. MMM yyyy' }}</div>
+            </div>
+            <!-- Desktop: card header -->
+            <div class="hidden md:flex items-center weeknumber-header-desktop">
                 <span>{{ 'WEEK' | transloco }}: {{ weekData.weekNumber }}</span>
             </div>
         </div>
         @if (weekData.weekStart | daysOfWeek; as daysOfWeek) {
-        <div class="flex flex-col md:flex-row w-full flex-1 min-h-0 md:divide-x planning px-3 md:px-0">
+        <div class="flex flex-col md:flex-row w-full flex-1 min-h-0 md:gap-px planning px-3 md:px-0">
             @for (day of daysOfWeek; track day) {
             <app-day-column [day]="day" [plannedMeals]="getMealsForDay(day)" [recipes]="recipes"
                 (dragOver)="onDragOver($event)" (drop)="onDrop($event)"

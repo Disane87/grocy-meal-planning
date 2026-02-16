@@ -27,6 +27,7 @@ export class SchedulerComponent {
   @Output() dragOver = new EventEmitter<{ event: DragEvent, day: Date }>();
   @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date }>();
   @Output() addRecipe = new EventEmitter<Date>();
+  @Output() refreshRecipes = new EventEmitter<void>();
 
   onSectionChange(sectionId: number) {
     this.sectionChange.emit(sectionId);
@@ -50,5 +51,9 @@ export class SchedulerComponent {
 
   onAddRecipe(day: Date) {
     this.addRecipe.emit(day);
+  }
+
+  onRefreshRecipes() {
+    this.refreshRecipes.emit();
   }
 }

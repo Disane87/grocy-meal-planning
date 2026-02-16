@@ -11,9 +11,14 @@ export class RecipeSidebarComponent {
   @Input() recipes: Recipe[] | null = null;
   @Input() recipeSearch: string | null = null;
   @Output() recipeSearchChange = new EventEmitter<string | null>();
+  @Output() refreshRecipes = new EventEmitter<void>();
 
   onRecipeSearchChange(value: string) {
     this.recipeSearch = value;
     this.recipeSearchChange.emit(value);
+  }
+
+  onRefreshRecipes() {
+    this.refreshRecipes.emit();
   }
 }

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, switchMap } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -37,7 +37,8 @@ export class AppComponent implements OnInit {
     private dialog: MatDialog,
     private bottomSheet: MatBottomSheet
   ) { }
-  recipes$ = this.grocyService.getRecipes();
+  private refreshRecipes$ = new BehaviorSubject<void>(undefined);
+  recipes$ = this.refreshRecipes$.pipe(switchMap(() => this.grocyService.getRecipes()));
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;
   mealPlanSections$ = this.grocyService.getMealPlanSections();
@@ -137,10 +138,22 @@ export class AppComponent implements OnInit {
     this.appConfigService.resetConfig();
   }
 
+  onRefreshRecipes() {
+    this.refreshRecipes$.next();
+  }
+
   onAddRecipe(day: Date) {
     this.recipes$.pipe(take(1)).subscribe(recipes => {
       const sheetRef = this.bottomSheet.open(RecipePickerSheetComponent, {
-        data: { recipes },
+        data: {
+          recipes,
+          onRefresh: () => {
+            this.refreshRecipes$.next();
+            this.recipes$.pipe(take(1)).subscribe(updated => {
+              sheetRef.instance.recipes = updated;
+            });
+          }
+        },
         panelClass: 'recipe-picker-bottom-sheet',
       });
 

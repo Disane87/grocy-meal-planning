@@ -1,8 +1,15 @@
 <div class="flex flex-col h-full gap-4">
     <h1 class="font-bold text-2xl">{{ 'RECIPES' | transloco }}</h1>
-    <input [ngModel]="recipeSearch" (ngModelChange)="onRecipeSearchChange($event)" type="text"
-        [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
-        class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded" />
+    <div class="flex flex-row gap-1">
+        <input [ngModel]="recipeSearch" (ngModelChange)="onRecipeSearchChange($event)" type="text"
+            [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
+            [title]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
+            class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded flex-1 min-w-0" />
+        <button type="button" (click)="onRefreshRecipes()" title="Rezepte neu laden"
+            class="control-btn !rounded !px-2">
+            <mat-icon svgIcon="refresh"></mat-icon>
+        </button>
+    </div>
     <div class="recipe-container overflow-auto gap-y-3 flex-1 min-h-0 flex flex-col">
         <app-grocy-recipe-list
             [recipes]="(recipes | filterArray:recipeSearch:['name'] | orderBy:'name')"></app-grocy-recipe-list>

@@ -18,6 +18,26 @@ export class AppConfigService {
   }
 
   private loadConfig() {
+    // Check query string parameters first (allows pre-filling via shared link)
+    const params = new URLSearchParams(window.location.search);
+    const qsUrl = params.get('serverUrl') || params.get('grocyUrl');
+    const qsKey = params.get('apiKey') || params.get('grocyApiKey');
+
+    if (qsUrl && qsKey) {
+      this.setConfig(qsUrl, qsKey);
+
+      // Remove sensitive params from URL to keep API key out of browser history
+      params.delete('serverUrl');
+      params.delete('grocyUrl');
+      params.delete('apiKey');
+      params.delete('grocyApiKey');
+      const cleanUrl = params.toString()
+        ? `${window.location.pathname}?${params.toString()}`
+        : window.location.pathname;
+      window.history.replaceState({}, '', cleanUrl);
+      return;
+    }
+
     this.grocyUrl = localStorage.getItem('grocyUrl') || undefined;
     this.grocyApiKey = localStorage.getItem('grocyApiKey') || undefined;
 
@@ -25,7 +45,6 @@ export class AppConfigService {
       this.isAppConfiguredSubject.next(true);
     } else {
       this.isAppConfiguredSubject.next(false);
-      // Trigger modal or some mechanism to set the config
     }
   }
 

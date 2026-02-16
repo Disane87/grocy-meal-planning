@@ -14,9 +14,15 @@ export class RecipePickerSheetComponent {
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<RecipePickerSheetComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { recipes: Recipe[] }
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { recipes: Recipe[], onRefresh?: () => void }
   ) {
     this.recipes = data.recipes;
+  }
+
+  onRefreshRecipes() {
+    if (this.data.onRefresh) {
+      this.data.onRefresh();
+    }
   }
 
   get filteredRecipes(): Recipe[] {

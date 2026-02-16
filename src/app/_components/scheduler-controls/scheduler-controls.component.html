@@ -5,16 +5,18 @@
     <a href="https://blog.disane.dev/en" target="_blank" rel="noopener" class="items-center flex flex-col">
         <mat-icon class="hover:text-stone-600" svgIcon="post-outline"></mat-icon></a>
 </div>
-<app-theme-toggle></app-theme-toggle>
+<div class="hidden md:block">
+    <app-theme-toggle></app-theme-toggle>
+</div>
 <select [ngModel]="selectedMealPlanSection" (ngModelChange)="onSectionChange($event)"
-    class="control-select text-sm md:text-base">
+    class="control-select text-sm md:text-base hidden md:block">
     <option [value]="null" disabled selected>{{ 'GROCY_MEALPLAN_SECTION_PLACEHOLDER' | transloco }}</option>
     @for (section of mealPlanSections; track section) {
     <option [ngValue]="section.id">{{section.name ??
         'GROCY_MEALPLAN_SECTION_NONE' | transloco }}</option>
     }
 </select>
-<div class="flex flex-row gap-1 justify-end scheduler-controls">
+<div class="flex flex-row gap-1 justify-center md:justify-end scheduler-controls">
     <button (click)="onWeekChange(-1)" [title]="'PREVIOUS_WEEK' | transloco"
         class="control-btn">
         <mat-icon svgIcon="chevron-left"></mat-icon>
@@ -27,8 +29,19 @@
         class="control-btn">
         <mat-icon svgIcon="chevron-right"></mat-icon>
     </button>
+    <div class="relative">
+        <button type="button" (click)="onShare()" title="Teilen"
+            class="control-btn">
+            <mat-icon svgIcon="share-variant-outline"></mat-icon>
+        </button>
+        @if (shareTooltip) {
+        <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-stone-800 text-white px-2 py-1 rounded">
+            {{ shareTooltip }}
+        </div>
+        }
+    </div>
     <button type="button" (click)="onResetConfig()" [title]="'RESET_CONFIG' | transloco"
-        class="control-btn-danger">
+        class="control-btn-danger hidden md:flex">
         <mat-icon svgIcon="logout"></mat-icon>
     </button>
 </div>
