@@ -1,3 +1,8 @@
+## [0.3.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.2.2...v0.3.0) (2026-02-16)
+
+### Features
+
+* add recipe picker sheet component with search functionality ([52ed182](https://github.com/Disane87/grocy-meal-planning/commit/52ed1822100a82e118ba2f8e4bf7e97b13345afe))
 ## [0.2.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.2.1...v0.2.2) (2025-12-28)
 ## [0.2.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.2.0...v0.2.1) (2025-12-28)
 
