@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    version: '0.4.3' // Diese wird automatisch durch den Build-Prozess gesetzt
+    version: '0.5.0' // Diese wird automatisch durch den Build-Prozess gesetzt
 };

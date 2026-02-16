@@ -1,3 +1,8 @@
+## [0.5.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.3...v0.5.0) (2026-02-16)
+
+### Features
+
+* add initial Product Requirements Document and settings configuration ([660d84f](https://github.com/Disane87/grocy-meal-planning/commit/660d84fde237adbb961624379e678482fb77b346))
 ## [0.4.3](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.2...v0.4.3) (2026-02-16)
 
 ### Bug Fixes
