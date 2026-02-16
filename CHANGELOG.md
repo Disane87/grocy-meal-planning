@@ -1,3 +1,8 @@
+## [0.4.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.1...v0.4.2) (2026-02-16)
+
+### Bug Fixes
+
+* move safe area insets from root container to inner elements to restore mobile scrolling ([22ea77f](https://github.com/Disane87/grocy-meal-planning/commit/22ea77f22b3486caecdc938a83154bab06d420c9))
 ## [0.4.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.0...v0.4.1) (2026-02-16)
 
 ### Bug Fixes
