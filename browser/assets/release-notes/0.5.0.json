@@ -1,0 +1,34 @@
+{
+  "version": "0.5.0",
+  "date": "2026-02-16T16:07:55.921Z",
+  "features": [
+    "add initial Product Requirements Document and settings configuration",
+    "enhance recipe picker and sidebar with refresh functionality and UI improvements",
+    "add recipe picker sheet component with search functionality"
+  ],
+  "fixes": [
+    "restore mobile scrolling broken by safe area insets",
+    "move safe area insets from root container to inner elements to restore mobile scrolling",
+    "add iOS Safari safe area support for notch/Dynamic Island/home indicator"
+  ],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [
+    "update package-lock.json"
+  ],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning",
+    "chore(release): 0.4.3",
+    "Merge pull request #11 from Disane87/claude/fix-mobile-scrolling-safe-areas-MkYF1",
+    "chore(release): 0.4.2",
+    "Merge pull request #10 from Disane87/claude/fix-mobile-safe-areas-scroll-S8ZOo",
+    "chore(release): 0.4.1",
+    "Merge pull request #9 from Disane87/claude/fix-ios-safari-layout-BSd3i",
+    "chore(release): 0.4.0",
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning",
+    "chore(release): 0.3.0",
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning"
+  ]
+}
