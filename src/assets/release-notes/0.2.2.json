@@ -1,0 +1,25 @@
+{
+  "version": "0.2.2",
+  "date": "2025-12-28T18:07:34.305Z",
+  "features": [
+    "enhance recipe sidebar and scheduler components with improved styling and layout",
+    "add recipe sidebar and scheduler components; refactor meal handling in recipe card fix: update meal type to Partial<Meal> for better handling of optional properties refactor: move recipe list and meal plan controls to separate components for better organization style: improve layout and styling of week view and day column components test: add unit tests for new components and update existing tests"
+  ],
+  "fixes": [
+    "disable automatic deployments in Vercel workflow and add .npmrc for legacy peer dependencies",
+    "use --legacy-peer-deps flag for npm ci in release and Vercel deploy workflows",
+    "update Node.js version to 22 in release workflows"
+  ],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [
+    "remove obsolete Release Notes System documentation"
+  ],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning",
+    "chore(release): 0.2.1",
+    "chore(release): 0.2.0"
+  ]
+}
