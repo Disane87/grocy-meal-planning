@@ -524,6 +524,57 @@ html, body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+/* =============================================
+   iOS SAFARI SAFE AREA SUPPORT
+   For devices with notch / Dynamic Island / home indicator
+   ============================================= */
+
+/* Main app shell: only horizontal safe areas on root to preserve scroll chain */
+.flex.flex-col.md\:flex-row.w-screen.h-screen {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Top safe area on the scheduler controls header */
+.scheduler > .info {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Bottom safe area inside the scrollable weeks container */
+.weeks {
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hot toast notifications — offset from safe area top */
+.hot-toast-container {
+  top: env(safe-area-inset-top) !important;
+}
+
+/* Recipe picker bottom sheet — bottom safe area for home indicator */
+.recipe-picker-bottom-sheet .mat-bottom-sheet-container,
+.recipe-picker-bottom-sheet .mat-mdc-bottom-sheet-container {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+/* Config page — safe area padding */
+.flex.flex-col.justify-center.items-center.min-h-screen.w-screen {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Fix 100vh on iOS Safari where it includes the URL bar */
+@supports (-webkit-touch-callout: none) {
+  html, body {
+    height: -webkit-fill-available;
+  }
+  .flex.flex-col.md\:flex-row.w-screen.h-screen {
+    height: -webkit-fill-available;
+  }
+  .flex.flex-col.justify-center.items-center.min-h-screen.w-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
 /* ── Release Notes Modal ── */
 .release-notes-dialog .mat-mdc-dialog-container {
   padding: 0 !important;

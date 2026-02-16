@@ -1,6 +1,6 @@
 {
   "name": "grocy-meal-planning",
-  "version": "0.3.0",
+  "version": "0.4.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

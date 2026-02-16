@@ -1,3 +1,23 @@
+## [0.4.3](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.2...v0.4.3) (2026-02-16)
+
+### Bug Fixes
+
+* restore mobile scrolling broken by safe area insets ([9408b90](https://github.com/Disane87/grocy-meal-planning/commit/9408b90842d884d718cc78df053cc3b99059a7af))
+## [0.4.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.1...v0.4.2) (2026-02-16)
+
+### Bug Fixes
+
+* move safe area insets from root container to inner elements to restore mobile scrolling ([22ea77f](https://github.com/Disane87/grocy-meal-planning/commit/22ea77f22b3486caecdc938a83154bab06d420c9))
+## [0.4.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.0...v0.4.1) (2026-02-16)
+
+### Bug Fixes
+
+* add iOS Safari safe area support for notch/Dynamic Island/home indicator ([5416f74](https://github.com/Disane87/grocy-meal-planning/commit/5416f74179cd544b7c97fcff788f5a6760adbc3e))
+## [0.4.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.3.0...v0.4.0) (2026-02-16)
+
+### Features
+
+* enhance recipe picker and sidebar with refresh functionality and UI improvements ([5044e6e](https://github.com/Disane87/grocy-meal-planning/commit/5044e6e27c412d707aee4b480ba4745b456b1b03))
 ## [0.3.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.2.2...v0.3.0) (2026-02-16)
 
 ### Features
