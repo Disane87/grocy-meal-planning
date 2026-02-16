@@ -17,6 +17,7 @@ export class DayColumnComponent {
 
   @Output() dragOver = new EventEmitter<{ event: DragEvent, day: Date }>();
   @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date }>();
+  @Output() addRecipe = new EventEmitter<Date>();
 
   onDragover(event: DragEvent) {
     this.dragOver.emit({ event, day: this.day });
@@ -24,5 +25,9 @@ export class DayColumnComponent {
 
   onDrop(event: DndDropEvent) {
     this.drop.emit({ event, day: this.day });
+  }
+
+  onAddRecipe() {
+    this.addRecipe.emit(this.day);
   }
 }

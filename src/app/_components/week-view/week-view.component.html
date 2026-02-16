@@ -1,18 +1,19 @@
 @if (currentWeekStart) {
-<div class="weeks h-full justify-stretch flex flex-col overflow-hidden  w-full">
-    @for (weekData of weeks; track weekData.weekNumber) {
-    <div class="flex flex-col flex-1 min-h-0 week">
+<div class="weeks h-full justify-stretch flex flex-col overflow-auto md:overflow-hidden w-full">
+    @for (weekData of weeks; track weekData.weekNumber; let i = $index) {
+    <div class="flex flex-col flex-1 min-h-0 week" [ngClass]="i > 0 ? 'hidden md:flex' : ''">
         <div
-            class="p-4 text-2xl whitespace-nowrap weeknumber w-full bg-gray-100 border-y flex flex-row justify-between">
+            class="p-2 md:p-4 text-lg md:text-2xl whitespace-nowrap weeknumber w-full bg-gray-100 border-y flex flex-row justify-between">
             <div class="flex flex-col h-full justify-center">
                 <span>{{ 'WEEK' | transloco }}: {{ weekData.weekNumber }}</span>
             </div>
         </div>
         @if (weekData.weekStart | daysOfWeek; as daysOfWeek) {
-        <div class="flex flex-row w-full flex-1 min-h-0 divide-x planning">
+        <div class="flex flex-col md:flex-row w-full flex-1 min-h-0 md:divide-x planning px-3 md:px-0">
             @for (day of daysOfWeek; track day) {
             <app-day-column [day]="day" [plannedMeals]="getMealsForDay(day)" [recipes]="recipes"
-                (dragOver)="onDragOver($event)" (drop)="onDrop($event)">
+                (dragOver)="onDragOver($event)" (drop)="onDrop($event)"
+                (addRecipe)="onAddRecipe($event)">
             </app-day-column>
             }
         </div>

@@ -1,0 +1,29 @@
+<div class="flex flex-col h-[70vh]">
+  <div class="flex flex-row items-center justify-between p-4 border-b">
+    <h2 class="text-lg font-bold">{{ 'RECIPES' | transloco }}</h2>
+    <button type="button" (click)="close()" class="p-2 rounded-full hover:bg-gray-200 min-w-[44px] min-h-[44px] flex items-center justify-center">
+      <mat-icon svgIcon="close"></mat-icon>
+    </button>
+  </div>
+  <div class="p-4 border-b">
+    <input type="text" [(ngModel)]="searchTerm"
+      [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
+      class="w-full bg-gray-100 text-gray-700 py-3 px-4 border border-gray-500 rounded text-base" />
+  </div>
+  <div class="flex-1 overflow-auto p-2 flex flex-col gap-2">
+    @for (recipe of filteredRecipes; track recipe.id) {
+    <button type="button" (click)="selectRecipe(recipe)"
+      class="flex flex-row items-center gap-3 p-3 rounded-lg hover:bg-gray-100 active:bg-gray-200 text-left w-full min-h-[56px] border border-gray-200">
+      @if (recipe.picture_file_name) {
+      <img class="w-12 h-12 rounded object-cover flex-shrink-0"
+        [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)"
+        [alt]="recipe.name">
+      }
+      <span class="flex-1 text-base">{{ recipe.name }}</span>
+    </button>
+    }
+    @if (filteredRecipes.length === 0) {
+    <div class="text-center text-gray-500 py-8">{{ 'NO_RECIPES_FOUND' | transloco }}</div>
+    }
+  </div>
+</div>

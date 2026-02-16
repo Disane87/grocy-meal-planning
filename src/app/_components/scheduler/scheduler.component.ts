@@ -26,6 +26,7 @@ export class SchedulerComponent {
   @Output() resetConfig = new EventEmitter<void>();
   @Output() dragOver = new EventEmitter<{ event: DragEvent, day: Date }>();
   @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date }>();
+  @Output() addRecipe = new EventEmitter<Date>();
 
   onSectionChange(sectionId: number) {
     this.sectionChange.emit(sectionId);
@@ -45,5 +46,9 @@ export class SchedulerComponent {
 
   onDrop(event: { event: DndDropEvent, day: Date }) {
     this.drop.emit(event);
+  }
+
+  onAddRecipe(day: Date) {
+    this.addRecipe.emit(day);
   }
 }

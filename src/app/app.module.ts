@@ -21,6 +21,7 @@ import { GetRecipePipe } from './_pipes/get-recipe.pipe';
 import { NgForTrackByPropertyModule } from 'ng-for-track-by-property';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslocoRootModule } from './transloco-root.module';
 import { DndModule } from 'ngx-drag-drop';
@@ -45,6 +46,7 @@ import { SchedulerComponent } from './_components/scheduler/scheduler.component'
 import { SchedulerControlsComponent } from './_components/scheduler-controls/scheduler-controls.component';
 import { WeekViewComponent } from './_components/week-view/week-view.component';
 import { DayColumnComponent } from './_components/day-column/day-column.component';
+import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 
 registerLocaleData(localeDe);
 
@@ -75,6 +77,7 @@ dayjs.locale(language);
     SchedulerControlsComponent,
     WeekViewComponent,
     DayColumnComponent,
+    RecipePickerSheetComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -84,6 +87,7 @@ dayjs.locale(language);
     FormsModule,
     MatIconModule,
     MatDialogModule,
+    MatBottomSheetModule,
     MatButtonModule,
     NgForTrackByPropertyModule,
     AppRoutingModule,

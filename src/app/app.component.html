@@ -1,7 +1,7 @@
 @if (isAppConfigured$ | async) {
 @if ((recipes$ | async); as recipes) {
-<div class="flex flex-row w-screen h-screen cursor-default overflow-hidden">
-  <div class="flex flex-col p-4 gap-y-4 recipes w-[15%] border-r min-h-0 overflow-hidden">
+<div class="flex flex-col md:flex-row w-screen h-screen cursor-default overflow-hidden">
+  <div class="hidden md:flex flex-col p-4 gap-y-4 recipes md:w-[15%] border-r min-h-0 overflow-hidden">
     <app-recipe-sidebar [recipes]="recipes" [recipeSearch]="recipeSearch" (recipeSearchChange)="recipeSearch = $event">
     </app-recipe-sidebar>
   </div>
@@ -11,7 +11,8 @@
       [selectedMealPlanSection]="selectedMealPlanSection" [mealPlanSections]="(mealPlanSections$ | async)"
       [mealPlan]="mealPlan" [recipes]="recipes" [grocyInfo]="(grocyInfo$ | async)"
       (sectionChange)="selectSection($event)" (weekChange)="changeWeek($event)" (resetConfig)="resetConfig()"
-      (dragOver)="onDragover($event.event, $event.day)" (drop)="onDrop($event.event, $event.day)">
+      (dragOver)="onDragover($event.event, $event.day)" (drop)="onDrop($event.event, $event.day)"
+      (addRecipe)="onAddRecipe($event)">
     </app-scheduler>
   </div>
   }

@@ -1,1126 +1,516 @@
 @use "tailwindcss";
 @import '@ngxpert/hot-toast/src/styles/styles.scss';
 
-/* Tailwind v4 Theme Extension */
+/* =============================================
+   GROCY MEAL PLANNING — DESIGN SYSTEM
+   Subtle, muted color palette for light & dark
+   ============================================= */
+
 @layer theme {
   :root {
     --width-1-7: 14.28571428571429%;
   }
 }
 
-/* Base styles for both themes */
+/* ── Base ── */
 @layer base {
   * {
-    border-color: #e5e7eb;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border-color: #e2e8f0;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   }
 
-  html {
-    color-scheme: light;
-  }
+  html { color-scheme: light; }
 
   body {
-    background-color: #ffffff;
-    /* Pure white */
-    color: #111827;
-    /* gray-900 */
+    background-color: #fafaf9;
+    color: #1c1917;
   }
 
-  /* Improve focus states */
   *:focus {
-    outline: 2px solid #60a5fa;
+    outline: 2px solid #818cf8;
     outline-offset: 2px;
   }
 
-  /* Better scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-  }
-
-  /* Dark mode scrollbar */
-  .dark ::-webkit-scrollbar-track {
-    background: #1e293b;
-  }
-
-  .dark ::-webkit-scrollbar-thumb {
-    background: #475569;
-  }
-
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
-  }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
 }
 
-/* Light mode explicit overrides */
+/* =============================================
+   LIGHT MODE
+   ============================================= */
 .light {
   color-scheme: light;
 
   body {
-    background-color: #ffffff !important;
-    /* Pure white */
-    color: #111827 !important;
-    /* gray-900 */
+    background-color: #fafaf9 !important;
+    color: #1c1917 !important;
   }
 
-  /* Main container */
+  .flex.flex-col.md\:flex-row.w-screen.h-screen,
   .flex.flex-row.w-screen.h-screen {
-    background-color: #ffffff !important;
-    /* Pure white */
+    background-color: #fafaf9 !important;
   }
 
-  /* Recipe sidebar */
   .recipes {
-    background-color: #f8fafc !important;
-    /* slate-50 */
-    border-color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Main planning area */
-  .scheduler,
-  .planning,
-  .weeks,
-  .week {
     background-color: #ffffff !important;
-    /* Pure white */
+    border-color: #e7e5e4 !important;
   }
 
-  /* Recipe cards */
+  .scheduler, .planning, .weeks, .week {
+    background-color: #fafaf9 !important;
+  }
+
+  /* ── Day columns ── */
+  .day-normal  { background-color: #ffffff !important; }
+  .day-today   { background-color: #eef2ff !important; }
+  .day-weekend { background-color: #faf5ff !important; }
+
+  .day:hover { background-color: #f5f5f4 !important; }
+
+  /* ── Day headers ── */
+  .days-header { color: #44403c !important; }
+  .header-today {
+    color: #6366f1 !important;
+    font-weight: 600 !important;
+  }
+  .header-weekend {
+    color: #a78bfa !important;
+    font-weight: 500 !important;
+  }
+
+  /* ── Week header ── */
+  .weeknumber {
+    background-color: #fafaf9 !important;
+    color: #44403c !important;
+    border-color: #e7e5e4 !important;
+  }
+
+  .meals { background-color: transparent !important; }
+
+  /* ── Cards ── */
+  .card-surface { background-color: #ffffff !important; }
   .recipe {
     background-color: #ffffff !important;
-    /* Pure white */
-    color: #111827 !important;
-    /* gray-900 */
-    border-color: #e2e8f0 !important;
-    /* slate-200 */
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
-
-    &:hover {
-      background-color: #f8fafc !important;
-      /* slate-50 */
-      border-color: #60a5fa !important;
-      /* blue-400 */
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    }
+    color: #1c1917 !important;
   }
 
-  /* Day columns */
-  .day {
-    background-color: #ffffff !important;
-    /* Pure white */
-    border-color: #e2e8f0 !important;
-    /* slate-200 */
-
-    &:hover {
-      background-color: #f1f5f9 !important;
-      /* slate-100 */
-      border-color: #60a5fa !important;
-      /* blue-400 */
-    }
-
-    &.bg-gray-100 {
-      background-color: #f1f5f9 !important;
-      /* slate-100 - weekends */
-      color: #111827 !important;
-
-      &:hover {
-        background-color: #e2e8f0 !important;
-        /* slate-200 */
-      }
-    }
-
-    /* Weekend styling */
-    &.bg-red-50 {
-      background-color: #fef2f2 !important;
-      /* red-50 - weekends */
-      color: #111827 !important;
-
-      &:hover {
-        background-color: #fee2e2 !important;
-        /* red-100 */
-      }
-    }
-
-    /* Today styling */
-    &.bg-green-50 {
-      background-color: #f0fdf4 !important;
-      /* green-50 - today */
-      color: #111827 !important;
-
-      &:hover {
-        background-color: #dcfce7 !important;
-        /* green-100 */
-      }
-    }
+  /* ── Add recipe button ── */
+  .add-recipe-btn {
+    background-color: #eef2ff !important;
+    color: #6366f1 !important;
+  }
+  .add-recipe-btn:hover {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
   }
 
-  /* Days header */
-  .days-header {
-    background-color: #f8fafc !important;
-    /* slate-50 */
-    border-color: #e2e8f0 !important;
-    /* slate-200 */
-    color: #111827 !important;
-    /* gray-900 */
+  /* ── Shadows ── */
+  .shadow-lg { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important; }
+  .shadow-md { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important; }
+  .shadow-sm { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important; }
 
-    /* Today header styling */
-    &.text-green-600 {
-      color: #059669 !important;
-      /* emerald-600 */
-      font-weight: 700 !important;
-      /* font-bold */
-      background-color: #f0fdf4 !important;
-      /* green-50 */
-    }
+  /* ── Status badges ── */
+  .bg-blue-50  { background-color: #eef2ff !important; color: #4f46e5 !important; }
+  .bg-yellow-50 { background-color: #fefce8 !important; color: #a16207 !important; }
 
-    /* Weekend header styling */
-    &.text-red-600 {
-      color: #dc2626 !important;
-      /* red-600 */
-      font-weight: 600 !important;
-      /* font-semibold */
-      background-color: #fef2f2 !important;
-      /* red-50 */
-    }
-  }
+  /* ── Utility overrides ── */
+  .bg-gray-100 { background-color: #f5f5f4 !important; color: #1c1917 !important; }
+  .bg-white    { background-color: #ffffff !important; color: #1c1917 !important; }
+  .bg-stone-50 { background-color: #fafaf9 !important; color: #1c1917 !important; }
 
-  /* Week number header */
-  .weeknumber {
-    background-color: #f8fafc !important;
-    /* slate-50 */
-    color: #111827 !important;
-    /* gray-900 */
-    border-color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Meals container */
-  .meals {
-    background-color: #f8fafc !important;
-    /* slate-50 */
-  }
-
-  /* Override any dark classes */
-  .bg-white {
-    background-color: #ffffff !important;
-    /* Pure white */
-    color: #111827 !important;
-    /* gray-900 */
-  }
-
-  /* Grocy Config Component */
-  .bg-slate-200 {
-    background-color: #e2e8f0 !important;
-    /* slate-200 - Light mode config background */
-  }
-
-  /* Config card styling */
+  /* ── Config page ── */
+  .bg-slate-200 { background-color: #f5f5f4 !important; }
   .card {
     background-color: #ffffff !important;
-    /* Pure white */
-    color: #111827 !important;
-    /* gray-900 */
-    border-color: #cbd5e1 !important;
-    /* slate-300 */
+    color: #1c1917 !important;
+    border-color: #e7e5e4 !important;
   }
-
-  /* Input fields for config */
-  .bg-gray-100 {
-    background-color: #f1f5f9 !important;
-    /* slate-100 */
-    color: #111827 !important;
-    /* gray-900 */
-    border-color: #64748b !important;
-    /* slate-500 */
-
-    &:focus {
-      border-color: #3b82f6 !important;
-      /* blue-500 */
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
-    }
-  }
-
-  /* Info alert box */
   .bg-teal-100 {
-    background-color: #ccfbf1 !important;
-    /* teal-100 */
+    background-color: #f0fdfa !important;
     color: #134e4a !important;
-    /* teal-900 */
-    border-color: #14b8a6 !important;
-    /* teal-500 */
+    border-color: #99f6e4 !important;
   }
-
-  /* Pure white */
-  color: #111827 !important;
-  /* gray-900 */
-  border-color: #e2e8f0 !important;
-  /* slate-200 */
 }
 
-.bg-gray-100 {
-  background-color: #f1f5f9 !important;
-  /* slate-100 */
-  color: #111827 !important;
-  /* gray-900 */
+/* ── Action pill buttons (card overlay) ── */
+.action-pill {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
-.bg-stone-50 {
-  background-color: #f8fafc !important;
-  /* slate-50 */
-  color: #111827 !important;
-  /* gray-900 */
+/* ── Controls ── */
+.control-btn {
+  background-color: #f5f5f4 !important;
+  color: #57534e !important;
+  border: 1px solid #d6d3d1 !important;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.15s ease !important;
+}
+.control-btn:hover {
+  background-color: #e7e5e4 !important;
+  color: #1c1917 !important;
 }
 
-/* Input fields in light mode */
+.control-btn-primary {
+  background-color: #eef2ff !important;
+  color: #6366f1 !important;
+  border: 1px solid #c7d2fe !important;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.15s ease !important;
+}
+.control-btn-primary:hover {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+.control-btn-danger {
+  background-color: #f5f5f4 !important;
+  color: #a8a29e !important;
+  border: 1px solid #d6d3d1 !important;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.15s ease !important;
+}
+.control-btn-danger:hover {
+  background-color: #fecdd3 !important;
+  color: #e11d48 !important;
+  border-color: #fecdd3 !important;
+}
+
+.control-select {
+  background-color: #f5f5f4 !important;
+  color: #57534e !important;
+  border: 1px solid #d6d3d1 !important;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* ── Input focus ── */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 select,
 textarea {
-  background-color: #ffffff !important;
-  /* Pure white */
-  color: #111827 !important;
-  /* gray-900 */
-  border-color: #d1d5db !important;
-  /* gray-300 */
-
   &:focus {
-    border-color: #60a5fa !important;
-    /* blue-400 */
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
-    background-color: #ffffff !important;
-    /* Pure white */
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1) !important;
   }
-
-  &::placeholder {
-    color: #6b7280 !important;
-    /* gray-500 */
-  }
+  &::placeholder { color: #a8a29e !important; }
 }
 
-/* Buttons in light mode */
-button {
-  &.bg-gray-100 {
-    background-color: #f3f4f6 !important;
-    /* gray-100 */
-    color: #374151 !important;
-    /* gray-700 */
-    border-color: #d1d5db !important;
-    /* gray-300 */
-
-    &:hover {
-      background-color: #e5e7eb !important;
-      /* gray-200 */
-      color: #111827 !important;
-      /* gray-900 */
-    }
-  }
-
-  &.bg-green-100 {
-    background-color: #dcfce7 !important;
-    /* green-100 */
-    color: #166534 !important;
-    /* green-800 */
-    border-color: #bbf7d0 !important;
-    /* green-200 */
-
-    &:hover {
-      background-color: #bbf7d0 !important;
-      /* green-200 */
-      color: #14532d !important;
-      /* green-900 */
-    }
-  }
-}
-
-/* Text colors */
-.text-gray-700 {
-  color: #374151 !important;
-  /* gray-700 */
-}
-
-.text-gray-600 {
-  color: #4b5563 !important;
-  /* gray-600 */
-}
-
-.text-gray-800 {
-  color: #1f2937 !important;
-  /* gray-800 */
-}
-
-.text-gray-900 {
-  color: #111827 !important;
-  /* gray-900 */
-}
-
-/* Border colors */
-.border-gray-200 {
-  border-color: #e5e7eb !important;
-  /* gray-200 */
-}
-
-.border-gray-500 {
-  border-color: #6b7280 !important;
-  /* gray-500 */
-}
-
-/* Shadows for light mode */
-.shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-}
-
-.shadow-md {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Theme Toggle Light Mode Fix */
-app-theme-toggle button {
-  background-color: #f3f4f6 !important;
-  /* gray-100 */
-  color: #374151 !important;
-  /* gray-700 */
-  border-color: #6b7280 !important;
-  /* gray-500 */
-  height: 2.5rem !important;
-  /* h-10 = 40px */
-
-  &:hover {
-    background-color: #6b7280 !important;
-    /* gray-500 */
-    color: #ffffff !important;
-    /* white */
-    border-color: transparent !important;
-  }
-}
-
-app-theme-toggle .dropdown-menu {
-  background-color: #f3f4f6 !important;
-  /* gray-100 */
-  border-color: #6b7280 !important;
-  /* gray-500 */
-}
-
-/* Einheitliche Höhe für alle Controls */
+/* ── Einheitliche Höhe Controls ── */
 .scheduler-controls button,
-select,
+.control-select,
 app-theme-toggle button {
   height: 2.5rem !important;
-  /* 40px */
   min-height: 2.5rem !important;
   display: flex !important;
   align-items: center !important;
 }
 
-
-.dark {
-  color-scheme: dark;
-
-  * {
-    border-color: #374151 !important;
-  }
-
-  body {
-    background-color: #0f172a !important;
-    /* slate-900 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-  }
-
-  /* Main container */
-  .flex.flex-row.w-screen.h-screen {
-    background-color: #0f172a !important;
-    /* slate-900 */
-  }
-
-  /* Recipe sidebar */
-  .recipes {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
-
-  /* Main planning area */
-  .scheduler,
-  .planning {
-    background-color: #0f172a !important;
-    /* slate-900 */
-  }
-
-  /* Apply dark mode to all common classes */
-  .bg-white {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
-
-  .bg-gray-100 {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  .bg-stone-50 {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  [class*="hover:bg-stone"]:hover {
-    background-color: #475569 !important;
-    /* slate-600 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Recipe cards */
-  .recipe {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
-
-    &:hover {
-      background-color: #334155 !important;
-      /* slate-700 */
-      border-color: #60a5fa !important;
-      /* blue-400 */
-      transform: translateY(-1px);
-      box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.4) !important;
-    }
+@media (max-width: 767px) {
+  .scheduler-controls button,
+  .control-select,
+  app-theme-toggle button {
+    height: 2.25rem !important;
+    min-height: 2.25rem !important;
   }
 }
 
-/* Dark mode class override (for manual dark mode) */
+/* ── Theme Toggle ── */
+app-theme-toggle button {
+  background-color: #f5f5f4 !important;
+  color: #57534e !important;
+  border: 1px solid #d6d3d1 !important;
+}
+app-theme-toggle button:hover {
+  background-color: #e7e5e4 !important;
+  color: #1c1917 !important;
+}
+app-theme-toggle .dropdown-menu {
+  background-color: #ffffff !important;
+  border-color: #e7e5e4 !important;
+}
+
+/* =============================================
+   DARK MODE
+   ============================================= */
 .dark {
   color-scheme: dark;
 
-  * {
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
+  * { border-color: #292524 !important; }
 
   body {
-    background-color: #0f172a !important;
-    /* slate-900 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
+    background-color: #0c0a09 !important;
+    color: #e7e5e4 !important;
   }
 
-  /* Main container */
+  .flex.flex-col.md\:flex-row.w-screen.h-screen,
   .flex.flex-row.w-screen.h-screen {
-    background-color: #0f172a !important;
-    /* slate-900 */
+    background-color: #0c0a09 !important;
   }
 
-  /* Recipe sidebar */
   .recipes {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    border-color: #475569 !important;
-    /* slate-600 */
+    background-color: #1c1917 !important;
+    border-color: #292524 !important;
   }
 
-  /* Main planning area */
-  .scheduler,
-  .planning,
-  .weeks,
-  .week {
-    background-color: #0f172a !important;
-    /* slate-900 */
+  .scheduler, .planning, .weeks, .week {
+    background-color: #0c0a09 !important;
   }
 
-  /* STRONG overrides for recipe cards */
-  .recipe {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
-    transition: all 0.3s ease !important;
+  /* ── Day columns ── */
+  .day-normal  { background-color: #1c1917 !important; color: #e7e5e4 !important; }
+  .day-today   { background-color: #0c1425 !important; color: #bfdbfe !important; }
+  .day-weekend { background-color: #1a1207 !important; color: #fde68a !important; }
 
-    &:hover {
-      background-color: #334155 !important;
-      /* slate-700 */
-      border-color: #60a5fa !important;
-      /* blue-400 */
-      transform: translateY(-1px);
-      box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.4) !important;
-    }
+  .day:hover {
+    background-color: #292524 !important;
+    color: #e7e5e4 !important;
   }
 
-  /* Override ANY bg-white in recipe cards */
-  .recipe.bg-white,
-  .recipe .bg-white,
-  div.bg-white.recipe {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
+  /* ── Day headers ── */
+  .days-header { color: #a8a29e !important; }
+  .header-today {
+    color: #60a5fa !important;
+    font-weight: 600 !important;
+  }
+  .header-weekend {
+    color: #fbbf24 !important;
+    font-weight: 500 !important;
   }
 
-  /* Day columns and calendar */
-  .day {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    border-color: #475569 !important;
-    /* slate-600 */
-    transition: all 0.2s ease !important;
-
-    &:hover {
-      background-color: #334155 !important;
-      /* slate-700 */
-      border-color: #60a5fa !important;
-      /* blue-400 */
-    }
-
-    &.bg-gray-100 {
-      background-color: #334155 !important;
-      /* slate-700 - weekends */
-      color: #f1f5f9 !important;
-
-      &:hover {
-        background-color: #475569 !important;
-        /* slate-600 */
-      }
-    }
-
-    /* Weekend styling - Dark Mode */
-    &.bg-red-50 {
-      background-color: #450a0a !important;
-      /* red-950 - weekends dark */
-      color: #fca5a5 !important;
-      /* red-300 */
-
-      &:hover {
-        background-color: #7f1d1d !important;
-        /* red-900 */
-      }
-    }
-
-    /* Today styling - Dark Mode */
-    &.bg-green-50 {
-      background-color: #052e16 !important;
-      /* green-950 - today dark */
-      color: #86efac !important;
-      /* green-300 */
-
-      &:hover {
-        background-color: #14532d !important;
-        /* green-900 */
-      }
-    }
-  }
-
-  /* Days header */
-  .days-header {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    border-color: #475569 !important;
-    /* slate-600 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-
-    /* Today header styling - Dark Mode */
-    &.text-green-600 {
-      color: #34d399 !important;
-      /* emerald-400 */
-      font-weight: 700 !important;
-      /* font-bold */
-      background-color: #052e16 !important;
-      /* green-950 */
-    }
-
-    /* Weekend header styling - Dark Mode */
-    &.text-red-600 {
-      color: #f87171 !important;
-      /* red-400 */
-      font-weight: 600 !important;
-      /* font-semibold */
-      background-color: #450a0a !important;
-      /* red-950 */
-    }
-  }
-
-  /* Week number header */
+  /* ── Week header ── */
   .weeknumber {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
+    background-color: #1c1917 !important;
+    color: #d6d3d1 !important;
+    border-color: #292524 !important;
   }
 
-  /* Meals container */
-  .meals {
-    background-color: #1e293b !important;
-    /* slate-800 */
+  .meals { background-color: transparent !important; }
+
+  /* ── Cards ── */
+  .card-surface { background-color: #1c1917 !important; }
+  .recipe {
+    background-color: #1c1917 !important;
+    color: #e7e5e4 !important;
   }
 
-  /* Input fields in dark mode */
+  .action-pill {
+    background-color: rgba(28, 25, 23, 0.85) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ── Add recipe button ── */
+  .add-recipe-btn {
+    background-color: #1e3a5f !important;
+    color: #93c5fd !important;
+  }
+  .add-recipe-btn:hover {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  /* ── Controls ── */
+  .control-btn {
+    background-color: #292524 !important;
+    color: #a8a29e !important;
+    border-color: #3f3f46 !important;
+  }
+  .control-btn:hover {
+    background-color: #3f3f46 !important;
+    color: #e7e5e4 !important;
+  }
+
+  .control-btn-primary {
+    background-color: #1e3a5f !important;
+    color: #93c5fd !important;
+    border-color: #2563eb !important;
+  }
+  .control-btn-primary:hover {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+    border-color: #3b82f6 !important;
+  }
+
+  .control-btn-danger {
+    background-color: #292524 !important;
+    color: #78716c !important;
+    border-color: #3f3f46 !important;
+  }
+  .control-btn-danger:hover {
+    background-color: #4c0519 !important;
+    color: #fda4af !important;
+    border-color: #4c0519 !important;
+  }
+
+  .control-select {
+    background-color: #292524 !important;
+    color: #a8a29e !important;
+    border-color: #3f3f46 !important;
+  }
+
+  /* ── Inputs ── */
   input[type="text"],
   input[type="email"],
   input[type="password"],
   select,
   textarea {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
+    background-color: #1c1917 !important;
+    color: #e7e5e4 !important;
+    border-color: #3f3f46 !important;
 
     &:focus {
-      border-color: #60a5fa !important;
-      /* blue-400 */
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2) !important;
-      background-color: #334155 !important;
-      /* slate-700 */
+      border-color: #818cf8 !important;
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15) !important;
+      background-color: #292524 !important;
     }
-
-    &::placeholder {
-      color: #94a3b8 !important;
-      /* slate-400 */
-    }
+    &::placeholder { color: #78716c !important; }
   }
 
-  /* Buttons in dark mode */
-  button {
-    transition: all 0.2s ease !important;
-
-    &.bg-gray-100 {
-      background-color: #334155 !important;
-      /* slate-700 */
-      color: #e2e8f0 !important;
-      /* slate-200 */
-      border-color: #475569 !important;
-      /* slate-600 */
-
-      &:hover {
-        background-color: #475569 !important;
-        /* slate-600 */
-        color: #f1f5f9 !important;
-        /* slate-100 */
-        transform: translateY(-1px);
-      }
-    }
-
-    &.bg-green-100 {
-      background-color: #065f46 !important;
-      /* green-800 */
-      color: #bbf7d0 !important;
-      /* green-200 */
-      border-color: #047857 !important;
-      /* green-700 */
-
-      &:hover {
-        background-color: #047857 !important;
-        /* green-700 */
-        color: #f0fdf4 !important;
-        /* green-50 */
-        transform: translateY(-1px);
-      }
-    }
+  /* ── Theme Toggle ── */
+  app-theme-toggle button {
+    background-color: #292524 !important;
+    color: #a8a29e !important;
+    border-color: #3f3f46 !important;
+  }
+  app-theme-toggle button:hover {
+    background-color: #3f3f46 !important;
+    color: #e7e5e4 !important;
+  }
+  app-theme-toggle .dropdown-menu {
+    background-color: #292524 !important;
+    border-color: #3f3f46 !important;
+  }
+  app-theme-toggle .dropdown-menu button {
+    color: #a8a29e !important;
+  }
+  app-theme-toggle .dropdown-menu button:hover,
+  app-theme-toggle .dropdown-menu button.selected {
+    background-color: #3f3f46 !important;
+    color: #e7e5e4 !important;
   }
 
-  /* Config card */
+  /* ── Config page ── */
+  .bg-slate-200 { background-color: #0c0a09 !important; }
   .card {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    border-color: #475569 !important;
-    /* slate-600 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+    background-color: #1c1917 !important;
+    color: #e7e5e4 !important;
+    border-color: #292524 !important;
   }
-
-  /* Override bg-white classes */
-  .bg-white {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
-
-  /* Grocy Config Component - Dark Mode */
-  .bg-slate-200 {
-    background-color: #0f172a !important;
-    /* slate-900 - Dark mode config background */
-  }
-
-  /* Config card styling - Dark Mode */
-  .card {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
-
-  /* Override bg-gray-100 classes */
-  .bg-gray-100 {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-    border-color: #64748b !important;
-    /* slate-500 */
-
-    &:focus {
-      border-color: #60a5fa !important;
-      /* blue-400 */
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
-    }
-  }
-
-  /* Info alert box - Dark Mode */
   .bg-teal-100 {
     background-color: #042f2e !important;
-    /* teal-950 */
     color: #5eead4 !important;
-    /* teal-300 */
     border-color: #14b8a6 !important;
-    /* teal-500 */
-
-    .text-teal-500 {
-      color: #5eead4 !important;
-      /* teal-300 */
-    }
-
-    .text-teal-900 {
-      color: #5eead4 !important;
-      /* teal-300 */
-    }
   }
 
-  /* Text colors for dark mode */
-  .text-slate-500 {
-    color: #94a3b8 !important;
-    /* slate-400 */
+  /* ── Utility overrides ── */
+  .bg-white, [class*="bg-white"] {
+    background-color: #1c1917 !important;
+    color: #e7e5e4 !important;
   }
-
-  .text-gray-600 {
-    color: #9ca3af !important;
-    /* gray-400 */
+  .bg-gray-100, [class*="bg-gray-100"] {
+    background-color: #292524 !important;
+    color: #d6d3d1 !important;
   }
-
-  .text-slate-400 {
-    color: #64748b !important;
-    /* slate-500 */
+  .bg-stone-50, [class*="bg-stone-50"] {
+    background-color: #292524 !important;
+    color: #d6d3d1 !important;
   }
-
-  /* Override bg-gray-50 classes */
-  .bg-gray-50 {
-    background-color: #334155 !important;
-    /* slate-700 */
-  }
-
-  /* Override stone classes */
-  .bg-stone-50 {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Additional strong overrides */
-  [class*="bg-white"] {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
-  }
-
-  [class*="bg-gray-100"] {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  [class*="bg-stone-50"] {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Text color overrides */
-  .text-gray-700 {
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  .text-gray-600 {
-    color: #cbd5e1 !important;
-    /* slate-300 */
-  }
-
-  .text-gray-800 {
-    color: #f1f5f9 !important;
-    /* slate-100 */
-  }
-
-  .text-gray-900 {
-    color: #f8fafc !important;
-    /* slate-50 */
-  }
-
-  /* Border overrides */
-  .border-gray-200 {
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
-
-  .border-gray-500 {
-    border-color: #64748b !important;
-    /* slate-500 */
-  }
-
-  /* Hover effects */
-  [class*="hover:bg-stone"]:hover {
-    background-color: #475569 !important;
-    /* slate-600 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  [class*="hover:border-blue"]:hover {
-    border-color: #60a5fa !important;
-    /* blue-400 */
-  }
-
-  [class*="hover:bg-blue"]:hover {
-    background-color: #1e40af !important;
-    /* blue-800 */
-  }
-
-  /* General stone hover effects with maximum specificity */
-  [class*="hover:bg-stone"]:hover,
-  *[class*="hover:bg-stone-50"]:hover {
-    background-color: #475569 !important;
-    /* slate-600 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Day hover effects with clean selectors */
-  .day:hover,
-  div.day:hover {
-    background-color: #475569 !important;
-    /* slate-600 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-
-  /* Dropzone areas */
-  .dropzone {
-    transition: all 0.2s ease !important;
-
-    &:hover {
-      background-color: #334155 !important;
-      /* slate-700 */
-      border-color: #60a5fa !important;
-      /* blue-400 */
-    }
-  }
-
-  /* Status badges */
-  .bg-blue-50 {
-    background-color: #1e3a8a !important;
-    /* blue-900 */
-    color: #bfdbfe !important;
-    /* blue-200 */
-  }
-
-  .bg-yellow-50 {
-    background-color: #92400e !important;
-    /* yellow-800 */
-    color: #fde68a !important;
-    /* yellow-200 */
-  }
-
-  .bg-green-50 {
-    background-color: #065f46 !important;
-    /* green-800 */
-    color: #bbf7d0 !important;
-    /* green-200 */
-  }
-
-  /* Card containers */
   .max-w-sm {
-    background-color: #1e293b !important;
-    /* slate-800 */
-    color: #f1f5f9 !important;
-    /* slate-100 */
+    background-color: #1c1917 !important;
+    color: #e7e5e4 !important;
   }
 
-  /* Improved shadow adjustments for dark mode */
-  .shadow-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
-  }
+  /* ── Status badges ── */
+  .bg-blue-50  { background-color: #172554 !important; color: #93c5fd !important; }
+  .bg-yellow-50 { background-color: #451a03 !important; color: #fde68a !important; }
 
-  .shadow-md {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
-  }
+  /* ── Shadows ── */
+  .shadow-lg { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important; }
+  .shadow-md { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important; }
+  .shadow-sm { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important; }
 
-  /* Theme Toggle Dark Mode Styling */
-  app-theme-toggle button {
-    background-color: #334155 !important;
-    /* slate-700 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-    border-color: #475569 !important;
-    /* slate-600 */
-    height: 2.5rem !important;
-    /* h-10 = 40px */
+  /* ── Scrollbars ── */
+  ::-webkit-scrollbar-track { background: #1c1917; }
+  ::-webkit-scrollbar-thumb { background: #3f3f46; }
+  ::-webkit-scrollbar-thumb:hover { background: #52525b; }
 
-    &:hover {
-      background-color: #475569 !important;
-      /* slate-600 */
-      color: #f1f5f9 !important;
-      /* slate-100 */
-      border-color: transparent !important;
-    }
-  }
-
-  app-theme-toggle .dropdown-menu {
-    background-color: #334155 !important;
-    /* slate-700 */
-    border-color: #475569 !important;
-    /* slate-600 */
-  }
-
-  app-theme-toggle .dropdown-menu button {
-    color: #e2e8f0 !important;
-    /* slate-200 */
-
-    &:hover {
-      background-color: #475569 !important;
-      /* slate-600 */
-      color: #f1f5f9 !important;
-      /* slate-100 */
-    }
-
-    &.selected {
-      background-color: #475569 !important;
-      /* slate-600 */
-      color: #f1f5f9 !important;
-      /* slate-100 */
-    }
-  }
-
-  /* Einheitliche Höhe für alle Controls im Dark Mode */
-  .scheduler-controls button,
-  select,
-  app-theme-toggle button {
-    height: 2.5rem !important;
-    /* 40px */
-    min-height: 2.5rem !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  /* Search and filter elements */
-  .search-input {
-    background-color: #1e293b !important;
-    border-color: #475569 !important;
-    color: #f1f5f9 !important;
-  }
-
-  /* Recipe list items */
-  .recipe-list-item {
-    background-color: #1e293b !important;
-    border-color: #475569 !important;
-
-    &:hover {
-      background-color: #334155 !important;
-      border-color: #60a5fa !important;
-    }
+  /* ── Dropzone ── */
+  .dropzone:hover {
+    background-color: #292524 !important;
   }
 }
 
-/* GLOBAL override for light mode - highest priority */
-.light .day:hover {
-  background-color: #f1f5f9 !important;
-  /* slate-100 in light mode */
-  color: #111827 !important;
-  /* gray-900 */
-}
-
-/* GLOBAL override for day hover effects */
-.day:hover {
-  background-color: #475569 !important;
-  /* slate-600 in dark mode */
-  color: #e2e8f0 !important;
-  /* slate-200 */
-}
-
-/* Dark mode specific overrides */
-.dark .day:hover {
-  background-color: #475569 !important;
-  /* slate-600 */
-  color: #e2e8f0 !important;
-  /* slate-200 */
-}
-
-@media (prefers-color-scheme: dark) {
-  .day:hover {
-    background-color: #475569 !important;
-    /* slate-600 */
-    color: #e2e8f0 !important;
-    /* slate-200 */
-  }
-}
-
-
-html,
-body {
+/* =============================================
+   GLOBAL / SHARED
+   ============================================= */
+html, body {
   height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* Release Notes Modal Styles */
+/* ── Release Notes Modal ── */
 .release-notes-dialog .mat-mdc-dialog-container {
   padding: 0 !important;
   border-radius: 1rem !important;
   overflow: hidden;
 }
-
 .release-notes-dialog .mat-mdc-dialog-surface {
   border-radius: 1rem !important;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+/* ── Recipe Picker Bottom Sheet ── */
+.recipe-picker-bottom-sheet {
+  max-height: 80vh !important;
+}
+.recipe-picker-bottom-sheet .mat-bottom-sheet-container {
+  border-radius: 1rem 1rem 0 0 !important;
+  padding: 0 !important;
+  max-width: 100vw !important;
+}
+
+.dark .recipe-picker-bottom-sheet .mat-bottom-sheet-container,
+.dark .recipe-picker-bottom-sheet .mat-mdc-bottom-sheet-container {
+  background-color: #1c1917 !important;
+  color: #e7e5e4 !important;
+}
+.dark .recipe-picker-bottom-sheet input {
+  background-color: #292524 !important;
+  color: #e7e5e4 !important;
+  border-color: #3f3f46 !important;
+}
+.dark .recipe-picker-bottom-sheet button {
+  color: #e7e5e4 !important;
+}
+.dark .recipe-picker-bottom-sheet button:hover {
+  background-color: #292524 !important;
+}
+.dark .recipe-picker-bottom-sheet .border-b,
+.dark .recipe-picker-bottom-sheet .border {
+  border-color: #3f3f46 !important;
 }

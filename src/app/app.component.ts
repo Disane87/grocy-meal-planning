@@ -14,7 +14,10 @@ import { DndDropEvent } from 'ngx-drag-drop';
 import { AppConfigService } from './appconfig.service';
 import { ReleaseNotesService } from './services/release-notes.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
+import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +34,8 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private appConfigService: AppConfigService,
     private releaseNotesService: ReleaseNotesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private bottomSheet: MatBottomSheet
   ) { }
   recipes$ = this.grocyService.getRecipes();
 
@@ -131,6 +135,32 @@ export class AppComponent implements OnInit {
 
   resetConfig() {
     this.appConfigService.resetConfig();
+  }
+
+  onAddRecipe(day: Date) {
+    this.recipes$.pipe(take(1)).subscribe(recipes => {
+      const sheetRef = this.bottomSheet.open(RecipePickerSheetComponent, {
+        data: { recipes },
+        panelClass: 'recipe-picker-bottom-sheet',
+      });
+
+      sheetRef.afterDismissed().subscribe((recipe: Recipe | undefined) => {
+        if (recipe) {
+          const stringDate = dayjs(day).format('YYYY-MM-DD');
+          const meal: Partial<Meal> = {
+            day: stringDate,
+            recipe_id: recipe.id,
+            recipe_servings: 4,
+            section_id: (this.selectedMealPlanSection ?? -1).toString(),
+            type: 'recipe',
+          };
+          this.grocyService.postMeal(meal).subscribe((data) => {
+            meal.id = parseInt(data.created_object_id);
+            this.refreshMealPlan$.next();
+          });
+        }
+      });
+    });
   }
 
   onDrop(event: DndDropEvent, day: Date) {

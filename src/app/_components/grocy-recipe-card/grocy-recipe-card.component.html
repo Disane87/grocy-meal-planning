@@ -1,34 +1,104 @@
-<div
-  [class]="meal?.userfields?.ai_planned == '1' ? 'p-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg shadow-lg' : 'border border-gray-200 rounded-lg shadow-lg hover:border-blue-400 hover:bg-blue-200'">
+<!-- Mobile: Swipe-to-reveal actions -->
+<div class="md:hidden relative overflow-hidden rounded-lg"
+  [ngClass]="meal?.userfields?.ai_planned == '1' ? 'ring-2 ring-indigo-400/50' : 'ring-1 ring-black/[0.06] dark:ring-white/[0.08]'">
   @if (recipe) {
-  <div class="max-w-sm bg-white rounded-lg overflow-hidden group recipe" [class.opacity-50]="meal?.done"
-    [class.line-through]="meal?.done" [dndDraggable]="{ recipe, meal }"
-    [dndEffectAllowed]="$any(draggable.effectAllowed)" [dndDisableIf]="draggable.disable">
-    @if (recipe.picture_file_name) {
+  <!-- Swipe action buttons (behind the card) -->
+  <div class="absolute right-0 top-0 bottom-0 flex flex-row items-stretch z-0">
+    @if (meal && meal.done == 0) {
+    <button type="button" (click)="onSwipeAction('done')" title="Done"
+      class="bg-emerald-500 text-white flex items-center justify-center w-[50px]">
+      <mat-icon svgIcon="check"></mat-icon>
+    </button>
+    }
+    @if (meal && meal.done == 0) {
+    <button type="button" (click)="onSwipeAction('delete')" title="Delete"
+      class="bg-rose-500 text-white flex items-center justify-center w-[50px]">
+      <mat-icon svgIcon="delete-outline"></mat-icon>
+    </button>
+    }
+    <button type="button" (click)="onSwipeAction('open')" title="Open"
+      class="bg-sky-500 text-white flex items-center justify-center w-[50px]">
+      <mat-icon svgIcon="open-in-app"></mat-icon>
+    </button>
+  </div>
+
+  <!-- Swipeable card content -->
+  <div class="relative z-10 card-surface rounded-lg overflow-hidden"
+    [class.opacity-40]="meal?.done"
+    [style.transform]="'translateX(' + swipeOffset + 'px)'"
+    [style.transition]="swipeOffset === 0 || swipeOffset === -150 ? 'transform 0.2s ease-out' : 'none'"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd()">
     <div class="relative">
-      <img class="w-full aspect-video object-cover"
-        [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" alt="Sunset in the mountains">
+      @if (recipe.picture_file_name) {
+      <img class="w-full h-20 object-cover"
+        [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
+      } @else {
+      <div class="w-full h-20 bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-700 dark:to-stone-800"></div>
+      }
       @if (meal?.userfields?.ai_planned == '1') {
-      <div
-        class="flex-row absolute top-2 right-2 bg-gradient-to-r from-purple-500/80 to-blue-500/80 backdrop-blur-sm text-white rounded-xl w-8 h-8 shadow-lg flex items-center justify-center border border-white/20">
-        <mat-icon class="!text-lg !leading-none !w-6 !h-6 flex items-center justify-center">auto_awesome</mat-icon>
+      <div class="absolute top-1.5 left-1.5 bg-indigo-500/70 backdrop-blur-sm text-white rounded-full w-5 h-5 flex items-center justify-center">
+        <mat-icon class="!text-xs !leading-none !w-3 !h-3 flex items-center justify-center">auto_awesome</mat-icon>
       </div>
       }
-    </div>
-    }
-    <div class="px-6 py-4 w-full flex" [class.flex-col]="meal" [class.flex-row]="!meal">
-      <div class="overflow-hidden w-full text-ellipsis">{{ recipe.name }}</div>
-      <div class="recipe-controls hidden flex-row group-hover:flex justify-between" [class.mt-4]="meal">
-        @if (meal && meal.done == 0) {
-        <mat-icon class="text-green-400 cursor-pointer" svgIcon="check" (click)="doneMeal(meal)"></mat-icon>
-        }
-        @if (meal && meal.done == 0) {
-        <mat-icon class="text-red-400 cursor-pointer" svgIcon="delete-outline" (click)="deleteMeal(meal)"></mat-icon>
-        }
-        <mat-icon class="cursor-pointer" svgIcon="open-in-app"
-          (click)="openRecipe(meal?.recipe_id || recipe.id)"></mat-icon>
-        <mat-icon dndHandle svgIcon="drag" class="cursor-grab"></mat-icon>
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2.5 pb-1.5 pt-6">
+        <div class="text-white text-xs font-semibold leading-tight truncate drop-shadow-md">{{ recipe.name }}</div>
       </div>
     </div>
   </div>
   }
+</div>
+
+<!-- Desktop: Hover overlay actions -->
+<div class="hidden md:block relative rounded-lg overflow-hidden group"
+  [ngClass]="meal?.userfields?.ai_planned == '1' ? 'ring-2 ring-indigo-400/50' : 'ring-1 ring-black/[0.06] dark:ring-white/[0.08]'">
+  @if (recipe) {
+  <div class="recipe card-surface" [class.opacity-40]="meal?.done"
+    [dndDraggable]="{ recipe, meal }"
+    [dndEffectAllowed]="$any(draggable.effectAllowed)" [dndDisableIf]="draggable.disable">
+    <div class="relative">
+      @if (recipe.picture_file_name) {
+      <img class="w-full aspect-[16/10] object-cover"
+        [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
+      } @else {
+      <div class="w-full aspect-[16/10] bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-700 dark:to-stone-800"></div>
+      }
+
+      @if (meal?.userfields?.ai_planned == '1') {
+      <div class="absolute top-2 left-2 bg-indigo-500/70 backdrop-blur-sm text-white rounded-full w-6 h-6 flex items-center justify-center">
+        <mat-icon class="!text-sm !leading-none !w-4 !h-4 flex items-center justify-center">auto_awesome</mat-icon>
+      </div>
+      }
+
+      <!-- Action buttons overlay (top-right, on hover) -->
+      <div class="absolute top-0 right-0 p-1.5 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        @if (meal && meal.done == 0) {
+        <button type="button" (click)="doneMeal(meal)" title="Done"
+          class="action-pill hover:!bg-emerald-500 hover:!text-white">
+          <mat-icon class="!text-sm !w-4 !h-4 text-emerald-600" svgIcon="check"></mat-icon>
+        </button>
+        }
+        @if (meal && meal.done == 0) {
+        <button type="button" (click)="deleteMeal(meal)" title="Delete"
+          class="action-pill hover:!bg-rose-500 hover:!text-white">
+          <mat-icon class="!text-sm !w-4 !h-4 text-rose-500" svgIcon="delete-outline"></mat-icon>
+        </button>
+        }
+        <button type="button" (click)="openRecipe(meal?.recipe_id || recipe.id)" title="Open"
+          class="action-pill hover:!bg-sky-500 hover:!text-white">
+          <mat-icon class="!text-sm !w-4 !h-4 text-sky-600" svgIcon="open-in-app"></mat-icon>
+        </button>
+        <div dndHandle class="action-pill cursor-grab">
+          <mat-icon class="!text-sm !w-4 !h-4 text-stone-400" svgIcon="drag"></mat-icon>
+        </div>
+      </div>
+
+      <!-- Text overlay at bottom -->
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2.5 pt-8">
+        <div class="text-white text-sm font-semibold leading-tight truncate drop-shadow-md">{{ recipe.name }}</div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

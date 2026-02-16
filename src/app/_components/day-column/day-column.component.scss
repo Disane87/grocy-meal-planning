@@ -1,5 +1,9 @@
 :host {
     display: flex;
-    flex: 1 1 0%;
+    flex: none;
     min-width: 0;
+
+    @media (min-width: 768px) {
+        flex: 1 1 0%;
+    }
 }

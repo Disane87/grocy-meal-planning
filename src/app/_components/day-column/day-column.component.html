@@ -1,24 +1,36 @@
-<div class="day flex-1 hover:bg-stone-50 overflow-hidden flex flex-col w-1/7" [ngClass]="{
-    'bg-green-50': day | isToday,
-    'bg-red-50': (day | isWeekend) && !(day | isToday),
-    'bg-gray-100': !(day | isWeekend) && !(day | isToday)
+<div class="day flex-none md:flex-1 overflow-hidden flex flex-col w-full md:w-1/7 md:border-b-0
+  rounded-xl md:rounded-none shadow-sm md:shadow-none mb-2 md:mb-0" [ngClass]="{
+    'day-today': day | isToday,
+    'day-weekend': (day | isWeekend) && !(day | isToday),
+    'day-normal': !(day | isWeekend) && !(day | isToday)
   }">
-  <div class="flex flex-col p-4 w-full text-center border-b days-header" [ngClass]="{
-      'text-green-600': day | isToday,
-      'text-red-600': (day | isWeekend) && !(day | isToday)
+  <div class="flex flex-row md:flex-col px-3 py-2 md:p-4 w-full md:text-center days-header items-center md:items-stretch" [ngClass]="{
+      'header-today': day | isToday,
+      'header-weekend': (day | isWeekend) && !(day | isToday)
     }">
-    <div class="w-full font-bold">{{ day | date:'EEEE' }}</div>
-    {{ day | date:'d. MMM yyyy'}}
+    <div class="font-semibold mr-2 md:mr-0 md:w-full">{{ day | date:'EEEE' }}</div>
+    <div class="text-sm md:text-base opacity-50">{{ day | date:'d. MMM yyyy'}}</div>
+    <button type="button" (click)="onAddRecipe()" class="md:hidden ml-auto add-recipe-btn p-2 rounded-full flex items-center justify-center min-w-[44px] min-h-[44px]"
+      [title]="'ADD_RECIPE' | transloco">
+      <mat-icon svgIcon="plus"></mat-icon>
+    </button>
   </div>
-  <div class="flex flex-col gap-y-2 p-4 w-full meals flex-1 overflow-auto" [id]="day.toISOString()">
+  @if (plannedMeals.length > 0) {
+  <div class="flex flex-row md:flex-col gap-2 px-3 pb-3 md:p-4 w-full meals md:flex-1 overflow-x-auto md:overflow-x-hidden overflow-y-hidden md:overflow-y-auto" [id]="day.toISOString()">
     @for (plannedMeal of plannedMeals; track plannedMeal.id) {
-    <div>
+    <div class="min-w-[150px] md:min-w-0">
       @if (plannedMeal.recipe_id && (plannedMeal.recipe_id | getRecipe:recipes); as recipe) {
       <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal"></app-grocy-recipe-card>
       }
     </div>
     }
+    <div class="dropzone hidden md:block h-full min-h-32" dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)">
+    </div>
+  </div>
+  } @else {
+  <div class="hidden md:flex flex-col gap-y-2 p-4 w-full meals flex-1 overflow-auto" [id]="day.toISOString()">
     <div class="dropzone h-full min-h-32" dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)">
     </div>
   </div>
+  }
 </div>

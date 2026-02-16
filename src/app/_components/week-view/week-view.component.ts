@@ -19,6 +19,7 @@ export class WeekViewComponent implements OnChanges {
 
   @Output() dragOver = new EventEmitter<{ event: DragEvent, day: Date }>();
   @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date }>();
+  @Output() addRecipe = new EventEmitter<Date>();
 
   weeks: Array<{ weekStart: Dayjs, weekNumber: number }> = [];
   mealsByDay: Map<string, Partial<Meal>[]> = new Map();
@@ -66,5 +67,9 @@ export class WeekViewComponent implements OnChanges {
 
   onDrop(event: { event: DndDropEvent, day: Date }) {
     this.drop.emit(event);
+  }
+
+  onAddRecipe(day: Date) {
+    this.addRecipe.emit(day);
   }
 }
