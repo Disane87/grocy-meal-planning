@@ -1,3 +1,8 @@
+## [0.4.3](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.2...v0.4.3) (2026-02-16)
+
+### Bug Fixes
+
+* restore mobile scrolling broken by safe area insets ([9408b90](https://github.com/Disane87/grocy-meal-planning/commit/9408b90842d884d718cc78df053cc3b99059a7af))
 ## [0.4.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.1...v0.4.2) (2026-02-16)
 
 ### Bug Fixes
