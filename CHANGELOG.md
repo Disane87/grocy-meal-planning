@@ -1,3 +1,8 @@
+## [0.4.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.3.0...v0.4.0) (2026-02-16)
+
+### Features
+
+* enhance recipe picker and sidebar with refresh functionality and UI improvements ([5044e6e](https://github.com/Disane87/grocy-meal-planning/commit/5044e6e27c412d707aee4b480ba4745b456b1b03))
 ## [0.3.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.2.2...v0.3.0) (2026-02-16)
 
 ### Features

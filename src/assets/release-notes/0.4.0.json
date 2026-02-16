@@ -1,0 +1,19 @@
+{
+  "version": "0.4.0",
+  "date": "2026-02-16T12:18:56.425Z",
+  "features": [
+    "enhance recipe picker and sidebar with refresh functionality and UI improvements",
+    "add recipe picker sheet component with search functionality"
+  ],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning",
+    "chore(release): 0.3.0",
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning"
+  ]
+}
