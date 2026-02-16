@@ -7,7 +7,7 @@
         </app-scheduler-controls>
     </div>
 </div>
-<div class="flex flex-col h-full overflow-hidden">
+<div class="flex flex-col flex-1 min-h-0 overflow-hidden">
     <app-week-view [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek" [mealPlan]="mealPlan"
         [recipes]="recipes" (dragOver)="onDragOver($event)" (drop)="onDrop($event)"
         (addRecipe)="onAddRecipe($event)">

@@ -543,6 +543,7 @@ html, body {
 /* Bottom safe area inside the scrollable weeks container */
 .weeks {
   padding-bottom: env(safe-area-inset-bottom);
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Hot toast notifications — offset from safe area top */
