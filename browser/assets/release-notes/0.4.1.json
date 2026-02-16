@@ -1,0 +1,25 @@
+{
+  "version": "0.4.1",
+  "date": "2026-02-16T12:33:54.384Z",
+  "features": [
+    "enhance recipe picker and sidebar with refresh functionality and UI improvements",
+    "add recipe picker sheet component with search functionality"
+  ],
+  "fixes": [
+    "add iOS Safari safe area support for notch/Dynamic Island/home indicator"
+  ],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [
+    "update package-lock.json"
+  ],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "Merge pull request #9 from Disane87/claude/fix-ios-safari-layout-BSd3i",
+    "chore(release): 0.4.0",
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning",
+    "chore(release): 0.3.0",
+    "Merge branch 'main' of https://github.com/Disane87/grocy-meal-planning"
+  ]
+}
