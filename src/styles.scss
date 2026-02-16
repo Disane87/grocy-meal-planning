@@ -529,14 +529,23 @@ html, body {
    For devices with notch / Dynamic Island / home indicator
    ============================================= */
 
-/* Main app shell: pad for safe areas on all edges */
-.flex.flex-col.md\:flex-row.w-screen.h-screen {
-  /* Top padding for notch / Dynamic Island */
-  padding-top: env(safe-area-inset-top);
-  /* Bottom padding for home indicator */
-  padding-bottom: env(safe-area-inset-bottom);
-  /* Left/Right for landscape orientation */
-  padding-left: env(safe-area-inset-left);
+/* Header controls — push down below notch / Dynamic Island */
+.info > .controls {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+/* Footer bar (grocy version) — push up above home indicator */
+app-scheduler > .flex > .border-t {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Sidebar (desktop landscape) — left safe area */
+.recipes {
+  padding-left: max(1rem, env(safe-area-inset-left));
+}
+
+/* Scheduler right edge (desktop landscape) */
+.scheduler {
   padding-right: env(safe-area-inset-right);
 }
 
