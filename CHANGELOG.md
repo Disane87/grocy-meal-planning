@@ -1,3 +1,8 @@
+## [0.4.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.0...v0.4.1) (2026-02-16)
+
+### Bug Fixes
+
+* add iOS Safari safe area support for notch/Dynamic Island/home indicator ([5416f74](https://github.com/Disane87/grocy-meal-planning/commit/5416f74179cd544b7c97fcff788f5a6760adbc3e))
 ## [0.4.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.3.0...v0.4.0) (2026-02-16)
 
 ### Features
