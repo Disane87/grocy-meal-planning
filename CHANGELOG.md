@@ -1,3 +1,8 @@
+## [0.5.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.5.0...v0.5.1) (2026-02-17)
+
+### Bug Fixes
+
+* set background-color on html element for iOS safe zone in dark mode ([67764b4](https://github.com/Disane87/grocy-meal-planning/commit/67764b4b7268931b44ec50895611c3426bd6b83a))
 ## [0.5.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.4.3...v0.5.0) (2026-02-16)
 
 ### Features
