@@ -19,7 +19,10 @@
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   }
 
-  html { color-scheme: light; }
+  html {
+    color-scheme: light;
+    background-color: #fafaf9;
+  }
 
   body {
     background-color: #fafaf9;
@@ -42,6 +45,7 @@
    ============================================= */
 .light {
   color-scheme: light;
+  background-color: #fafaf9 !important;
 
   body {
     background-color: #fafaf9 !important;
@@ -295,6 +299,7 @@ app-theme-toggle .dropdown-menu {
    ============================================= */
 .dark {
   color-scheme: dark;
+  background-color: #0c0a09 !important;
 
   * { border-color: #292524 !important; }
 
