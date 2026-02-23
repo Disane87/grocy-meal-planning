@@ -12,6 +12,7 @@ export class RecipeSidebarComponent {
   @Input() recipeSearch: string | null = null;
   @Output() recipeSearchChange = new EventEmitter<string | null>();
   @Output() refreshRecipes = new EventEmitter<void>();
+  @Output() importRecipe = new EventEmitter<void>();
 
   onRecipeSearchChange(value: string) {
     this.recipeSearch = value;
@@ -20,5 +21,9 @@ export class RecipeSidebarComponent {
 
   onRefreshRecipes() {
     this.refreshRecipes.emit();
+  }
+
+  onImportRecipe() {
+    this.importRecipe.emit();
   }
 }

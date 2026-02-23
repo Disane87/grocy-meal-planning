@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
+import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
 import { take } from 'rxjs';
 
 @Component({
@@ -140,6 +141,21 @@ export class AppComponent implements OnInit {
 
   onRefreshRecipes() {
     this.refreshRecipes$.next();
+  }
+
+  onImportRecipe() {
+    const dialogRef = this.dialog.open(RecipeImportDialogComponent, {
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      width: '500px',
+      panelClass: 'recipe-import-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((saved: boolean) => {
+      if (saved) {
+        this.refreshRecipes$.next();
+      }
+    });
   }
 
   onAddRecipe(day: Date) {

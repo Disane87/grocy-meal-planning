@@ -141,6 +141,29 @@ export class GrocyService {
     return this.httpRequest(request).pipe(tap(() => this.loadMealPlan()));
   }
 
+  createRecipe(recipe: {
+    name: string;
+    description: string;
+    base_servings: number;
+  }): Observable<{ created_object_id: string }> {
+    const request = () =>
+      this.httpClient
+        .post<{ created_object_id: string }>(
+          `${this.GROCY_API_URL}objects/recipes`,
+          { ...recipe, type: 'normal' },
+          this.GROCY_HEADER
+        )
+        .pipe(
+          this.hotToastService.observe({
+            loading: this.translocoService.translate('RECIPE_IMPORT.SAVING'),
+            success: this.translocoService.translate('RECIPE_IMPORT.SAVED'),
+            error: this.translocoService.translate('RECIPE_IMPORT.SAVE_ERROR'),
+          }),
+          catchError((error) => of(error))
+        );
+    return this.httpRequest(request);
+  }
+
   getRecipes(): Observable<Array<Recipe>> {
     const request = () =>
       this.httpClient

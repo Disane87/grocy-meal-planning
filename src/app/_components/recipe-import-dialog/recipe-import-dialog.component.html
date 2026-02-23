@@ -1,0 +1,88 @@
+<div class="import-dialog p-6 flex flex-col gap-5 min-w-[320px] max-w-lg">
+    <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold">{{ 'RECIPE_IMPORT.TITLE' | transloco }}</h2>
+        <button type="button" (click)="close()" class="control-btn !rounded-full !p-1">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+
+    <p class="text-sm text-stone-500">{{ 'RECIPE_IMPORT.SUBTITLE' | transloco }}</p>
+
+    <!-- URL Input -->
+    <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">{{ 'RECIPE_IMPORT.URL_LABEL' | transloco }}</label>
+        <div class="flex flex-row gap-2">
+            <input [(ngModel)]="recipeUrl" type="url" [placeholder]="'RECIPE_IMPORT.URL_PLACEHOLDER' | transloco"
+                class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded flex-1 min-w-0"
+                (keydown.enter)="importRecipe()" />
+            <button type="button" (click)="importRecipe()" [disabled]="!isValidUrl || loading"
+                class="control-btn-primary !rounded !px-4 disabled:opacity-50 disabled:cursor-not-allowed">
+                @if (loading) {
+                <div class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full"></div>
+                } @else {
+                <mat-icon svgIcon="import"></mat-icon>
+                }
+            </button>
+        </div>
+        <span class="text-xs text-stone-400">{{ 'RECIPE_IMPORT.SUPPORTED_SITES' | transloco }}</span>
+    </div>
+
+    <!-- Error -->
+    @if (error) {
+    <div class="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded text-sm">
+        {{ error }}
+    </div>
+    }
+
+    <!-- Parsed Recipe Preview -->
+    @if (parsedRecipe) {
+    <div class="flex flex-col gap-4 border rounded-lg p-4 max-h-[50vh] overflow-auto">
+        <!-- Header with image -->
+        <div class="flex flex-row gap-4 items-start">
+            @if (parsedRecipe.imageUrl) {
+            <img [src]="parsedRecipe.imageUrl" [alt]="parsedRecipe.name"
+                class="w-24 h-24 object-cover rounded-lg shrink-0" />
+            }
+            <div class="flex flex-col gap-1 min-w-0">
+                <h3 class="text-lg font-semibold truncate">{{ parsedRecipe.name }}</h3>
+                @if (parsedRecipe.description) {
+                <p class="text-sm text-stone-500 line-clamp-2">{{ parsedRecipe.description }}</p>
+                }
+                <span class="text-xs text-stone-400">{{ 'RECIPE_IMPORT.SERVINGS' | transloco }}:
+                    {{ parsedRecipe.servings }}</span>
+            </div>
+        </div>
+
+        <!-- Ingredients -->
+        @if (parsedRecipe.ingredients.length > 0) {
+        <div class="flex flex-col gap-1">
+            <h4 class="text-sm font-semibold">{{ 'RECIPE_IMPORT.INGREDIENTS' | transloco }}</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside">
+                @for (ingredient of parsedRecipe.ingredients; track ingredient) {
+                <li>{{ ingredient }}</li>
+                }
+            </ul>
+        </div>
+        }
+
+        <!-- Instructions -->
+        @if (parsedRecipe.instructions) {
+        <div class="flex flex-col gap-1">
+            <h4 class="text-sm font-semibold">{{ 'RECIPE_IMPORT.INSTRUCTIONS' | transloco }}</h4>
+            <p class="text-sm text-stone-600 whitespace-pre-line">{{ parsedRecipe.instructions }}</p>
+        </div>
+        }
+    </div>
+
+    <!-- Save button -->
+    <button type="button" (click)="saveToGrocy()" [disabled]="saving"
+        class="control-btn-primary !rounded !py-3 !px-4 justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+        @if (saving) {
+        <div class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full"></div>
+        } @else {
+        <mat-icon svgIcon="content-save-outline"></mat-icon>
+        }
+        <span>{{ 'RECIPE_IMPORT.SAVE_TO_GROCY' | transloco }}</span>
+    </button>
+    }
+</div>

@@ -59,5 +59,22 @@
     "DARK": "Dark",
     "SYSTEM": "System",
     "TOGGLE": "Toggle theme"
+  },
+  "RECIPE_IMPORT": {
+    "TITLE": "Import recipe",
+    "SUBTITLE": "Import recipes from Chefkoch or Picnic directly into your Grocy instance.",
+    "URL_LABEL": "Recipe URL",
+    "URL_PLACEHOLDER": "https://www.chefkoch.de/rezepte/...",
+    "SUPPORTED_SITES": "Supported: chefkoch.de, picnic.app",
+    "IMPORT": "Import",
+    "INGREDIENTS": "Ingredients",
+    "INSTRUCTIONS": "Instructions",
+    "SERVINGS": "Servings",
+    "SAVE_TO_GROCY": "Save to Grocy",
+    "SAVING": "Saving recipe...",
+    "SAVED": "Recipe saved to Grocy",
+    "SAVE_ERROR": "Error saving recipe",
+    "FETCH_ERROR": "Error loading recipe",
+    "INVALID_URL": "Please enter a valid URL from Chefkoch or Picnic"
   }
 }

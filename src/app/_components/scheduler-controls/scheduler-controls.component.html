@@ -29,6 +29,10 @@
         class="control-btn">
         <mat-icon svgIcon="chevron-right"></mat-icon>
     </button>
+    <button type="button" (click)="onImportRecipe()" [title]="'RECIPE_IMPORT.TITLE' | transloco"
+        class="control-btn-primary md:hidden">
+        <mat-icon svgIcon="link-plus"></mat-icon>
+    </button>
     <div class="relative">
         <button type="button" (click)="onShare()" title="Teilen"
             class="control-btn">

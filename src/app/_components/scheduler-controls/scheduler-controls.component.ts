@@ -16,6 +16,7 @@ export class SchedulerControlsComponent {
   @Output() weekChange = new EventEmitter<number>();
   @Output() resetConfig = new EventEmitter<void>();
   @Output() refreshRecipes = new EventEmitter<void>();
+  @Output() importRecipe = new EventEmitter<void>();
 
   shareTooltip = '';
 
@@ -35,6 +36,10 @@ export class SchedulerControlsComponent {
 
   onRefreshRecipes() {
     this.refreshRecipes.emit();
+  }
+
+  onImportRecipe() {
+    this.importRecipe.emit();
   }
 
   async onShare() {

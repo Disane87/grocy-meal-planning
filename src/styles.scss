@@ -590,6 +590,33 @@ html, body {
   border-radius: 1rem !important;
 }
 
+/* ── Recipe Import Dialog ── */
+.recipe-import-dialog .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 1rem !important;
+  overflow: hidden;
+}
+.recipe-import-dialog .mat-mdc-dialog-surface {
+  border-radius: 1rem !important;
+}
+.dark .recipe-import-dialog .mat-mdc-dialog-container,
+.dark .recipe-import-dialog .mat-mdc-dialog-surface {
+  background-color: #1c1917 !important;
+  color: #e7e5e4 !important;
+}
+.dark .recipe-import-dialog .text-stone-500 {
+  color: #a8a29e !important;
+}
+.dark .recipe-import-dialog .text-stone-400 {
+  color: #78716c !important;
+}
+.dark .recipe-import-dialog .text-stone-600 {
+  color: #d6d3d1 !important;
+}
+.dark .recipe-import-dialog .border {
+  border-color: #3f3f46 !important;
+}
+
 /* ── Recipe Picker Bottom Sheet ── */
 .recipe-picker-bottom-sheet {
   max-height: 80vh !important;

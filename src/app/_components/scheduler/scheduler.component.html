@@ -3,7 +3,8 @@
         <app-scheduler-controls [selectedMealPlanSection]="selectedMealPlanSection"
             [mealPlanSections]="mealPlanSections" (sectionChange)="onSectionChange($event)"
             (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()"
-            (refreshRecipes)="onRefreshRecipes()">
+            (refreshRecipes)="onRefreshRecipes()"
+            (importRecipe)="onImportRecipe()">
         </app-scheduler-controls>
     </div>
 </div>
