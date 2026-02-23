@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
+import { switchMap, catchError, of } from 'rxjs';
 import { RecipeImportService } from '../../services/recipe-import.service';
 import { GrocyService } from '../../grocy.service';
 import { ParsedRecipe } from '../../interfaces/parsed-recipe.interface';
@@ -19,6 +21,7 @@ export class RecipeImportDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<RecipeImportDialogComponent>,
+    private httpClient: HttpClient,
     private recipeImportService: RecipeImportService,
     private grocyService: GrocyService
   ) {}
@@ -49,7 +52,18 @@ export class RecipeImportDialogComponent {
         this.loading = false;
       },
       error: (err) => {
-        this.error = err.message || 'Fehler beim Laden des Rezepts';
+        if (err.status === 0) {
+          this.error = 'API nicht erreichbar. Läuft der Dev-Server? (npm run dev:api)';
+        } else if (err.error && typeof err.error === 'string') {
+          try {
+            const parsed = JSON.parse(err.error);
+            this.error = parsed.error || `Fehler ${err.status}: ${err.statusText}`;
+          } catch {
+            this.error = err.error;
+          }
+        } else {
+          this.error = err.message || `Fehler beim Laden des Rezepts (${err.status})`;
+        }
         this.loading = false;
       },
     });
@@ -59,15 +73,25 @@ export class RecipeImportDialogComponent {
     if (!this.parsedRecipe) return;
 
     this.saving = true;
-
-    const description = this.buildGrocyDescription(this.parsedRecipe);
+    const recipe = this.parsedRecipe;
+    const description = this.buildGrocyDescription(recipe);
 
     this.grocyService
       .createRecipe({
-        name: this.parsedRecipe.name,
+        name: recipe.name,
         description,
-        base_servings: this.parsedRecipe.servings,
+        base_servings: recipe.servings,
       })
+      .pipe(
+        switchMap((result) => {
+          const recipeId = result?.created_object_id;
+          if (!recipeId || !recipe.imageUrl) {
+            return of(null);
+          }
+          return this.uploadRecipeImage(recipeId, recipe.imageUrl);
+        }),
+        catchError(() => of(null))
+      )
       .subscribe({
         next: () => {
           this.saving = false;
@@ -77,6 +101,29 @@ export class RecipeImportDialogComponent {
           this.saving = false;
         },
       });
+  }
+
+  private uploadRecipeImage(recipeId: string, imageUrl: string) {
+    const ext = imageUrl.match(/\.(jpe?g|png|webp|gif)/i)?.[1] || 'jpg';
+    const fileName = `recipe_${recipeId}.${ext}`;
+
+    // Fetch image through proxy to avoid CORS issues
+    return this.httpClient
+      .get('/api/fetch-image', {
+        params: { url: imageUrl },
+        responseType: 'arraybuffer',
+      })
+      .pipe(
+        switchMap((imageData) =>
+          this.grocyService.uploadRecipePicture(fileName, imageData)
+            .pipe(
+              switchMap(() =>
+                this.grocyService.updateRecipe(recipeId, { picture_file_name: fileName })
+              )
+            )
+        ),
+        catchError(() => of(null)) // Don't fail the whole save if image upload fails
+      );
   }
 
   private buildGrocyDescription(recipe: ParsedRecipe): string {

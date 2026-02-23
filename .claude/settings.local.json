@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(npx ng build:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "WebFetch(domain:www.chefkoch.de)",
+      "Bash(netstat:*)",
+      "WebFetch(domain:picnic.app)",
+      "Bash(node extract-jsonld.mjs:*)",
+      "Bash(node test-picnic-parse.mjs:*)"
     ]
   }
 }

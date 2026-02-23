@@ -2,7 +2,10 @@ export const config = {
   runtime: 'edge',
 };
 
-const ALLOWED_HOSTS = ['www.chefkoch.de', 'chefkoch.de', 'picnic.app'];
+const ALLOWED_IMAGE_HOSTS = [
+  'img.chefkoch-cdn.de',
+  'storefront-prod.de.picnicinternational.com',
+];
 
 export default async function handler(request) {
   if (request.method === 'OPTIONS') {
@@ -36,9 +39,9 @@ export default async function handler(request) {
     });
   }
 
-  if (!ALLOWED_HOSTS.includes(parsedUrl.hostname)) {
+  if (!ALLOWED_IMAGE_HOSTS.includes(parsedUrl.hostname)) {
     return new Response(
-      JSON.stringify({ error: `Host not allowed: ${parsedUrl.hostname}. Allowed: ${ALLOWED_HOSTS.join(', ')}` }),
+      JSON.stringify({ error: `Host not allowed: ${parsedUrl.hostname}` }),
       {
         status: 403,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
@@ -50,22 +53,14 @@ export default async function handler(request) {
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-        'Accept-Language': 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Cache-Control': 'no-cache',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Upgrade-Insecure-Requests': '1',
+        'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
       },
       redirect: 'follow',
     });
 
     if (!response.ok) {
       return new Response(
-        JSON.stringify({ error: `Failed to fetch recipe: ${response.status} ${response.statusText}` }),
+        JSON.stringify({ error: `Failed to fetch image: ${response.status}` }),
         {
           status: 502,
           headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
@@ -73,14 +68,15 @@ export default async function handler(request) {
       );
     }
 
-    const html = await response.text();
+    const contentType = response.headers.get('Content-Type') || 'image/jpeg';
+    const imageData = await response.arrayBuffer();
 
-    return new Response(html, {
+    return new Response(imageData, {
       status: 200,
       headers: {
-        'Content-Type': 'text/html; charset=utf-8',
+        'Content-Type': contentType,
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'public, max-age=300',
+        'Cache-Control': 'public, max-age=3600',
       },
     });
   } catch (err) {

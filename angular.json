@@ -82,7 +82,8 @@
           "builder": "@angular/build:dev-server",
           "options": {
             "ssl": false,
-            "open": true
+            "open": true,
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

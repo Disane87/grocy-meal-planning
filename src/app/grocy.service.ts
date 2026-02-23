@@ -164,6 +164,38 @@ export class GrocyService {
     return this.httpRequest(request);
   }
 
+  updateRecipe(
+    recipeId: string,
+    data: Partial<Record<string, any>>
+  ): Observable<any> {
+    const request = () =>
+      this.httpClient.put(
+        `${this.GROCY_API_URL}objects/recipes/${recipeId}`,
+        data,
+        this.GROCY_HEADER
+      );
+    return this.httpRequest(request);
+  }
+
+  uploadRecipePicture(
+    fileName: string,
+    imageData: ArrayBuffer
+  ): Observable<any> {
+    const request = () =>
+      this.httpClient.put(
+        `${this.GROCY_API_URL}files/recipepictures/${btoa(fileName)}`,
+        imageData,
+        {
+          ...this.GROCY_HEADER,
+          headers: {
+            ...(this.GROCY_HEADER as any)?.headers,
+            'Content-Type': 'application/octet-stream',
+          },
+        }
+      );
+    return this.httpRequest(request);
+  }
+
   getRecipes(): Observable<Array<Recipe>> {
     const request = () =>
       this.httpClient
