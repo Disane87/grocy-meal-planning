@@ -11,6 +11,7 @@ import {
   catchError,
   of,
   distinctUntilChanged,
+  shareReplay,
 } from 'rxjs';
 import { AppConfigService } from './appconfig.service'; // Adjust this import based on your actual file paths
 import { MealPlanSection } from './interfaces/meal-plan-section.interface';
@@ -30,6 +31,10 @@ export class GrocyService {
 
   private GROCY_HEADER: Object | undefined;
   private mealPlanSubject$ = new BehaviorSubject<Array<Partial<Meal>>>([]);
+
+  private imageCache = new Map<string, string>();
+  private imagePending = new Map<string, Observable<string>>();
+  private recipesCache$: Observable<Array<Recipe>> | null = null;
 
   public grocySystemInfo$ = new BehaviorSubject<GrocySystemInfo | null>(null);
 
@@ -197,25 +202,43 @@ export class GrocyService {
   }
 
   getRecipes(): Observable<Array<Recipe>> {
-    const request = () =>
-      this.httpClient
-        .get<Array<Recipe>>(
-          `${this.GROCY_API_URL}objects/recipes`,
-          this.GROCY_HEADER
-        )
-        .pipe(
-          this.hotToastService.observe({
-            loading: this.translocoService.translate('LOADING_RECIPES'),
-            success: this.translocoService.translate('RECIPES_LOADED'),
-            error: this.translocoService.translate('RECIPES_LOADING_ERROR'),
-          }),
-          map((recipes) => recipes.filter((recipe) => recipe.type == 'normal')),
-          catchError((error) => of(error))
-        );
-    return this.httpRequest(request).pipe();
+    if (!this.recipesCache$) {
+      const request = () =>
+        this.httpClient
+          .get<Array<Recipe>>(
+            `${this.GROCY_API_URL}objects/recipes`,
+            this.GROCY_HEADER
+          )
+          .pipe(
+            this.hotToastService.observe({
+              loading: this.translocoService.translate('LOADING_RECIPES'),
+              success: this.translocoService.translate('RECIPES_LOADED'),
+              error: this.translocoService.translate('RECIPES_LOADING_ERROR'),
+            }),
+            map((recipes) => recipes.filter((recipe) => recipe.type == 'normal')),
+            catchError((error) => of(error))
+          );
+      this.recipesCache$ = this.httpRequest(request).pipe(shareReplay(1));
+    }
+    return this.recipesCache$;
+  }
+
+  invalidateRecipesCache(): void {
+    this.recipesCache$ = null;
   }
 
   getGrocyImage(fileGroup: string, fileName: string): Observable<string> {
+    const cacheKey = `${fileGroup}/${fileName}`;
+    const cached = this.imageCache.get(cacheKey);
+    if (cached) {
+      return of(cached);
+    }
+
+    const pending = this.imagePending.get(cacheKey);
+    if (pending) {
+      return pending;
+    }
+
     const request = () =>
       this.httpClient.get(
         `${this.GROCY_API_URL}files/${fileGroup}/${btoa(fileName)}`,
@@ -224,7 +247,16 @@ export class GrocyService {
           responseType: 'blob',
         }
       );
-    return this.httpRequest(request).pipe(map((e) => URL.createObjectURL(e)));
+    const image$ = this.httpRequest(request).pipe(
+      map((e) => URL.createObjectURL(e)),
+      tap((url) => {
+        this.imageCache.set(cacheKey, url);
+        this.imagePending.delete(cacheKey);
+      }),
+      shareReplay(1)
+    );
+    this.imagePending.set(cacheKey, image$);
+    return image$;
   }
 
   getMealPlanSections(): Observable<Array<MealPlanSection>> {

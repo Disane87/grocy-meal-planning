@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DarkModeService, Theme } from '../../services/dark-mode.service';
 
 @Component({
     selector: 'app-theme-toggle',
     standalone: false,
-    templateUrl: './theme-toggle.component.html'
+    templateUrl: './theme-toggle.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeToggleComponent {
     protected readonly darkModeService = inject(DarkModeService);

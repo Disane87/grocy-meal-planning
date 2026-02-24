@@ -4,8 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "dev": "node dev-server.mjs & ng serve",
-    "dev:api": "node dev-server.mjs",
+    "dev": "cd server && npm run dev & ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

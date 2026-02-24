@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DarkModeService, Theme } from '../../services/dark-mode.service';
 
 @Component({
   selector: 'app-dark-mode-toggle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex items-center space-x-2">
       <!-- Theme Selector Dropdown -->

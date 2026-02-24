@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
 import { switchMap, catchError, of } from 'rxjs';
@@ -11,6 +11,7 @@ import { ParsedRecipe } from '../../interfaces/parsed-recipe.interface';
   templateUrl: './recipe-import-dialog.component.html',
   styleUrl: './recipe-import-dialog.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeImportDialogComponent {
   recipeUrl = '';
@@ -32,7 +33,8 @@ export class RecipeImportDialogComponent {
       const url = new URL(this.recipeUrl);
       return (
         url.hostname.includes('chefkoch.de') ||
-        url.hostname.includes('picnic.app')
+        url.hostname.includes('picnic.app') ||
+        url.hostname.includes('cookidoo.de')
       );
     } catch {
       return false;

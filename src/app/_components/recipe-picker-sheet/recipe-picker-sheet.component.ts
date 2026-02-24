@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Recipe } from '../../interfaces/recipe.interface';
 
@@ -7,6 +7,7 @@ import { Recipe } from '../../interfaces/recipe.interface';
   standalone: false,
   templateUrl: './recipe-picker-sheet.component.html',
   styleUrl: './recipe-picker-sheet.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipePickerSheetComponent {
   recipes: Recipe[];

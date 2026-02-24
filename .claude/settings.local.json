@@ -7,7 +7,9 @@
       "Bash(netstat:*)",
       "WebFetch(domain:picnic.app)",
       "Bash(node extract-jsonld.mjs:*)",
-      "Bash(node test-picnic-parse.mjs:*)"
+      "Bash(node test-picnic-parse.mjs:*)",
+      "WebFetch(domain:cookidoo.de)",
+      "Bash(node test-cookidoo.mjs:*)"
     ]
   }
 }

@@ -62,10 +62,10 @@
   },
   "RECIPE_IMPORT": {
     "TITLE": "Rezept importieren",
-    "SUBTITLE": "Importiere Rezepte von Chefkoch oder Picnic direkt in deine Grocy-Instanz.",
+    "SUBTITLE": "Importiere Rezepte von Chefkoch, Picnic oder Cookidoo direkt in deine Grocy-Instanz.",
     "URL_LABEL": "Rezept-URL",
     "URL_PLACEHOLDER": "https://www.chefkoch.de/rezepte/...",
-    "SUPPORTED_SITES": "Unterstützt: chefkoch.de, picnic.app",
+    "SUPPORTED_SITES": "Unterstützt: chefkoch.de, picnic.app, cookidoo.de",
     "IMPORT": "Importieren",
     "INGREDIENTS": "Zutaten",
     "INSTRUCTIONS": "Zubereitung",
@@ -75,6 +75,6 @@
     "SAVED": "Rezept wurde in Grocy gespeichert",
     "SAVE_ERROR": "Fehler beim Speichern des Rezepts",
     "FETCH_ERROR": "Fehler beim Laden des Rezepts",
-    "INVALID_URL": "Bitte eine gültige URL von Chefkoch oder Picnic eingeben"
+    "INVALID_URL": "Bitte eine gültige URL von Chefkoch, Picnic oder Cookidoo eingeben"
   }
 }

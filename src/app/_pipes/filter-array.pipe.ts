@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'filterArray',
   standalone: false,
-  pure: false
+  pure: true
 })
 export class FilterArrayPipe<T> implements PipeTransform {
 

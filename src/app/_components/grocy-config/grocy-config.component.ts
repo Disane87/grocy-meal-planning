@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@angular/core';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { catchError, of, tap, throwError } from 'rxjs';
 import { AppConfigService } from '../../appconfig.service';
@@ -8,7 +8,8 @@ import { GrocyService } from '../../grocy.service';
   selector: 'app-grocy-config',
   templateUrl: './grocy-config.component.html',
   styleUrl: './grocy-config.component.scss',
-  standalone: false
+  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GrocyConfigComponent {
   constructor(

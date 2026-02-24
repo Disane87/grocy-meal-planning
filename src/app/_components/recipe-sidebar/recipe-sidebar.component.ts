@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../interfaces/recipe.interface';
 
 @Component({
@@ -6,6 +6,7 @@ import { Recipe } from '../../interfaces/recipe.interface';
   standalone: false,
   templateUrl: './recipe-sidebar.component.html',
   styleUrl: './recipe-sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeSidebarComponent {
   @Input() recipes: Recipe[] | null = null;

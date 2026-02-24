@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { Meal } from '../../interfaces/meal.interface';
 import { Recipe } from '../../interfaces/recipe.interface';
@@ -11,6 +11,7 @@ import { Dayjs } from 'dayjs';
   standalone: false,
   templateUrl: './scheduler.component.html',
   styleUrl: './scheduler.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SchedulerComponent {
   @Input() currentWeekStart!: Dayjs;

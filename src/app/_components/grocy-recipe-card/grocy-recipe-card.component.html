@@ -32,7 +32,7 @@
     (touchend)="onTouchEnd()">
     <div class="relative">
       @if (recipe.picture_file_name) {
-      <img class="w-full h-20 object-cover"
+      <img class="w-full h-20 object-cover" loading="lazy"
         [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
       } @else {
       <div class="w-full h-20 bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-700 dark:to-stone-800"></div>
@@ -59,7 +59,7 @@
     [dndEffectAllowed]="$any(draggable.effectAllowed)" [dndDisableIf]="draggable.disable">
     <div class="relative">
       @if (recipe.picture_file_name) {
-      <img class="w-full aspect-[16/10] object-cover"
+      <img class="w-full aspect-[16/10] object-cover" loading="lazy"
         [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
       } @else {
       <div class="w-full aspect-[16/10] bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-700 dark:to-stone-800"></div>

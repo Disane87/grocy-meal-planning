@@ -39,7 +39,10 @@ export class AppComponent implements OnInit {
     private bottomSheet: MatBottomSheet
   ) { }
   private refreshRecipes$ = new BehaviorSubject<void>(undefined);
-  recipes$ = this.refreshRecipes$.pipe(switchMap(() => this.grocyService.getRecipes()));
+  recipes$ = this.refreshRecipes$.pipe(switchMap(() => {
+    this.grocyService.invalidateRecipesCache();
+    return this.grocyService.getRecipes();
+  }));
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;
   mealPlanSections$ = this.grocyService.getMealPlanSections();

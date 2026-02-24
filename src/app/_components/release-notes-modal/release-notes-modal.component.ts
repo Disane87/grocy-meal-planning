@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReleaseNote } from '../../interfaces/release-note.interface';
 import { ReleaseNotesService } from '../../services/release-notes.service';
@@ -8,6 +8,7 @@ import { ReleaseNotesService } from '../../services/release-notes.service';
   standalone: false,
   templateUrl: './release-notes-modal.component.html',
   styleUrl: './release-notes-modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseNotesModalComponent implements OnInit {
   releaseNote?: ReleaseNote;

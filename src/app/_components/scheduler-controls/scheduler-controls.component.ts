@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
 import { AppConfigService } from '../../appconfig.service';
 
@@ -7,6 +7,7 @@ import { AppConfigService } from '../../appconfig.service';
   standalone: false,
   templateUrl: './scheduler-controls.component.html',
   styleUrl: './scheduler-controls.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SchedulerControlsComponent {
   @Input() selectedMealPlanSection: number | null = null;
