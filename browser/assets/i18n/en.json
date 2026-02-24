@@ -30,6 +30,7 @@
   "GETTING_GROCY_INFO": "Loading Grocy information",
   "GETTING_GROCY_INFO_SUCCESS": "Grocy information has been loaded",
   "GETTING_GROCY_INFO_ERROR": "Error loading Grocy information",
+  "ADD_RECIPE": "Add recipe",
   "LOADING": "Loading...",
   "MEAL_PLAN_LOADED": "Meal plan has been loaded",
   "MEAL_PLAN_ERROR": "Error loading the meal plan",
@@ -59,5 +60,22 @@
     "DARK": "Dark",
     "SYSTEM": "System",
     "TOGGLE": "Toggle theme"
+  },
+  "RECIPE_IMPORT": {
+    "TITLE": "Import recipe",
+    "SUBTITLE": "Import recipes from Chefkoch, Picnic or Cookidoo directly into your Grocy instance.",
+    "URL_LABEL": "Recipe URL",
+    "URL_PLACEHOLDER": "https://www.chefkoch.de/rezepte/...",
+    "SUPPORTED_SITES": "Supported: chefkoch.de, picnic.app, cookidoo.de",
+    "IMPORT": "Import",
+    "INGREDIENTS": "Ingredients",
+    "INSTRUCTIONS": "Instructions",
+    "SERVINGS": "Servings",
+    "SAVE_TO_GROCY": "Save to Grocy",
+    "SAVING": "Saving recipe...",
+    "SAVED": "Recipe saved to Grocy",
+    "SAVE_ERROR": "Error saving recipe",
+    "FETCH_ERROR": "Error loading recipe",
+    "INVALID_URL": "Please enter a valid URL from Chefkoch, Picnic or Cookidoo"
   }
 }

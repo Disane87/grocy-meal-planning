@@ -30,6 +30,7 @@
   "GETTING_GROCY_INFO": "Lade Grocy-Informationen",
   "GETTING_GROCY_INFO_SUCCESS": "Grocy-Informationen wurden geladen",
   "GETTING_GROCY_INFO_ERROR": "Fehler beim Laden der Grocy-Informationen",
+  "ADD_RECIPE": "Rezept hinzufügen",
   "LOADING": "Laden...",
   "MEAL_PLAN_LOADED": "Speiseplan wurde geladen",
   "MEAL_PLAN_ERROR": "Fehler beim Laden des Speiseplans",
@@ -59,5 +60,22 @@
     "DARK": "Dunkel",
     "SYSTEM": "System",
     "TOGGLE": "Theme umschalten"
+  },
+  "RECIPE_IMPORT": {
+    "TITLE": "Rezept importieren",
+    "SUBTITLE": "Importiere Rezepte von Chefkoch, Picnic oder Cookidoo direkt in deine Grocy-Instanz.",
+    "URL_LABEL": "Rezept-URL",
+    "URL_PLACEHOLDER": "https://www.chefkoch.de/rezepte/...",
+    "SUPPORTED_SITES": "Unterstützt: chefkoch.de, picnic.app, cookidoo.de",
+    "IMPORT": "Importieren",
+    "INGREDIENTS": "Zutaten",
+    "INSTRUCTIONS": "Zubereitung",
+    "SERVINGS": "Portionen",
+    "SAVE_TO_GROCY": "In Grocy speichern",
+    "SAVING": "Rezept wird gespeichert...",
+    "SAVED": "Rezept wurde in Grocy gespeichert",
+    "SAVE_ERROR": "Fehler beim Speichern des Rezepts",
+    "FETCH_ERROR": "Fehler beim Laden des Rezepts",
+    "INVALID_URL": "Bitte eine gültige URL von Chefkoch, Picnic oder Cookidoo eingeben"
   }
 }
