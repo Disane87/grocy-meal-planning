@@ -1,3 +1,12 @@
+## [0.6.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.5.1...v0.6.0) (2026-02-24)
+
+### Features
+
+* add recipe import from Chefkoch and Picnic URLs ([bd69625](https://github.com/Disane87/grocy-meal-planning/commit/bd696253aafbab11c2c98a84d5c973056862186a))
+* **api:** add image fetching endpoint with CORS support ([9c992c9](https://github.com/Disane87/grocy-meal-planning/commit/9c992c965224b0cabe4b04bc388b312410e99e5c))
+* enable additional plugins in settings.json ([7b52aa5](https://github.com/Disane87/grocy-meal-planning/commit/7b52aa521d039736e2ed0bfd43a3eaa188d5e9ba))
+* enhance UI components and improve recipe import functionality ([529a344](https://github.com/Disane87/grocy-meal-planning/commit/529a3449ce6aca53155f9d11e4b03a2f327eb469))
+* **server:** add meal planning server with image and recipe fetching APIs ([0237de3](https://github.com/Disane87/grocy-meal-planning/commit/0237de33e355c77dd000da2c7f9858cd4763dc9e))
 ## [0.5.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.5.0...v0.5.1) (2026-02-17)
 
 ### Bug Fixes

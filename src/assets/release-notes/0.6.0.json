@@ -1,0 +1,19 @@
+{
+  "version": "0.6.0",
+  "date": "2026-02-24T08:37:35.834Z",
+  "features": [
+    "enhance UI components and improve recipe import functionality",
+    "enable additional plugins in settings.json",
+    "add recipe import from Chefkoch and Picnic URLs"
+  ],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "feat(server): add meal planning server with image and recipe fetching APIs",
+    "feat(api): add image fetching endpoint with CORS support"
+  ]
+}
