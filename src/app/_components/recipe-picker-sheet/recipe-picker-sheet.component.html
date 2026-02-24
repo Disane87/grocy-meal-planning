@@ -1,15 +1,15 @@
 <div class="flex flex-col h-[70vh]">
-  <div class="flex flex-row items-center justify-between p-4 border-b">
+  <div class="flex flex-row items-center justify-between p-4 border-b border-[var(--glass-border)]">
     <h2 class="text-lg font-bold">{{ 'RECIPES' | transloco }}</h2>
-    <button type="button" (click)="close()" class="p-2 rounded-full hover:bg-gray-200 min-w-[44px] min-h-[44px] flex items-center justify-center">
+    <button type="button" (click)="close()" class="p-2 rounded-full hover:bg-[var(--glass-bg)] min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors">
       <mat-icon svgIcon="close"></mat-icon>
     </button>
   </div>
-  <div class="p-4 border-b flex flex-row gap-2">
+  <div class="p-4 border-b border-[var(--glass-border)] flex flex-row gap-2">
     <input type="text" [(ngModel)]="searchTerm"
       [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
       [title]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
-      class="flex-1 min-w-0 bg-gray-100 text-gray-700 py-3 px-4 border border-gray-500 rounded text-base" />
+      class="glass-input flex-1 min-w-0 py-3 px-4 text-base" />
     <button type="button" (click)="onRefreshRecipes()" title="Rezepte neu laden"
       class="control-btn !rounded !px-3 !py-3">
       <mat-icon svgIcon="refresh"></mat-icon>
@@ -18,7 +18,7 @@
   <div class="flex-1 overflow-auto p-2 flex flex-col gap-2">
     @for (recipe of filteredRecipes; track recipe.id) {
     <button type="button" (click)="selectRecipe(recipe)"
-      class="flex flex-row items-center gap-3 p-3 rounded-lg hover:bg-gray-100 active:bg-gray-200 text-left w-full min-h-[56px] border border-gray-200">
+      class="flex flex-row items-center gap-3 p-3 rounded-lg hover:bg-[var(--glass-bg)] active:bg-[var(--accent-surface)] text-left w-full min-h-[56px] border border-[var(--glass-border)] transition-colors">
       @if (recipe.picture_file_name) {
       <img class="w-12 h-12 rounded object-cover flex-shrink-0"
         [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)"
@@ -28,7 +28,7 @@
     </button>
     }
     @if (filteredRecipes.length === 0) {
-    <div class="text-center text-gray-500 py-8">{{ 'NO_RECIPES_FOUND' | transloco }}</div>
+    <div class="text-center text-[--text-muted] py-8">{{ 'NO_RECIPES_FOUND' | transloco }}</div>
     }
   </div>
 </div>

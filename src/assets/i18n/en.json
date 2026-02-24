@@ -30,6 +30,7 @@
   "GETTING_GROCY_INFO": "Loading Grocy information",
   "GETTING_GROCY_INFO_SUCCESS": "Grocy information has been loaded",
   "GETTING_GROCY_INFO_ERROR": "Error loading Grocy information",
+  "ADD_RECIPE": "Add recipe",
   "LOADING": "Loading...",
   "MEAL_PLAN_LOADED": "Meal plan has been loaded",
   "MEAL_PLAN_ERROR": "Error loading the meal plan",

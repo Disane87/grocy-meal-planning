@@ -1,6 +1,6 @@
 <!-- Mobile: Swipe-to-reveal actions -->
 <div class="md:hidden relative overflow-hidden rounded-lg"
-  [ngClass]="meal?.userfields?.ai_planned == '1' ? 'ring-2 ring-indigo-400/50' : 'ring-1 ring-black/[0.06] dark:ring-white/[0.08]'">
+  [ngClass]="meal?.userfields?.ai_planned == '1' ? 'ring-2 ring-violet-400/50 shadow-[0_0_12px_rgba(124,58,237,0.15)]' : 'ring-1 ring-white/20'">
   @if (recipe) {
   <!-- Swipe action buttons (behind the card) -->
   <div class="absolute right-0 top-0 bottom-0 flex flex-row items-stretch z-0">
@@ -35,10 +35,10 @@
       <img class="w-full h-20 object-cover" loading="lazy"
         [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
       } @else {
-      <div class="w-full h-20 bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-700 dark:to-stone-800"></div>
+      <div class="w-full h-20 bg-gradient-to-br from-violet-300/40 to-indigo-400/40 dark:from-violet-800/40 dark:to-indigo-900/40"></div>
       }
       @if (meal?.userfields?.ai_planned == '1') {
-      <div class="absolute top-1.5 left-1.5 bg-indigo-500/70 backdrop-blur-sm text-white rounded-full w-5 h-5 flex items-center justify-center">
+      <div class="absolute top-1.5 left-1.5 bg-violet-500/70 backdrop-blur-sm text-white rounded-full w-5 h-5 flex items-center justify-center">
         <mat-icon class="!text-xs !leading-none !w-3 !h-3 flex items-center justify-center">auto_awesome</mat-icon>
       </div>
       }
@@ -52,7 +52,7 @@
 
 <!-- Desktop: Hover overlay actions -->
 <div class="hidden md:block relative rounded-lg overflow-hidden group"
-  [ngClass]="meal?.userfields?.ai_planned == '1' ? 'ring-2 ring-indigo-400/50' : 'ring-1 ring-black/[0.06] dark:ring-white/[0.08]'">
+  [ngClass]="meal?.userfields?.ai_planned == '1' ? 'ring-2 ring-violet-400/50 shadow-[0_0_12px_rgba(124,58,237,0.15)]' : 'ring-1 ring-white/20'">
   @if (recipe) {
   <div class="recipe card-surface" [class.opacity-40]="meal?.done"
     [dndDraggable]="{ recipe, meal }"
@@ -62,11 +62,11 @@
       <img class="w-full aspect-[16/10] object-cover" loading="lazy"
         [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
       } @else {
-      <div class="w-full aspect-[16/10] bg-gradient-to-br from-stone-200 to-stone-300 dark:from-stone-700 dark:to-stone-800"></div>
+      <div class="w-full aspect-[16/10] bg-gradient-to-br from-violet-300/40 to-indigo-400/40 dark:from-violet-800/40 dark:to-indigo-900/40"></div>
       }
 
       @if (meal?.userfields?.ai_planned == '1') {
-      <div class="absolute top-2 left-2 bg-indigo-500/70 backdrop-blur-sm text-white rounded-full w-6 h-6 flex items-center justify-center">
+      <div class="absolute top-2 left-2 bg-violet-500/70 backdrop-blur-sm text-white rounded-full w-6 h-6 flex items-center justify-center">
         <mat-icon class="!text-sm !leading-none !w-4 !h-4 flex items-center justify-center">auto_awesome</mat-icon>
       </div>
       }
@@ -90,7 +90,7 @@
           <mat-icon class="!text-sm !w-4 !h-4 text-sky-600" svgIcon="open-in-app"></mat-icon>
         </button>
         <div dndHandle class="action-pill cursor-grab">
-          <mat-icon class="!text-sm !w-4 !h-4 text-stone-400" svgIcon="drag"></mat-icon>
+          <mat-icon class="!text-sm !w-4 !h-4 text-[--text-muted]" svgIcon="drag"></mat-icon>
         </div>
       </div>
 

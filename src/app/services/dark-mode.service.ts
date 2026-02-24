@@ -85,8 +85,9 @@ export class DarkModeService {
                 break;
         }
 
-        // Update DOM
+        // Update DOM — disable transitions during theme switch
         const htmlElement = document.documentElement;
+        htmlElement.classList.add('theme-switching');
         if (isDark) {
             htmlElement.classList.add('dark');
             htmlElement.classList.remove('light');
@@ -94,6 +95,9 @@ export class DarkModeService {
             htmlElement.classList.remove('dark');
             htmlElement.classList.add('light');
         }
+        // Force reflow, then re-enable transitions
+        void htmlElement.offsetHeight;
+        htmlElement.classList.remove('theme-switching');
 
         // Update signal
         this._isDark.set(isDark);

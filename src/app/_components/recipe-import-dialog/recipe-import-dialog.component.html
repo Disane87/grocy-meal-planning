@@ -6,14 +6,14 @@
         </button>
     </div>
 
-    <p class="text-sm text-stone-500">{{ 'RECIPE_IMPORT.SUBTITLE' | transloco }}</p>
+    <p class="text-sm text-[--text-secondary]">{{ 'RECIPE_IMPORT.SUBTITLE' | transloco }}</p>
 
     <!-- URL Input -->
     <div class="flex flex-col gap-2">
         <label class="text-sm font-medium">{{ 'RECIPE_IMPORT.URL_LABEL' | transloco }}</label>
         <div class="flex flex-row gap-2">
             <input [(ngModel)]="recipeUrl" type="url" [placeholder]="'RECIPE_IMPORT.URL_PLACEHOLDER' | transloco"
-                class="bg-gray-100 text-gray-700 py-2 px-4 border border-gray-500 rounded flex-1 min-w-0"
+                class="glass-input py-2 px-4 flex-1 min-w-0"
                 (keydown.enter)="importRecipe()" />
             <button type="button" (click)="importRecipe()" [disabled]="!isValidUrl || loading"
                 class="control-btn-primary !rounded !px-4 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -24,19 +24,19 @@
                 }
             </button>
         </div>
-        <span class="text-xs text-stone-400">{{ 'RECIPE_IMPORT.SUPPORTED_SITES' | transloco }}</span>
+        <span class="text-xs text-[--text-muted]">{{ 'RECIPE_IMPORT.SUPPORTED_SITES' | transloco }}</span>
     </div>
 
     <!-- Error -->
     @if (error) {
-    <div class="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded text-sm">
+    <div class="bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 px-4 py-3 rounded-lg text-sm backdrop-blur-sm">
         {{ error }}
     </div>
     }
 
     <!-- Parsed Recipe Preview -->
     @if (parsedRecipe) {
-    <div class="flex flex-col gap-4 border rounded-lg p-4 max-h-[50vh] overflow-auto">
+    <div class="glass-card flex flex-col gap-4 p-4 max-h-[50vh] overflow-auto">
         <!-- Header with image -->
         <div class="flex flex-row gap-4 items-start">
             @if (parsedRecipe.imageUrl) {
@@ -46,9 +46,9 @@
             <div class="flex flex-col gap-1 min-w-0">
                 <h3 class="text-lg font-semibold truncate">{{ parsedRecipe.name }}</h3>
                 @if (parsedRecipe.description) {
-                <p class="text-sm text-stone-500 line-clamp-2">{{ parsedRecipe.description }}</p>
+                <p class="text-sm text-[--text-secondary] line-clamp-2">{{ parsedRecipe.description }}</p>
                 }
-                <span class="text-xs text-stone-400">{{ 'RECIPE_IMPORT.SERVINGS' | transloco }}:
+                <span class="text-xs text-[--text-muted]">{{ 'RECIPE_IMPORT.SERVINGS' | transloco }}:
                     {{ parsedRecipe.servings }}</span>
             </div>
         </div>
@@ -57,7 +57,7 @@
         @if (parsedRecipe.ingredients.length > 0) {
         <div class="flex flex-col gap-1">
             <h4 class="text-sm font-semibold">{{ 'RECIPE_IMPORT.INGREDIENTS' | transloco }}</h4>
-            <ul class="text-sm text-stone-600 list-disc list-inside">
+            <ul class="text-sm text-[--text-secondary] list-disc list-inside">
                 @for (ingredient of parsedRecipe.ingredients; track ingredient) {
                 <li>{{ ingredient }}</li>
                 }
@@ -69,7 +69,7 @@
         @if (parsedRecipe.instructions) {
         <div class="flex flex-col gap-1">
             <h4 class="text-sm font-semibold">{{ 'RECIPE_IMPORT.INSTRUCTIONS' | transloco }}</h4>
-            <p class="text-sm text-stone-600 whitespace-pre-line">{{ parsedRecipe.instructions }}</p>
+            <p class="text-sm text-[--text-secondary] whitespace-pre-line">{{ parsedRecipe.instructions }}</p>
         </div>
         }
     </div>

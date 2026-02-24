@@ -30,6 +30,7 @@
   "GETTING_GROCY_INFO": "Lade Grocy-Informationen",
   "GETTING_GROCY_INFO_SUCCESS": "Grocy-Informationen wurden geladen",
   "GETTING_GROCY_INFO_ERROR": "Fehler beim Laden der Grocy-Informationen",
+  "ADD_RECIPE": "Rezept hinzufügen",
   "LOADING": "Laden...",
   "MEAL_PLAN_LOADED": "Speiseplan wurde geladen",
   "MEAL_PLAN_ERROR": "Fehler beim Laden des Speiseplans",

@@ -47,7 +47,7 @@ RxJS BehaviorSubjects and Observables — no NgRx or other store library. State 
 
 - **`grocy.service.ts`** — HTTP wrapper for all Grocy API calls (recipes, meals, sections). Uses config from `AppConfigService`.
 - **`appconfig.service.ts`** — Reads Grocy URL/API key from query params or localStorage.
-- **`recipe-import.service.ts`** — Imports recipes from external URLs using a **Strategy pattern** with fallback chain: JSON-LD → RSC JSON-LD → Chefkoch HTML → Picnic HTML → Meta Tags. Strategies live in `services/recipe-strategies/`.
+- **`recipe-import.service.ts`** — Imports recipes from external URLs using a **Strategy pattern** with fallback chain: JSON-LD → RSC JSON-LD → Chefkoch HTML → Picnic HTML → Meta Tags. Strategies live in `services/recipe-strategies/`. To add a new recipe source: create a strategy implementing `RecipeParseStrategy` in `services/recipe-strategies/`, then add it to the chain in `recipe-import.service.ts`. If the source needs CORS proxying, add its host to `server/server/utils/allowed-hosts.ts`.
 - **`dark-mode.service.ts`** — Theme management using Angular Signals.
 
 ### API Server (`server/`)
@@ -57,6 +57,8 @@ A Nuxt Nitro server in the `server/` subdirectory on port 3001 with two endpoint
 - `GET /api/fetch-image?url=<url>` — Proxies images with CORS headers
 
 Server routes live in `server/server/api/`, shared utils in `server/server/utils/`. In development, Angular's proxy config (`proxy.conf.json`) routes `/api/*` to localhost:3001.
+
+The server has its own `package.json` — run `npm install` inside `server/` separately when adding server dependencies.
 
 ### Routing
 
@@ -77,4 +79,5 @@ Transloco with two languages: English (`en`) and German (`de`). Translation file
 - **Component location:** `src/app/_components/`
 - **Pipes location:** `src/app/_pipes/`
 - **Interfaces location:** `src/app/interfaces/`
+- **Services location:** `src/app/services/`; strategy sub-patterns in `services/recipe-strategies/`
 - **Environment versions** (`src/environments/environment*.ts`) are auto-updated by the release workflow — don't manually edit version strings.

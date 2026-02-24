@@ -12,8 +12,7 @@
     class="control-select text-sm md:text-base hidden md:block">
     <option [value]="null" disabled selected>{{ 'GROCY_MEALPLAN_SECTION_PLACEHOLDER' | transloco }}</option>
     @for (section of mealPlanSections; track section) {
-    <option [ngValue]="section.id">{{section.name ??
-        'GROCY_MEALPLAN_SECTION_NONE' | transloco }}</option>
+    <option [ngValue]="section.id">{{section.name ?? ('GROCY_MEALPLAN_SECTION_NONE' | transloco) }}</option>
     }
 </select>
 <div class="flex flex-row gap-1 justify-center md:justify-end scheduler-controls">
@@ -39,7 +38,7 @@
             <mat-icon svgIcon="share-variant-outline"></mat-icon>
         </button>
         @if (shareTooltip) {
-        <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-stone-800 text-white px-2 py-1 rounded">
+        <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs glass-panel text-[--text-primary] px-2 py-1 rounded">
             {{ shareTooltip }}
         </div>
         }
