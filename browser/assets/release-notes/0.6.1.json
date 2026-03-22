@@ -1,0 +1,14 @@
+{
+  "version": "0.6.1",
+  "date": "2026-03-22T09:11:13.661Z",
+  "features": [],
+  "fixes": [
+    "subscribe to updateMeal observable and consume recipe stock on done"
+  ],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": []
+}
