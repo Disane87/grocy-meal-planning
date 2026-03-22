@@ -1,0 +1,17 @@
+{
+  "version": "0.6.2",
+  "date": "2026-03-22T09:19:36.476Z",
+  "features": [],
+  "fixes": [
+    "whitelist meal_plan fields in updateMeal to avoid Grocy 400 errors",
+    "subscribe to updateMeal observable and consume recipe stock on done"
+  ],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "chore(release): 0.6.1"
+  ]
+}
