@@ -1,0 +1,19 @@
+{
+  "version": "0.7.2",
+  "date": "2026-05-10T13:39:21.468Z",
+  "features": [],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "build(docker): use --legacy-peer-deps for npm ci",
+    "chore(release): 0.7.1",
+    "build(docker): add multi-stage Dockerfile for Coolify",
+    "chore(release): 0.7.0",
+    "Merge pull request #13 from Disane87/feat/coolify-deploy",
+    "feat(deploy): add Coolify deploy scripts and SPA fallback"
+  ]
+}
