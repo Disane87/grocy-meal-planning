@@ -7,8 +7,8 @@ ENV CI=1
 FROM base AS deps
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund --legacy-peer-deps
-COPY server/package.json server/package-lock.json ./server/
-RUN cd server && npm ci --no-audit --no-fund
+COPY server/package.json server/package-lock.json* ./server/
+RUN cd server && npm install --no-audit --no-fund
 
 FROM deps AS build
 COPY . .
