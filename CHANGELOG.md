@@ -1,3 +1,4 @@
+## [0.7.3](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.2...v0.7.3) (2026-05-10)
 ## [0.7.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.1...v0.7.2) (2026-05-10)
 ## [0.7.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.0...v0.7.1) (2026-05-10)
 ## [0.7.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.6.2...v0.7.0) (2026-05-10)
