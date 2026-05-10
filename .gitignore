@@ -11,6 +11,12 @@
 npm-debug.log
 yarn-error.log
 
+# Coolify build artifacts
+/server/public
+/server/.output
+/server/.nuxt
+/server/node_modules
+
 # IDEs and editors
 .idea/
 .project
