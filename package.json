@@ -18,7 +18,9 @@
     "release:prepare": "npm run build && npm run changelog",
     "generate-release-notes": "node scripts/generate-release-notes.js",
     "vercel-build": "node scripts/vercel-build.js",
-    "build:prod": "ng build --configuration production"
+    "build:prod": "ng build --configuration production",
+    "build:coolify": "npm run build:prod && rm -rf server/public && mkdir -p server/public && cp -r dist/grocy-meal-planning/browser/. server/public/ && cd server && npm install && npm run build",
+    "start:coolify": "node server/.output/server/index.mjs"
   },
   "private": true,
   "dependencies": {
