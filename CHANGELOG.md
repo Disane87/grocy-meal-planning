@@ -1,3 +1,8 @@
+## [0.7.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.6.2...v0.7.0) (2026-05-10)
+
+### Features
+
+* **deploy:** add Coolify deploy scripts and SPA fallback ([f2a3068](https://github.com/Disane87/grocy-meal-planning/commit/f2a3068ec7b084a92cbdcc42f10bfb1eb1d5dba9))
 ## [0.6.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.6.1...v0.6.2) (2026-03-22)
 
 ### Bug Fixes
