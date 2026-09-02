@@ -33,6 +33,7 @@
   "GETTING_GROCY_INFO": "Lade Grocy-Informationen",
   "GETTING_GROCY_INFO_SUCCESS": "Grocy-Informationen wurden geladen",
   "GETTING_GROCY_INFO_ERROR": "Fehler beim Laden der Grocy-Informationen",
+  "GROCY_PROXY_ACTIVE": "Deine Grocy-Instanz blockiert direkte Browser-Zugriffe (CORS). Anfragen laufen jetzt über den Server dieser App.",
   "ADD_RECIPE": "Rezept hinzufügen",
   "LOADING": "Laden...",
   "MEAL_PLAN_LOADED": "Speiseplan wurde geladen",

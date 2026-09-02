@@ -8,11 +8,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class OrderByPipe<T> implements PipeTransform {
 
   transform(value: Array<T>, fieldToSort: keyof T, order: 'asc' | 'desc' = 'asc'): Array<T> {
-    if (!value || !fieldToSort) {
+    if (!Array.isArray(value) || !fieldToSort) {
       return value;
     }
 
-    return value.sort((a, b) => {
+    // Copy first: sorting the source array in place breaks change detection
+    // for callers that share the same array reference.
+    return [...value].sort((a, b) => {
       if (!a[fieldToSort] || !b[fieldToSort]) {
         return 0;
       }

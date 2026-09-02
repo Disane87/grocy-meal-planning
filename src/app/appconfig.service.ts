@@ -12,6 +12,7 @@ export class AppConfigService {
 
   private grocyUrl: string | undefined;
   private grocyApiKey: string | undefined;
+  private useProxy = false;
 
   constructor() {
     this.loadConfig();
@@ -38,6 +39,8 @@ export class AppConfigService {
       return;
     }
 
+    this.useProxy = localStorage.getItem('grocyUseProxy') === 'true';
+
     this.grocyUrl = localStorage.getItem('grocyUrl') || undefined;
     this.grocyApiKey = localStorage.getItem('grocyApiKey') || undefined;
 
@@ -52,7 +55,21 @@ export class AppConfigService {
     return {
       grocyUrl: this.grocyUrl,
       grocyApiKey: this.grocyApiKey,
+      useProxy: this.useProxy,
     };
+  }
+
+  /**
+   * Whether Grocy requests are routed through this app's server side proxy.
+   * Needed when the Grocy instance does not send CORS headers for this origin.
+   */
+  getUseProxy(): boolean {
+    return this.useProxy;
+  }
+
+  setUseProxy(useProxy: boolean) {
+    this.useProxy = useProxy;
+    localStorage.setItem('grocyUseProxy', String(useProxy));
   }
 
   setConfig(url: string, apiKey: string) {
@@ -66,6 +83,8 @@ export class AppConfigService {
   resetConfig() {
     localStorage.removeItem('grocyUrl');
     localStorage.removeItem('grocyApiKey');
+    localStorage.removeItem('grocyUseProxy');
+    this.useProxy = false;
     this.isAppConfiguredSubject.next(false);
   }
 }

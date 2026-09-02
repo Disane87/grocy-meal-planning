@@ -14,8 +14,8 @@ export default defineNuxtConfig({
       cors: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, GROCY-API-KEY, X-Grocy-Url',
       },
     },
   },
