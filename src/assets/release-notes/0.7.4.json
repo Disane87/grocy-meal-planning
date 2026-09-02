@@ -1,0 +1,14 @@
+{
+  "version": "0.7.4",
+  "date": "2026-09-02T08:42:09.208Z",
+  "features": [],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "fix(grocy): route API calls through server proxy when CORS blocks them"
+  ]
+}

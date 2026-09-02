@@ -1,3 +1,8 @@
+## [0.7.4](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.3...v0.7.4) (2026-09-02)
+
+### Bug Fixes
+
+* **grocy:** route API calls through server proxy when CORS blocks them ([3743642](https://github.com/Disane87/grocy-meal-planning/commit/37436423a4bd148f3b1f7b3f035c01061fba3db1))
 ## [0.7.3](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.2...v0.7.3) (2026-05-10)
 ## [0.7.2](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.1...v0.7.2) (2026-05-10)
 ## [0.7.1](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.0...v0.7.1) (2026-05-10)
