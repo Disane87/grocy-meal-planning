@@ -1,0 +1,14 @@
+{
+  "version": "0.7.5",
+  "date": "2026-10-09T11:59:56.198Z",
+  "features": [],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [
+    "add Subthiel footer to README (#14)"
+  ],
+  "other": []
+}
