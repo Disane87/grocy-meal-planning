@@ -93,3 +93,9 @@ config in the app) to go back to direct requests.
 
 Just file an issue. 👉
 https://github.com/Disane87/grocy-meal-planning/issues
+
+---
+
+<p align="center">
+  Made by me at <a href="https://subthiel.eu/softwareentwicklung">Subthiel</a> — software development &amp; 3D printing
+</p>
