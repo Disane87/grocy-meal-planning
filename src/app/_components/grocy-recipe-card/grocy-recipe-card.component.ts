@@ -26,9 +26,7 @@ export class GrocyRecipeCardComponent {
 
   deleteMeal(meal: Partial<Meal>) {
     if (meal.id) {
-      this.grocyService.deleteMeal(meal.id).subscribe(() => {
-        // this.refreshMealPlan$.next();
-      });
+      this.grocyService.deleteMeal(meal.id).subscribe();
     }
   }
 

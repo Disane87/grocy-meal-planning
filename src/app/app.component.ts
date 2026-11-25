@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { BehaviorSubject, switchMap, combineLatest, shareReplay, map } from 'rxjs';
+import { BehaviorSubject, switchMap, combineLatest, shareReplay, map, filter } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -53,7 +53,12 @@ export class AppComponent implements OnInit {
   }));
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;
-  mealPlanSections$ = this.grocyService.getMealPlanSections().pipe(shareReplay({ bufferSize: 1, refCount: true }));
+  // keyed on config: source completes after one HTTP call, so refCount alone would never reset the cache
+  mealPlanSections$ = this.isAppConfigured$.pipe(
+    filter(Boolean),
+    switchMap(() => this.grocyService.getMealPlanSections()),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   selectedMealPlanSection: number | null = localStorage.getItem(
     'selectedMealPlanSection'
@@ -117,7 +122,6 @@ export class AppComponent implements OnInit {
         version
       }
     });
-
   }
 
   changeWeek(weekOffset: number) {
