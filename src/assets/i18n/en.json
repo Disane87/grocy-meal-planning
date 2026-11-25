@@ -81,5 +81,11 @@
     "SAVE_ERROR": "Error saving recipe",
     "FETCH_ERROR": "Error loading recipe",
     "INVALID_URL": "Please enter a valid URL from Chefkoch, Picnic or Cookidoo"
-  }
+  },
+  "CLOSE": "Close",
+  "REFRESH_RECIPES": "Reload recipes",
+  "SHARE": "Share",
+  "REMOVE": "Remove",
+  "OPEN_RECIPE": "Open recipe",
+  "MARK_COOKED": "Mark as cooked"
 }

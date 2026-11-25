@@ -5,20 +5,20 @@
   <!-- Swipe action buttons (behind the card) -->
   <div class="absolute right-0 top-0 bottom-0 flex flex-row items-stretch z-0">
     @if (meal && meal.done == 0) {
-    <button type="button" (click)="onSwipeAction('done')" title="Done"
+    <button type="button" (click)="onSwipeAction('done')" [attr.aria-label]="'MARK_COOKED' | transloco" [title]="'MARK_COOKED' | transloco"
       class="bg-emerald-500 text-white flex items-center justify-center w-[50px]">
-      <mat-icon svgIcon="check"></mat-icon>
+      <i class="ph-duotone ph-check" aria-hidden="true"></i>
     </button>
     }
     @if (meal && meal.done == 0) {
-    <button type="button" (click)="onSwipeAction('delete')" title="Delete"
+    <button type="button" (click)="onSwipeAction('delete')" [attr.aria-label]="'REMOVE' | transloco" [title]="'REMOVE' | transloco"
       class="bg-rose-500 text-white flex items-center justify-center w-[50px]">
-      <mat-icon svgIcon="delete-outline"></mat-icon>
+      <i class="ph-duotone ph-trash" aria-hidden="true"></i>
     </button>
     }
-    <button type="button" (click)="onSwipeAction('open')" title="Open"
+    <button type="button" (click)="onSwipeAction('open')" [attr.aria-label]="'OPEN_RECIPE' | transloco" [title]="'OPEN_RECIPE' | transloco"
       class="bg-sky-500 text-white flex items-center justify-center w-[50px]">
-      <mat-icon svgIcon="open-in-app"></mat-icon>
+      <i class="ph-duotone ph-book-open" aria-hidden="true"></i>
     </button>
   </div>
 
@@ -36,11 +36,6 @@
         [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
       } @else {
       <div class="w-full h-20 bg-gradient-to-br from-violet-300/40 to-indigo-400/40 dark:from-violet-800/40 dark:to-indigo-900/40"></div>
-      }
-      @if (meal?.userfields?.ai_planned == '1') {
-      <div class="absolute top-1.5 left-1.5 bg-violet-500/70 backdrop-blur-sm text-white rounded-full w-5 h-5 flex items-center justify-center">
-        <mat-icon class="!text-xs !leading-none !w-3 !h-3 flex items-center justify-center">auto_awesome</mat-icon>
-      </div>
       }
       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2.5 pb-1.5 pt-6">
         <div class="text-white text-xs font-normal leading-tight truncate drop-shadow-md">{{ recipe.name }}</div>
@@ -65,32 +60,26 @@
       <div class="w-full aspect-[16/10] bg-gradient-to-br from-violet-300/40 to-indigo-400/40 dark:from-violet-800/40 dark:to-indigo-900/40"></div>
       }
 
-      @if (meal?.userfields?.ai_planned == '1') {
-      <div class="absolute top-2 left-2 bg-violet-500/70 backdrop-blur-sm text-white rounded-full w-6 h-6 flex items-center justify-center">
-        <mat-icon class="!text-sm !leading-none !w-4 !h-4 flex items-center justify-center">auto_awesome</mat-icon>
-      </div>
-      }
-
       <!-- Action buttons overlay (top-right, on hover) -->
       <div class="absolute top-0 right-0 p-1.5 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
         @if (meal && meal.done == 0) {
-        <button type="button" (click)="doneMeal(meal)" title="Done"
+        <button type="button" (click)="doneMeal(meal)" [attr.aria-label]="'MARK_COOKED' | transloco" [title]="'MARK_COOKED' | transloco"
           class="action-pill hover:!bg-emerald-500 hover:!text-white">
-          <mat-icon class="!text-sm !w-4 !h-4 text-emerald-600" svgIcon="check"></mat-icon>
+          <i class="ph-duotone ph-check text-base text-emerald-600" aria-hidden="true"></i>
         </button>
         }
         @if (meal && meal.done == 0) {
-        <button type="button" (click)="deleteMeal(meal)" title="Delete"
+        <button type="button" (click)="deleteMeal(meal)" [attr.aria-label]="'REMOVE' | transloco" [title]="'REMOVE' | transloco"
           class="action-pill hover:!bg-rose-500 hover:!text-white">
-          <mat-icon class="!text-sm !w-4 !h-4 text-rose-500" svgIcon="delete-outline"></mat-icon>
+          <i class="ph-duotone ph-trash text-base text-rose-500" aria-hidden="true"></i>
         </button>
         }
-        <button type="button" (click)="openRecipe(meal?.recipe_id || recipe.id)" title="Open"
+        <button type="button" (click)="openRecipe(meal?.recipe_id || recipe.id)" [attr.aria-label]="'OPEN_RECIPE' | transloco" [title]="'OPEN_RECIPE' | transloco"
           class="action-pill hover:!bg-sky-500 hover:!text-white">
-          <mat-icon class="!text-sm !w-4 !h-4 text-sky-600" svgIcon="open-in-app"></mat-icon>
+          <i class="ph-duotone ph-book-open text-base text-sky-600" aria-hidden="true"></i>
         </button>
         <div dndHandle class="action-pill cursor-grab">
-          <mat-icon class="!text-sm !w-4 !h-4 text-[--text-muted]" svgIcon="drag"></mat-icon>
+          <i class="ph-duotone ph-dots-six-vertical text-base text-[--text-muted]" aria-hidden="true"></i>
         </div>
       </div>
 

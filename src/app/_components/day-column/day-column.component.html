@@ -11,8 +11,8 @@
     <div class="font-semibold mr-2 md:mr-0 md:w-full">{{ day | date:'EEEE' }}</div>
     <div class="text-sm md:text-base opacity-50">{{ day | date:'d. MMM yyyy'}}</div>
     <button type="button" (click)="onAddRecipe()" class="md:hidden ml-auto add-recipe-btn p-2 rounded-full flex items-center justify-center min-w-[44px] min-h-[44px]"
-      [title]="'ADD_RECIPE' | transloco">
-      <mat-icon svgIcon="plus"></mat-icon>
+      [title]="'ADD_RECIPE' | transloco" [attr.aria-label]="'ADD_RECIPE' | transloco">
+      <i class="ph-duotone ph-plus" aria-hidden="true"></i>
     </button>
   </div>
   @if (plannedMeals.length > 0) {

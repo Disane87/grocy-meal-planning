@@ -1,5 +1,5 @@
 import { LOCALE_ID, NgModule, inject, provideAppInitializer } from '@angular/core';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +19,6 @@ import dayjs from 'dayjs';
 import { PickObjectByValuePipe } from './_pipes/pick-object-by-value.pipe';
 import { GetRecipePipe } from './_pipes/get-recipe.pipe';
 import { NgForTrackByPropertyModule } from 'ng-for-track-by-property';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -87,7 +86,6 @@ dayjs.locale(language);
     CommonModule,
     DndModule,
     FormsModule,
-    MatIconModule,
     MatDialogModule,
     MatBottomSheetModule,
     MatButtonModule,
@@ -111,10 +109,4 @@ dayjs.locale(language);
     }),
   ]
 })
-export class AppModule {
-  constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    iconRegistry.addSvgIconSet(
-      domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')
-    );
-  }
-}
+export class AppModule {}

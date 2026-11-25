@@ -1,8 +1,8 @@
 <div class="import-dialog p-6 flex flex-col gap-5 min-w-[320px] max-w-lg">
     <div class="flex items-center justify-between">
         <h2 class="text-xl font-bold">{{ 'RECIPE_IMPORT.TITLE' | transloco }}</h2>
-        <button type="button" (click)="close()" class="control-btn !rounded-full !p-1">
-            <mat-icon svgIcon="close"></mat-icon>
+        <button type="button" (click)="close()" [attr.aria-label]="'CLOSE' | transloco" class="control-btn !rounded-full !p-1">
+            <i class="ph-duotone ph-x" aria-hidden="true"></i>
         </button>
     </div>
 
@@ -20,7 +20,7 @@
                 @if (loading) {
                 <div class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full"></div>
                 } @else {
-                <mat-icon svgIcon="import"></mat-icon>
+                <i class="ph-duotone ph-download-simple" aria-hidden="true"></i>
                 }
             </button>
         </div>
@@ -80,7 +80,7 @@
         @if (saving) {
         <div class="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full"></div>
         } @else {
-        <mat-icon svgIcon="content-save-outline"></mat-icon>
+        <i class="ph-duotone ph-floppy-disk" aria-hidden="true"></i>
         }
         <span>{{ 'RECIPE_IMPORT.SAVE_TO_GROCY' | transloco }}</span>
     </button>

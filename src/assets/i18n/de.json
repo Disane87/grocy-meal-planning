@@ -81,5 +81,11 @@
     "SAVE_ERROR": "Fehler beim Speichern des Rezepts",
     "FETCH_ERROR": "Fehler beim Laden des Rezepts",
     "INVALID_URL": "Bitte eine gültige URL von Chefkoch, Picnic oder Cookidoo eingeben"
-  }
+  },
+  "CLOSE": "Schließen",
+  "REFRESH_RECIPES": "Rezepte neu laden",
+  "SHARE": "Teilen",
+  "REMOVE": "Entfernen",
+  "OPEN_RECIPE": "Rezept öffnen",
+  "MARK_COOKED": "Als gekocht markieren"
 }
