@@ -1,3 +1,25 @@
+## [0.8.0](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.6...v0.8.0) (2026-11-25)
+
+### Features
+
+* **card:** redesign recipe card with visible actions ([22dc89b](https://github.com/Disane87/grocy-meal-planning/commit/22dc89b031ef41b35c515898c352f73123b601bb))
+* **desktop:** single-week grid grouped by meal plan section ([785da9a](https://github.com/Disane87/grocy-meal-planning/commit/785da9abd732775b01c5308df0e2bb855f980061))
+* **mobile:** app shell with day strip, day detail and bottom navigation ([ae2df68](https://github.com/Disane87/grocy-meal-planning/commit/ae2df68d035a86b0b7c5607fe3635e6481a88115))
+* **plan:** add pure meal plan view helpers ([94f72e7](https://github.com/Disane87/grocy-meal-planning/commit/94f72e76a6b5f3a6685bd016102ff580dda952eb))
+* **plan:** plan meals into sections from sheets and drag and drop ([ef26201](https://github.com/Disane87/grocy-meal-planning/commit/ef262012e93214541460da7ac885c432766d36cf))
+* **settings:** settings tab and desktop settings panel ([5ae0027](https://github.com/Disane87/grocy-meal-planning/commit/5ae00271445e2cc69953ef957bd88c42754d4e1c))
+
+### Bug Fixes
+
+* **card:** touch fallback for compact actions, dim whole done card ([965ac1c](https://github.com/Disane87/grocy-meal-planning/commit/965ac1cd2db78b16b29b2024e5ce5c719c687ffd))
+* **desktop:** keep day columns scrollable inside fixed grid row ([9393293](https://github.com/Disane87/grocy-meal-planning/commit/939329329ea8cdd05a4d3bb4c70259e846f1c045))
+* **plan:** compare recipe ids numerically in visibleMeals ([55d7bee](https://github.com/Disane87/grocy-meal-planning/commit/55d7bee5a379a8c8454b3cc99695d227bb4db5d8))
+* **plan:** fall back to a visible section chip in sheets and share section load ([748a699](https://github.com/Disane87/grocy-meal-planning/commit/748a69975f5344bf2a926845be34d56fd888e972))
+* **plan:** reload meal plan sections after reconfiguration ([01005a0](https://github.com/Disane87/grocy-meal-planning/commit/01005a08ce97c8e0b71aa940693a63a818d7bee9))
+* **settings:** shared share service, header share, release notes toast, dialog style ([744b655](https://github.com/Disane87/grocy-meal-planning/commit/744b6557ad4f16973863a6a1e98f7de0ca02d344))
+* **ui:** address final review findings ([e3823fd](https://github.com/Disane87/grocy-meal-planning/commit/e3823fddbdd55df4f3812db919cb6fec1ca06cc3))
+* **ui:** polish after final review ([b66e252](https://github.com/Disane87/grocy-meal-planning/commit/b66e252e78bf538191811198c73570ebe720e7d0))
+* **ui:** use primary text for active segment label ([581a54d](https://github.com/Disane87/grocy-meal-planning/commit/581a54dc16c77e52aebffb556fea25b15bf15acb))
 ## [0.7.6](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.5...v0.7.6) (2026-11-25)
 
 ### Bug Fixes
