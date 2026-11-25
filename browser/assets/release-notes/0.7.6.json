@@ -1,0 +1,14 @@
+{
+  "version": "0.7.6",
+  "date": "2026-11-25T07:09:54.109Z",
+  "features": [],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "fix(images): request resized recipe pictures from Grocy"
+  ]
+}
