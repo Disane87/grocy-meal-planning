@@ -24,7 +24,8 @@
   [recipeSearch]="recipeSearch" (tabChange)="mobileTab = $event" (daySelect)="selectDay($event)"
   (dayShift)="shiftSelectedDay($event)" (weekChange)="changeWeek($event)" (addRecipe)="onAddRecipe($event)"
   (planRecipe)="onPlanRecipeFromList($event)" (recipeSearchChange)="recipeSearch = $event"
-  (refreshRecipes)="onRefreshRecipes()" (importRecipe)="onImportRecipe()" (resetConfig)="resetConfig()">
+  (refreshRecipes)="onRefreshRecipes()" (importRecipe)="onImportRecipe()" (resetConfig)="resetConfig()"
+  [grocyInfo]="(grocyInfo$ | async)" (showReleaseNotes)="showReleaseNotes()">
 </app-mobile-shell>
 }
 }

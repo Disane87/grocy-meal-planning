@@ -45,7 +45,7 @@ export class ReleaseNotesService {
     /**
      * Lädt Release Notes für eine bestimmte Version
      */
-    private async loadReleaseNotes(version: string): Promise<ReleaseNote | undefined> {
+    async loadReleaseNotes(version: string): Promise<ReleaseNote | undefined> {
         try {
             // Lade Release Notes aus Assets
             const response = await fetch(`assets/release-notes/${version}.json`);

@@ -29,7 +29,6 @@ import { FilterArrayPipe } from './_pipes/filter-array.pipe';
 import { HighlightSearchPipe } from './_pipes/highlight-search.pipe';
 import { GrocyConfigComponent } from './_components/grocy-config/grocy-config.component';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-import { MadeByBannerComponent } from './_components/made-by-banner/made-by-banner.component';
 import {
   language,
   preloadTranslation,
@@ -39,9 +38,9 @@ import { TranslocoService } from '@jsverse/transloco';
 import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
-import { ThemeToggleComponent } from './_components/theme-toggle/theme-toggle.component';
 import { RecipeSidebarComponent } from './_components/recipe-sidebar/recipe-sidebar.component';
 import { SchedulerComponent } from './_components/scheduler/scheduler.component';
+import { SettingsPanelComponent } from './_components/settings-panel/settings-panel.component';
 import { SchedulerControlsComponent } from './_components/scheduler-controls/scheduler-controls.component';
 import { WeekViewComponent } from './_components/week-view/week-view.component';
 import { DayColumnComponent } from './_components/day-column/day-column.component';
@@ -63,9 +62,8 @@ dayjs.locale(language);
     GrocyConfigComponent,
     GrocyRecipeCardComponent,
     GrocyRecipeListComponent,
-    MadeByBannerComponent,
     ReleaseNotesModalComponent,
-    ThemeToggleComponent,
+    SettingsPanelComponent,
     Base64Pipe,
     GrocyImagePipe,
     OrderByPipe,

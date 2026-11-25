@@ -10,7 +10,7 @@
   <div class="min-w-0">
     @if (tab === 'plan') {
     <div class="text-[12px] font-medium tabular-nums text-muted">
-      {{ 'WEEK_SHORT' | transloco }} {{ weekNumber }} · {{ weekStartDate | date:'d.' }}–{{ weekEndDate | date:'d. MMM' }}
+      {{ 'WEEK_SHORT' | transloco }} {{ weekNumber }} · {{ weekStartDate | date:(sameMonth ? 'd.' : 'd. MMM') }}–{{ weekEndDate | date:'d. MMM' }}
     </div>
     }
     <h1 class="text-[20px] font-semibold">{{ (tab === 'plan' ? 'MEAL_PLAN_TITLE' : 'NAV_SETTINGS') | transloco }}</h1>
@@ -42,12 +42,8 @@
   <i class="ph-duotone ph-plus" aria-hidden="true"></i>
 </button>
 } @else {
-<div class="flex-1 px-4 pt-2">
-  <!-- Placeholder until the settings component lands (Task 8) -->
-  <button type="button" class="btn" (click)="resetConfig.emit()">
-    <i class="ph-duotone ph-sign-out" aria-hidden="true"></i>{{ 'RESET_CONFIG' | transloco }}
-  </button>
-</div>
+<app-settings-panel class="min-h-0 flex-1 overflow-y-auto" [grocyInfo]="grocyInfo" (resetConfig)="resetConfig.emit()"
+  (showReleaseNotes)="showReleaseNotes.emit()"></app-settings-panel>
 }
 }
 

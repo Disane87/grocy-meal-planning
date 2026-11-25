@@ -11,16 +11,7 @@
     class="btn btn-icon bar-btn md:hidden">
     <i class="ph-duotone ph-link-simple" aria-hidden="true"></i>
 </button>
-<div class="relative ml-auto">
-    <button type="button" (click)="onShare()" [attr.aria-label]="'SHARE' | transloco" [title]="'SHARE' | transloco"
-        class="btn btn-icon bar-btn">
-        <i class="ph-duotone ph-share-network" aria-hidden="true"></i>
-    </button>
-    @if (shareTooltip) {
-    <div class="surface-card absolute right-0 top-11 z-10 whitespace-nowrap px-2 py-1 text-[12px]">{{ shareTooltip }}</div>
-    }
-</div>
 <button type="button" (click)="onOpenSettings()" [attr.aria-label]="'SETTINGS' | transloco" [title]="'SETTINGS' | transloco"
-    class="btn btn-icon bar-btn">
+    class="btn btn-icon bar-btn ml-auto">
     <i class="ph-duotone ph-gear-six" aria-hidden="true"></i>
 </button>

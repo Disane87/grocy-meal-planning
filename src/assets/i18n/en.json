@@ -109,5 +109,13 @@
   "MEAL_COUNT": "{{count}} meals",
   "MEAL_COUNT_ONE": "1 meal",
   "PLAN_A_MEAL": "Plan a meal",
-  "WEEK_SHORT": "Wk"
+  "WEEK_SHORT": "Wk",
+  "THEME": "Appearance",
+  "GROCY_CONNECTION": "Grocy connection",
+  "LOGOUT": "Sign out",
+  "SHARE_LINK": "Share access",
+  "LINK_COPIED": "Link copied",
+  "SHARE_LINK_HINT": "The link contains your API key, share it only with people you trust",
+  "WHATS_NEW": "What's new",
+  "MADE_BY": "Made with TailwindCSS by"
 }

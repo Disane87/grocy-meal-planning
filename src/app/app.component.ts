@@ -20,9 +20,10 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
-import { take } from 'rxjs';
+import { take, takeUntil } from 'rxjs';
 import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
 import { NO_SECTION_ID, initialDay, shiftDay } from './services/meal-plan-view';
+import { SettingsPanelComponent } from './_components/settings-panel/settings-panel.component';
 import { MobileTab } from './_components/bottom-nav/bottom-nav.component';
 
 @Component({
@@ -155,7 +156,24 @@ export class AppComponent implements OnInit {
   }
 
   openSettings() {
-    // Settings panel follows in a later task
+    const ref = this.dialog.open(SettingsPanelComponent, {
+      position: { right: '0' },
+      height: '100vh',
+      width: '400px',
+      maxWidth: '100vw',
+      panelClass: 'settings-panel-dialog',
+    });
+    ref.componentInstance.resetConfig.subscribe(() => { ref.close(); this.resetConfig(); });
+    ref.componentInstance.showReleaseNotes.subscribe(() => this.showReleaseNotes());
+    this.grocyInfo$.pipe(takeUntil(ref.afterClosed())).subscribe(info => ref.componentRef?.setInput('grocyInfo', info));
+  }
+
+  showReleaseNotes() {
+    const version = this.releaseNotesService.versionInfo$.pipe(take(1));
+    version.subscribe(async ({ current }) => {
+      const note = await this.releaseNotesService.loadReleaseNotes(current);
+      if (note) this.showReleaseNotesModal(note, current);
+    });
   }
 
   resetConfig() {
