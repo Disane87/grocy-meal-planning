@@ -11,7 +11,6 @@ import { ShareLinkService } from '../../services/share-link.service';
 export class SchedulerControlsComponent {
   @Output() weekChange = new EventEmitter<number>();
   @Output() openSettings = new EventEmitter<void>();
-  @Output() importRecipe = new EventEmitter<void>();
 
   private readonly shareLink = inject(ShareLinkService);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -30,9 +29,5 @@ export class SchedulerControlsComponent {
 
   onOpenSettings() {
     this.openSettings.emit();
-  }
-
-  onImportRecipe() {
-    this.importRecipe.emit();
   }
 }

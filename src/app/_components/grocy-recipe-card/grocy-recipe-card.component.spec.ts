@@ -7,6 +7,8 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { DndModule } from 'ngx-drag-drop';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 
+import { NEVER } from 'rxjs';
+import { GrocyService } from '../../grocy.service';
 import { GrocyRecipeCardComponent } from './grocy-recipe-card.component';
 
 describe('GrocyRecipeCardComponent', () => {
@@ -72,5 +74,14 @@ describe('GrocyRecipeCardComponent', () => {
   it('compact variant is draggable, large is not', () => {
     expect(render({ id: 1, recipe_id: 7, done: 0 }, 'compact').querySelector('[draggable]')).toBeTruthy();
     expect(render({ id: 1, recipe_id: 7, done: 0 }, 'large').querySelector('[draggable]')).toBeNull();
+  });
+
+  it('doneMeal sends a copy and does not mutate the input meal', () => {
+    const svc = TestBed.inject(GrocyService);
+    const update = spyOn(svc, 'updateMeal').and.returnValue(NEVER);
+    const meal: any = { id: 1, recipe_id: 7, done: 0 };
+    component.doneMeal(meal);
+    expect(meal.done).toBe(0);
+    expect(update).toHaveBeenCalledWith(jasmine.objectContaining({ id: 1, done: 1 }));
   });
 });

@@ -15,7 +15,8 @@
   <i class="ph-duotone ph-plus text-muted" aria-hidden="true"></i>
 </button>
 } @else {
-<div class="recipe-row" [dndDraggable]="{ recipe }" dndEffectAllowed="copyMove">
+<div class="recipe-row" role="button" tabindex="0" [dndDraggable]="{ recipe }" dndEffectAllowed="copyMove"
+  (click)="recipeSelect.emit(recipe)" (keydown.enter)="recipeSelect.emit(recipe)" (keydown.space)="$event.preventDefault(); recipeSelect.emit(recipe)">
   <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: recipe }"></ng-container>
   <i class="ph-duotone ph-dots-six-vertical grip" aria-hidden="true"></i>
 </div>

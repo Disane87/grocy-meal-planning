@@ -34,8 +34,7 @@ export class GrocyRecipeCardComponent {
 
   doneMeal(meal: Partial<Meal>) {
     if (meal.id) {
-      meal.done = 1;
-      this.grocyService.updateMeal(meal as Meal).subscribe(() => {
+      this.grocyService.updateMeal({ ...meal, done: 1 } as Meal).subscribe(() => {
         if (meal.recipe_id) {
           this.grocyService.consumeRecipe(meal.recipe_id).subscribe();
         }

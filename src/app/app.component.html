@@ -4,7 +4,7 @@
 <div class="flex flex-row w-screen h-screen cursor-default overflow-hidden">
   <div class="flex flex-col p-4 recipes w-[272px] flex-none border-r min-h-0 overflow-hidden">
     <app-recipe-sidebar [recipes]="recipes" [recipeSearch]="recipeSearch" (recipeSearchChange)="recipeSearch = $event"
-      (refreshRecipes)="onRefreshRecipes()" (importRecipe)="onImportRecipe()">
+      (refreshRecipes)="onRefreshRecipes()" (importRecipe)="onImportRecipe()" (recipeSelect)="onPlanRecipeFromList($event)">
     </app-recipe-sidebar>
   </div>
   @if ((mealPlan$ | async); as mealPlan) {
@@ -12,8 +12,7 @@
     <app-scheduler [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek"
       [mealPlanSections]="(mealPlanSections$ | async)" [mealPlan]="mealPlan" [recipes]="recipes"
       [grocyInfo]="(grocyInfo$ | async)" (weekChange)="changeWeek($event)" (openSettings)="openSettings()"
-      (drop)="onDrop($event.event, $event.day, $event.sectionId)" (addRecipe)="onAddRecipe($event)"
-      (importRecipe)="onImportRecipe()">
+      (drop)="onDrop($event.event, $event.day, $event.sectionId)" (addRecipe)="onAddRecipe($event)">
     </app-scheduler>
   </div>
   }

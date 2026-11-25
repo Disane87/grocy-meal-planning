@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { Subject, BehaviorSubject, switchMap, combineLatest, shareReplay, map } from 'rxjs';
+import { BehaviorSubject, switchMap, combineLatest, shareReplay, map } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -36,8 +36,6 @@ import { MobileTab } from './_components/bottom-nav/bottom-nav.component';
   standalone: false
 })
 export class AppComponent implements OnInit {
-  public btoa = btoa;
-
   constructor(
     private grocyService: GrocyService,
     private route: ActivatedRoute,
@@ -55,8 +53,7 @@ export class AppComponent implements OnInit {
   }));
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;
-  mealPlanSections$ = this.grocyService.getMealPlanSections().pipe(shareReplay({ bufferSize: 1, refCount: false }));
-  refreshMealPlan$ = new Subject<void>();
+  mealPlanSections$ = this.grocyService.getMealPlanSections().pipe(shareReplay({ bufferSize: 1, refCount: true }));
 
   selectedMealPlanSection: number | null = localStorage.getItem(
     'selectedMealPlanSection'
@@ -77,12 +74,6 @@ export class AppComponent implements OnInit {
   mobileTab: MobileTab = 'plan';
   selectedDay: dayjs.Dayjs = initialDay(this.currentWeekStart);
 
-  draggable = {
-    effectAllowed: 'all',
-    disable: false,
-    handle: false,
-  };
-
   selectSection(sectionId: number) {
     localStorage.setItem('selectedMealPlanSection', sectionId.toString());
     this.selectedMealPlanSection = sectionId;
@@ -99,8 +90,6 @@ export class AppComponent implements OnInit {
       this.currentWeekStart = dayjs().isoWeek(weekNum).startOf('isoWeek');
       this.selectedDay = initialDay(this.currentWeekStart);
     }
-    this.refreshMealPlan$.next();
-
     // Check for new version and show release notes
     this.checkForReleaseNotes();
   }
@@ -118,7 +107,7 @@ export class AppComponent implements OnInit {
   }
 
   private showReleaseNotesModal(releaseNote: any, version: string): void {
-    const dialogRef = this.dialog.open(ReleaseNotesModalComponent, {
+    this.dialog.open(ReleaseNotesModalComponent, {
       maxWidth: '95vw',
       maxHeight: '95vh',
       disableClose: false,
@@ -129,10 +118,6 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Optional: Do something when modal is closed
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('Release notes modal was closed');
-    });
   }
 
   changeWeek(weekOffset: number) {
@@ -256,7 +241,7 @@ export class AppComponent implements OnInit {
       section_id: String(sectionId),
       type: 'recipe',
     };
-    this.grocyService.postMeal(meal).subscribe(() => this.refreshMealPlan$.next());
+    this.grocyService.postMeal(meal).subscribe();
   }
 
   moveMeal(mealId: number, day: Date, sectionId: number) {

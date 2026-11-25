@@ -26,7 +26,6 @@ export class SchedulerComponent implements OnChanges {
   @Output() openSettings = new EventEmitter<void>();
   @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date, sectionId: number }>();
   @Output() addRecipe = new EventEmitter<{ day: Date, sectionId: number }>();
-  @Output() importRecipe = new EventEmitter<void>();
 
   plannedDays = 0;
   weekStartDate!: Date;
