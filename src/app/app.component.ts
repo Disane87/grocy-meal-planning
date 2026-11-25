@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { Subject, BehaviorSubject, switchMap, combineLatest, shareReplay } from 'rxjs';
+import { Subject, BehaviorSubject, switchMap, combineLatest, shareReplay, map } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -20,7 +22,8 @@ import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/re
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
 import { take } from 'rxjs';
 import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
-import { NO_SECTION_ID } from './services/meal-plan-view';
+import { NO_SECTION_ID, initialDay, shiftDay } from './services/meal-plan-view';
+import { MobileTab } from './_components/bottom-nav/bottom-nav.component';
 
 @Component({
   selector: 'app-root',
@@ -62,6 +65,13 @@ export class AppComponent implements OnInit {
 
   currentWeekStart: dayjs.Dayjs = dayjs().startOf('isoWeek');
 
+  isDesktop = toSignal(
+    inject(BreakpointObserver).observe('(min-width: 768px)').pipe(map(r => r.matches)),
+    { requireSync: true }
+  );
+  mobileTab: MobileTab = 'plan';
+  selectedDay: dayjs.Dayjs = initialDay(this.currentWeekStart);
+
   draggable = {
     effectAllowed: 'all',
     disable: false,
@@ -82,6 +92,7 @@ export class AppComponent implements OnInit {
     if (queryWeek) {
       const weekNum = parseInt(queryWeek);
       this.currentWeekStart = dayjs().isoWeek(weekNum).startOf('isoWeek');
+      this.selectedDay = initialDay(this.currentWeekStart);
     }
     this.refreshMealPlan$.next();
 
@@ -125,6 +136,18 @@ export class AppComponent implements OnInit {
     } else {
       this.currentWeekStart = this.currentWeekStart.add(weekOffset, 'week');
     }
+    this.selectedDay = initialDay(this.currentWeekStart);
+  }
+
+  selectDay(day: dayjs.Dayjs) {
+    this.selectedDay = day;
+  }
+
+  shiftSelectedDay(delta: 1 | -1) {
+    const { day, weekOffset } = shiftDay(this.selectedDay, delta, this.currentWeekStart);
+    if (weekOffset !== 0) this.changeWeek(weekOffset);
+    // after changeWeek, which reset the day to its default
+    this.selectedDay = day;
   }
 
   get currentWeek(): number {

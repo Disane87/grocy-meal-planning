@@ -1,0 +1,8 @@
+@for (d of days; track d.key) {
+<button type="button" class="day" [class.on]="d.selected" [class.today]="d.today"
+  [attr.aria-pressed]="d.selected" [attr.aria-label]="d.date | date:'EEEE, d. MMMM'" (click)="daySelect.emit(d.day)">
+  <span class="wd">{{ d.date | date:'EEEEEE' }}</span>
+  <b class="num">{{ d.date | date:'d' }}</b>
+  <span class="dot" [class.on]="plannedDays.has(d.key)" aria-hidden="true"></span>
+</button>
+}

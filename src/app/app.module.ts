@@ -48,6 +48,10 @@ import { DayColumnComponent } from './_components/day-column/day-column.componen
 import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
+import { BottomNavComponent } from './_components/bottom-nav/bottom-nav.component';
+import { DayStripComponent } from './_components/day-strip/day-strip.component';
+import { DayDetailComponent } from './_components/day-detail/day-detail.component';
+import { MobileShellComponent } from './_components/mobile-shell/mobile-shell.component';
 
 registerLocaleData(localeDe);
 
@@ -81,6 +85,10 @@ dayjs.locale(language);
     RecipePickerSheetComponent,
     PlanRecipeSheetComponent,
     RecipeImportDialogComponent,
+    BottomNavComponent,
+    DayStripComponent,
+    DayDetailComponent,
+    MobileShellComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

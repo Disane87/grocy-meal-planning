@@ -1,0 +1,54 @@
+@if (tab === 'recipes') {
+<div class="flex min-h-0 flex-1 flex-col px-4 pt-5">
+  <app-recipe-sidebar class="flex min-h-0 flex-1 flex-col pb-4" [recipes]="recipes" [recipeSearch]="recipeSearch" tapToPlan
+    (recipeSearchChange)="recipeSearchChange.emit($event)" (refreshRecipes)="refreshRecipes.emit()"
+    (importRecipe)="importRecipe.emit()" (recipeSelect)="planRecipe.emit($event)">
+  </app-recipe-sidebar>
+</div>
+} @else {
+<header class="flex items-center justify-between gap-2 px-4 pb-2 pt-5">
+  <div class="min-w-0">
+    @if (tab === 'plan') {
+    <div class="text-[12px] font-medium tabular-nums text-muted">
+      {{ 'WEEK_SHORT' | transloco }} {{ weekNumber }} · {{ weekStartDate | date:'d.' }}–{{ weekEndDate | date:'d. MMM' }}
+    </div>
+    }
+    <h1 class="text-[20px] font-semibold">{{ (tab === 'plan' ? 'MEAL_PLAN_TITLE' : 'NAV_SETTINGS') | transloco }}</h1>
+  </div>
+  @if (tab === 'plan') {
+  <div class="flex flex-none items-center gap-1">
+    @if (!isToday) {
+    <button type="button" class="btn !h-10 !px-3 !text-[13px]" (click)="weekChange.emit(0)">{{ 'TODAY' | transloco }}</button>
+    }
+    <button type="button" class="btn btn-icon" (click)="weekChange.emit(-1)" [attr.aria-label]="'PREVIOUS_WEEK' | transloco">
+      <i class="ph-duotone ph-caret-left" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-icon" (click)="weekChange.emit(1)" [attr.aria-label]="'NEXT_WEEK' | transloco">
+      <i class="ph-duotone ph-caret-right" aria-hidden="true"></i>
+    </button>
+  </div>
+  }
+</header>
+
+@if (tab === 'plan') {
+<app-day-strip [weekStart]="weekStart" [selectedDay]="selectedDay" [plannedDays]="plannedDays"
+  (daySelect)="daySelect.emit($event)"></app-day-strip>
+<div class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-4 pb-24">
+  <app-day-detail class="min-h-full" [day]="selectedDay" [groups]="groups" [showHeadings]="showHeadings" [recipes]="recipes"
+    (addRecipe)="addRecipe.emit($event)" (swipe)="dayShift.emit($event)"></app-day-detail>
+</div>
+<button type="button" class="fab" (click)="addRecipe.emit({ day: selectedDay.toDate() })"
+  [attr.aria-label]="'PLAN_A_MEAL' | transloco">
+  <i class="ph-duotone ph-plus" aria-hidden="true"></i>
+</button>
+} @else {
+<div class="flex-1 px-4 pt-2">
+  <!-- Placeholder until the settings component lands (Task 8) -->
+  <button type="button" class="btn" (click)="resetConfig.emit()">
+    <i class="ph-duotone ph-sign-out" aria-hidden="true"></i>{{ 'RESET_CONFIG' | transloco }}
+  </button>
+</div>
+}
+}
+
+<app-bottom-nav [active]="tab" (activeChange)="tabChange.emit($event)"></app-bottom-nav>

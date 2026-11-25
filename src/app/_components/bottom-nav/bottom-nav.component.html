@@ -1,0 +1,9 @@
+<nav class="nav">
+  @for (tab of tabs; track tab.id) {
+  <button type="button" class="tab" [class.on]="tab.id === active" [attr.aria-current]="tab.id === active ? 'page' : null"
+    (click)="activeChange.emit(tab.id)">
+    <i class="ph-duotone ph-{{ tab.icon }}" aria-hidden="true"></i>
+    <span>{{ tab.label | transloco }}</span>
+  </button>
+  }
+</nav>

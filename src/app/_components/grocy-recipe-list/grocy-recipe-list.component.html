@@ -1,6 +1,4 @@
-@if (recipes && recipes.length > 0) {
-@for (recipe of recipes; track recipe.id) {
-<div class="recipe-row" [dndDraggable]="{ recipe }" dndEffectAllowed="copyMove">
+<ng-template #rowContent let-recipe>
   <span class="thumb">
     @if (recipe.picture_file_name) {
     <img class="h-full w-full object-cover" loading="lazy" alt=""
@@ -8,7 +6,19 @@
     }
   </span>
   <span class="min-w-0 flex-1 truncate text-[14px]">{{ recipe.name }}</span>
+</ng-template>
+@if (recipes && recipes.length > 0) {
+@for (recipe of recipes; track recipe.id) {
+@if (tapToPlan) {
+<button type="button" class="recipe-row is-tap" (click)="recipeSelect.emit(recipe)">
+  <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: recipe }"></ng-container>
+  <i class="ph-duotone ph-plus text-muted" aria-hidden="true"></i>
+</button>
+} @else {
+<div class="recipe-row" [dndDraggable]="{ recipe }" dndEffectAllowed="copyMove">
+  <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: recipe }"></ng-container>
   <i class="ph-duotone ph-dots-six-vertical grip" aria-hidden="true"></i>
 </div>
+}
 }
 }

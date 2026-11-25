@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Host, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { Recipe } from '../../interfaces/recipe.interface';
 
 @Component({
@@ -11,6 +11,8 @@ import { Recipe } from '../../interfaces/recipe.interface';
 export class GrocyRecipeListComponent {
   @Input() recipes: Array<Recipe> | undefined;
   @Input() recipeSearch: string | null = null;
+  @Input() tapToPlan = false;
+  @Output() recipeSelect = new EventEmitter<Recipe>();
 
   @HostBinding('class') class = 'contents';
 }

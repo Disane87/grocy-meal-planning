@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { GrocyService } from './grocy.service';
 import { Recipe } from './interfaces/recipe.interface';
+import dayjs from 'dayjs';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -29,6 +30,38 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  describe('mobile day selection', () => {
+    let app: AppComponent;
+    beforeEach(() => {
+      app = TestBed.createComponent(AppComponent).componentInstance;
+      app.currentWeekStart = dayjs('2026-11-23');
+    });
+
+    it('shiftSelectedDay(1) on Sunday changes the week and selects Monday', () => {
+      app.selectedDay = dayjs('2026-11-29');
+      spyOn(app, 'changeWeek').and.callThrough();
+      app.shiftSelectedDay(1);
+      expect(app.changeWeek).toHaveBeenCalledWith(1);
+      expect(app.currentWeekStart.format('YYYY-MM-DD')).toBe('2026-11-30');
+      expect(app.selectedDay.format('YYYY-MM-DD')).toBe('2026-11-30');
+    });
+
+    it('shiftSelectedDay(-1) within the week keeps the week', () => {
+      app.selectedDay = dayjs('2026-11-25');
+      spyOn(app, 'changeWeek');
+      app.shiftSelectedDay(-1);
+      expect(app.changeWeek).not.toHaveBeenCalled();
+      expect(app.selectedDay.format('YYYY-MM-DD')).toBe('2026-11-24');
+    });
+
+    it('changeWeek resets the selected day to the week start when today is outside', () => {
+      app.selectedDay = dayjs('2026-11-25');
+      app.currentWeekStart = dayjs().startOf('isoWeek').add(3, 'week');
+      app.changeWeek(1);
+      expect(app.selectedDay.format('YYYY-MM-DD')).toBe(app.currentWeekStart.format('YYYY-MM-DD'));
+    });
   });
 
   describe('planning', () => {

@@ -100,5 +100,14 @@
   "PLAN_MEAL": "Planen",
   "DROP_HERE": "Hier ablegen",
   "DAYS_PLANNED": "{{count}} von 7 Tagen geplant",
-  "SETTINGS": "Einstellungen"
+  "SETTINGS": "Einstellungen",
+  "NAV_PLAN": "Plan",
+  "NAV_RECIPES": "Rezepte",
+  "NAV_SETTINGS": "Einstellungen",
+  "MEAL_PLAN_TITLE": "Essensplan",
+  "TODAY_WEEKDAY": "Heute, {{weekday}}",
+  "MEAL_COUNT": "{{count}} Gerichte",
+  "MEAL_COUNT_ONE": "1 Gericht",
+  "PLAN_A_MEAL": "Gericht planen",
+  "WEEK_SHORT": "KW"
 }

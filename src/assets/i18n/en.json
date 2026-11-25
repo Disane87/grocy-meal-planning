@@ -100,5 +100,14 @@
   "PLAN_MEAL": "Plan",
   "DROP_HERE": "Drop here",
   "DAYS_PLANNED": "{{count}} of 7 days planned",
-  "SETTINGS": "Settings"
+  "SETTINGS": "Settings",
+  "NAV_PLAN": "Plan",
+  "NAV_RECIPES": "Recipes",
+  "NAV_SETTINGS": "Settings",
+  "MEAL_PLAN_TITLE": "Meal plan",
+  "TODAY_WEEKDAY": "Today, {{weekday}}",
+  "MEAL_COUNT": "{{count}} meals",
+  "MEAL_COUNT_ONE": "1 meal",
+  "PLAN_A_MEAL": "Plan a meal",
+  "WEEK_SHORT": "Wk"
 }

@@ -1,0 +1,26 @@
+:host {
+    display: block;
+    touch-action: pan-y;
+}
+
+.plan-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1.5px var(--line-strong);
+    transition: background-color 150ms var(--ease);
+}
+
+.plan-row:hover {
+    background: var(--surface);
+}
