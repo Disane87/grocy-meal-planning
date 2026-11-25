@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 
 import { WeekViewComponent } from './week-view.component';
-import { DaysOfWeekPipe } from '../../_pipes/days-of-week.pipe';
 
 dayjs.extend(isoWeek);
 
@@ -15,7 +14,7 @@ describe('WeekViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WeekViewComponent, DaysOfWeekPipe],
+      declarations: [WeekViewComponent],
       imports: [TranslocoTestingModule.forRoot({ langs: {}, translocoConfig: { availableLangs: ['de', 'en'], defaultLang: 'de' } })],
       schemas: [NO_ERRORS_SCHEMA],
     })

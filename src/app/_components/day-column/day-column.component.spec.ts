@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IsTodayPipe } from '../../_pipes/is-today.pipe';
-import { IsWeekendPipe } from '../../_pipes/is-weekend.pipe';
 import { GetRecipePipe } from '../../_pipes/get-recipe.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -18,7 +17,7 @@ describe('DayColumnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DayColumnComponent, IsTodayPipe, IsWeekendPipe, GetRecipePipe],
+      declarations: [DayColumnComponent, IsTodayPipe, GetRecipePipe],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,

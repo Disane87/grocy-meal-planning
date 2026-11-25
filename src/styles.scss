@@ -36,6 +36,10 @@
   --accent-on: #ffffff;
   --accent-surface: #f6ebe4;
 
+  /* Errors */
+  --danger: #b42318;
+  --danger-surface: #fcebe9;
+
   /* Lines */
   --line: rgba(41, 37, 36, .08);
   --line-strong: rgba(41, 37, 36, .16);
@@ -60,6 +64,9 @@
   --accent-on: #1c1917;
   --accent-surface: rgba(224, 112, 63, .14);
 
+  --danger: #f4a090;
+  --danger-surface: rgba(244, 160, 144, .12);
+
   --line: rgba(245, 241, 236, .08);
   --line-strong: rgba(245, 241, 236, .16);
 
@@ -67,22 +74,6 @@
   --shadow-fab: none;
 
   color-scheme: dark;
-}
-
-/* ── Legacy aliases (templates still reference old names; removed in Task 9) ── */
-:root, .dark {
-  --accent-hover: var(--accent);
-  --glass-bg: var(--surface);
-  --glass-bg-strong: var(--surface);
-  --glass-bg-subtle: var(--surface-muted);
-  --glass-border: var(--line);
-  --glass-border-subtle: var(--line);
-  --surface-body: var(--bg);
-  --surface-card: var(--surface);
-  --surface-input: var(--surface);
-  --surface-input-border: var(--line-strong);
-  --shadow-card-hover: var(--shadow-card);
-  --shadow-button: none;
 }
 
 /* ── Base ── */
@@ -136,7 +127,7 @@
 }
 
 /* =============================================
-   NEW GLOBAL CLASSES
+   GLOBAL CLASSES
    ============================================= */
 .text-muted { color: var(--text-muted); }
 .text-secondary { color: var(--text-secondary); }
@@ -163,7 +154,8 @@
   cursor: pointer;
   transition: background-color 150ms var(--ease), color 150ms var(--ease);
 }
-.btn:hover { background: var(--line-strong); }
+/* opaque hover: muted surface mixed with text colour */
+.btn:hover { background: color-mix(in srgb, var(--surface-muted), var(--text-primary) 8%); }
 
 .btn-primary {
   background: var(--accent);
@@ -196,102 +188,6 @@
 }
 .field::placeholder { color: var(--text-muted); }
 
-/* =============================================
-   LEGACY CLASSES (flat, re-pointed to new tokens; removed in Task 9)
-   ============================================= */
-.glass-panel {
-  background: var(--surface) !important;
-  border: 1px solid var(--line) !important;
-}
-
-.glass-card {
-  background: var(--surface) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 12px;
-  box-shadow: var(--shadow-card);
-}
-
-.glass-card-strong {
-  background: var(--surface) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 16px;
-  box-shadow: var(--shadow-card);
-}
-
-.glass-button {
-  background: var(--surface-muted) !important;
-  border: 0 !important;
-  color: var(--text-secondary) !important;
-}
-.glass-button:hover {
-  background: var(--line-strong) !important;
-  color: var(--text-primary) !important;
-}
-
-.glass-input {
-  background: var(--surface) !important;
-  border: 1px solid var(--line-strong) !important;
-  border-radius: 10px;
-  color: var(--text-primary) !important;
-}
-.glass-input:focus {
-  border-color: var(--accent) !important;
-}
-.glass-input::placeholder {
-  color: var(--text-muted) !important;
-}
-
-.action-pill {
-  background: var(--surface) !important;
-  border: 1px solid var(--line);
-  border-radius: 9999px;
-  width: 1.75rem;
-  height: 1.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-card);
-}
-
-.control-btn,
-.control-btn-primary,
-.control-btn-danger {
-  background: var(--surface-muted) !important;
-  color: var(--text-secondary) !important;
-  border: 0 !important;
-  border-radius: 10px;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.control-btn:hover {
-  background: var(--line-strong) !important;
-  color: var(--text-primary) !important;
-}
-.control-btn-primary {
-  background: var(--accent-surface) !important;
-  color: var(--accent) !important;
-}
-.control-btn-primary:hover {
-  background: var(--accent) !important;
-  color: var(--accent-on) !important;
-}
-.control-btn-danger { color: var(--text-muted) !important; }
-.control-btn-danger:hover {
-  background: rgba(225, 29, 72, 0.10) !important;
-  color: #be123c !important;
-}
-.dark .control-btn-danger:hover { color: #fda4af !important; }
-
-.control-select {
-  background: var(--surface-muted) !important;
-  color: var(--text-secondary) !important;
-  border: 0 !important;
-  border-radius: 10px;
-  padding: 0.25rem 0.5rem;
-}
-
 /* ── Inputs ── */
 input[type="text"],
 input[type="email"],
@@ -303,122 +199,17 @@ textarea {
   color: var(--text-primary);
   border-color: var(--line-strong);
 
+  /* keep the global :focus-visible ring for keyboard users, add the accent border */
   &:focus {
     border-color: var(--accent) !important;
-    outline: none;
   }
   &::placeholder { color: var(--text-muted) !important; }
-}
-
-/* ── Unified control height ── */
-.scheduler-controls button,
-.control-select {
-  height: 2.5rem !important;
-  min-height: 2.5rem !important;
-  display: flex !important;
-  align-items: center !important;
 }
 
 /* ── Layout surfaces ── */
 .flex.flex-col.md\:flex-row.w-screen.h-screen,
 .flex.flex-row.w-screen.h-screen {
   background: var(--bg) !important;
-}
-
-.recipes {
-  background: var(--surface) !important;
-  border-color: var(--line) !important;
-}
-
-.scheduler, .planning, .weeks, .meals { background: transparent !important; }
-
-/* ── Week card ── */
-.week-card {
-  display: flex;
-  flex-direction: column;
-  background-color: transparent !important;
-}
-
-.weeknumber-header-desktop {
-  padding: 0.75rem 1.25rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  font-family: var(--font-display);
-  white-space: nowrap;
-  width: 100%;
-  background: var(--surface-muted) !important;
-  color: var(--text-secondary) !important;
-}
-
-@media (min-width: 768px) {
-  .week-card {
-    overflow: hidden;
-    background: var(--surface) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 12px !important;
-    box-shadow: var(--shadow-card) !important;
-  }
-  .weeknumber-header-desktop {
-    border-bottom: 1px solid var(--line) !important;
-  }
-}
-
-/* ── Day columns ── */
-.day-normal  { background: transparent !important; color: var(--text-primary) !important; }
-.day-today   { background: var(--accent-surface) !important; }
-.day-weekend { background: var(--surface-muted) !important; }
-.day:hover   { background: var(--accent-surface) !important; }
-
-.days-header { color: var(--text-secondary) !important; }
-.header-today {
-  color: var(--accent) !important;
-  font-weight: 600 !important;
-}
-.header-weekend {
-  color: var(--text-secondary) !important;
-  font-weight: 500 !important;
-}
-
-/* ── Cards ── */
-.card-surface,
-.recipe {
-  background: var(--surface) !important;
-  color: var(--text-primary) !important;
-}
-
-.add-recipe-btn {
-  background: var(--accent-surface) !important;
-  color: var(--accent) !important;
-}
-.add-recipe-btn:hover {
-  background: var(--accent) !important;
-  color: var(--accent-on) !important;
-}
-
-/* ── Tailwind utility overrides (legacy templates) ── */
-.shadow-lg, .shadow-md, .shadow-sm { box-shadow: var(--shadow-card) !important; }
-
-.bg-white, .bg-gray-100 {
-  background: var(--surface) !important;
-  color: var(--text-primary) !important;
-}
-.bg-gray-100 { background: var(--surface-muted) !important; }
-.bg-stone-50, .bg-slate-200 { background: transparent !important; color: var(--text-primary) !important; }
-.bg-blue-50 { background: var(--accent-surface) !important; color: var(--accent) !important; }
-.bg-yellow-50 { background: var(--surface-muted) !important; color: var(--text-secondary) !important; }
-.card {
-  background: var(--surface) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--line) !important;
-}
-.bg-teal-100 {
-  background: var(--surface-muted) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--line-strong) !important;
-}
-.dark .max-w-sm {
-  background: var(--surface) !important;
-  color: var(--text-primary) !important;
 }
 
 .dropzone:hover { background: var(--accent-surface) !important; }
@@ -442,25 +233,13 @@ html, body {
   padding-right: env(safe-area-inset-right);
 }
 
-/* Top safe area on the scheduler controls header */
-.scheduler > .info {
-  padding-top: env(safe-area-inset-top);
-}
-
-/* Bottom safe area inside the scrollable weeks container */
-.weeks {
-  padding-bottom: env(safe-area-inset-bottom);
-  -webkit-overflow-scrolling: touch;
-}
-
 /* Hot toast notifications — offset from safe area top */
 .hot-toast-container {
   top: env(safe-area-inset-top) !important;
 }
 
 /* Recipe picker bottom sheet — bottom safe area for home indicator */
-.recipe-picker-bottom-sheet .mat-bottom-sheet-container,
-.recipe-picker-bottom-sheet .mat-mdc-bottom-sheet-container {
+.recipe-picker-bottom-sheet .mat-bottom-sheet-container {
   padding-bottom: env(safe-area-inset-bottom) !important;
 }
 
@@ -482,68 +261,49 @@ html, body {
   }
 }
 
-/* ── Release Notes Modal ── */
-.release-notes-dialog .mat-mdc-dialog-container {
-  padding: 0 !important;
-  border-radius: 20px !important;
-  overflow: hidden;
-  background: transparent !important;
+/* ── Material dialog / bottom sheet surfaces ── */
+.mat-mdc-dialog-container {
+  --mat-dialog-container-shape: 20px;
+  --mat-dialog-container-color: var(--surface);
+  --mat-dialog-container-elevation-shadow: var(--shadow-fab);
 }
-.release-notes-dialog .mat-mdc-dialog-surface {
-  border-radius: 20px !important;
-  background: transparent !important;
+.mat-bottom-sheet-container {
+  --mat-bottom-sheet-container-shape: 20px 20px 0 0;
+  --mat-bottom-sheet-container-background-color: var(--surface);
+  --mat-bottom-sheet-container-text-color: var(--text-primary);
+  box-shadow: var(--shadow-fab);
 }
 
-/* ── Recipe Import Dialog ── */
+.release-notes-dialog .mat-mdc-dialog-container,
 .recipe-import-dialog .mat-mdc-dialog-container {
-  padding: 0 !important;
-  border-radius: 20px !important;
+  --mat-dialog-container-color: var(--surface);
+}
+.release-notes-dialog .mat-mdc-dialog-surface,
+.recipe-import-dialog .mat-mdc-dialog-surface {
+  padding: 0;
   overflow: hidden;
 }
-.recipe-import-dialog .mat-mdc-dialog-surface {
-  border-radius: 20px !important;
-  background: var(--surface) !important;
-  color: var(--text-primary) !important;
-}
-.dark .recipe-import-dialog .text-stone-500,
-.dark .recipe-import-dialog .text-stone-600 {
-  color: var(--text-secondary) !important;
-}
-.dark .recipe-import-dialog .text-stone-400 {
-  color: var(--text-muted) !important;
-}
-.dark .recipe-import-dialog .border {
-  border-color: var(--line) !important;
-}
 
-/* ── Recipe Picker Bottom Sheet ── */
 .recipe-picker-bottom-sheet {
   max-height: 80vh !important;
 }
-.recipe-picker-bottom-sheet .mat-bottom-sheet-container,
-.recipe-picker-bottom-sheet .mat-mdc-bottom-sheet-container {
-  border-radius: 20px 20px 0 0 !important;
-  padding: 0 !important;
+.recipe-picker-bottom-sheet .mat-bottom-sheet-container {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
   max-width: 100vw !important;
-  background: var(--surface) !important;
-  color: var(--text-primary) !important;
 }
-.dark .recipe-picker-bottom-sheet button {
-  color: var(--text-primary) !important;
-}
-.dark .recipe-picker-bottom-sheet button:hover {
-  background: var(--accent-surface) !important;
-}
-.dark .recipe-picker-bottom-sheet .border-b,
-.dark .recipe-picker-bottom-sheet .border {
-  border-color: var(--line) !important;
+
+/* Right-docked settings dialog */
+.settings-panel-dialog .mat-mdc-dialog-container {
+  --mat-dialog-container-shape: 20px 0 0 20px;
+  height: 100vh;
 }
 
 /* ── Hot Toast ── */
 .hot-toast-container {
   z-index: 99999 !important;
 }
-
 .hot-toast-bar-base {
   background: var(--surface) !important;
   color: var(--text-primary) !important;
@@ -551,7 +311,6 @@ html, body {
   border-radius: 12px !important;
   box-shadow: var(--shadow-card) !important;
 }
-
 .dark .hot-toast-close-btn {
   filter: invert(1);
 }
@@ -561,19 +320,4 @@ html, body {
     font-size: 18px;
     line-height: 1;
   }
-}
-
-/* Right-docked settings dialog */
-.settings-panel-dialog .mat-mdc-dialog-container {
-  --mdc-dialog-container-shape: 20px 0 0 20px;
-  --mdc-dialog-container-color: var(--surface);
-  --mat-dialog-container-shape: 20px 0 0 20px;
-  --mat-dialog-container-color: var(--surface);
-  --mdc-dialog-container-elevation-shadow: 0 4px 12px rgba(0, 0, 0, .16);
-  height: 100vh;
-}
-.dark .settings-panel-dialog .mat-mdc-dialog-container {
-  --mdc-dialog-container-elevation-shadow: none;
-  --mat-dialog-container-elevation-shadow: none;
-  box-shadow: none;
 }

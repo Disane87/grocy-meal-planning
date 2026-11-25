@@ -36,7 +36,6 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/angular-calendar/css/angular-calendar.css",
               "node_modules/@phosphor-icons/web/src/duotone/style.css",
               "src/styles.scss"
             ],
@@ -113,7 +112,6 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/angular-calendar/css/angular-calendar.css",
               "node_modules/@phosphor-icons/web/src/duotone/style.css",
               "src/styles.scss"
             ],
