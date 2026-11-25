@@ -20,7 +20,7 @@
     @for (plannedMeal of plannedMeals; track plannedMeal.id) {
     <div class="min-w-[150px] md:min-w-0">
       @if (plannedMeal.recipe_id && (plannedMeal.recipe_id | getRecipe:recipes); as recipe) {
-      <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal"></app-grocy-recipe-card>
+      <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal" variant="compact"></app-grocy-recipe-card>
       }
     </div>
     }

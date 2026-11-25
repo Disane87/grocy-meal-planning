@@ -87,5 +87,9 @@
   "SHARE": "Teilen",
   "REMOVE": "Entfernen",
   "OPEN_RECIPE": "Rezept öffnen",
-  "MARK_COOKED": "Als gekocht markieren"
+  "MARK_COOKED": "Als gekocht markieren",
+  "COOKED": "Gekocht",
+  "RECIPE": "Rezept",
+  "AI_SUGGESTION": "KI-Vorschlag",
+  "SERVINGS": "{{count}} Portionen"
 }

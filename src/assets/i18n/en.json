@@ -87,5 +87,9 @@
   "SHARE": "Share",
   "REMOVE": "Remove",
   "OPEN_RECIPE": "Open recipe",
-  "MARK_COOKED": "Mark as cooked"
+  "MARK_COOKED": "Mark as cooked",
+  "COOKED": "Cooked",
+  "RECIPE": "Recipe",
+  "AI_SUGGESTION": "AI suggestion",
+  "SERVINGS": "{{count}} servings"
 }

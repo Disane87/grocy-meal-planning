@@ -580,7 +580,9 @@ html, body {
   filter: invert(1);
 }
 
-.ph-duotone {
-  font-size: 18px;
-  line-height: 1;
+@layer base {
+  .ph-duotone {
+    font-size: 18px;
+    line-height: 1;
+  }
 }
