@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { Meal } from '../../interfaces/meal.interface';
 import { Recipe } from '../../interfaces/recipe.interface';
 import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
 import { GrocySystemInfo } from '../../interfaces/grocy-system-info-interface';
+import { countPlannedDays, visibleMeals } from '../../services/meal-plan-view';
 import { Dayjs } from 'dayjs';
 
 @Component({
@@ -13,53 +14,24 @@ import { Dayjs } from 'dayjs';
   styleUrl: './scheduler.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SchedulerComponent {
+export class SchedulerComponent implements OnChanges {
   @Input() currentWeekStart!: Dayjs;
   @Input() currentWeek: number | undefined;
-  @Input() selectedMealPlanSection: number | null = null;
   @Input() mealPlanSections: MealPlanSection[] | null = null;
   @Input() mealPlan: Partial<Meal>[] | null = null;
   @Input() recipes: Recipe[] | null = null;
   @Input() grocyInfo: GrocySystemInfo | null = null;
 
-  @Output() sectionChange = new EventEmitter<number>();
   @Output() weekChange = new EventEmitter<number>();
-  @Output() resetConfig = new EventEmitter<void>();
-  @Output() dragOver = new EventEmitter<{ event: DragEvent, day: Date }>();
-  @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date }>();
-  @Output() addRecipe = new EventEmitter<Date>();
-  @Output() refreshRecipes = new EventEmitter<void>();
+  @Output() openSettings = new EventEmitter<void>();
+  @Output() drop = new EventEmitter<{ event: DndDropEvent, day: Date, sectionId: number }>();
+  @Output() addRecipe = new EventEmitter<{ day: Date, sectionId: number }>();
   @Output() importRecipe = new EventEmitter<void>();
 
-  onSectionChange(sectionId: number) {
-    this.sectionChange.emit(sectionId);
-  }
+  plannedDays = 0;
 
-  onWeekChange(week: number) {
-    this.weekChange.emit(week);
-  }
-
-  onResetConfig() {
-    this.resetConfig.emit();
-  }
-
-  onDragOver(event: { event: DragEvent, day: Date }) {
-    this.dragOver.emit(event);
-  }
-
-  onDrop(event: { event: DndDropEvent, day: Date }) {
-    this.drop.emit(event);
-  }
-
-  onAddRecipe(day: Date) {
-    this.addRecipe.emit(day);
-  }
-
-  onRefreshRecipes() {
-    this.refreshRecipes.emit();
-  }
-
-  onImportRecipe() {
-    this.importRecipe.emit();
+  ngOnChanges(): void {
+    if (!this.currentWeekStart) return;
+    this.plannedDays = countPlannedDays(visibleMeals(this.mealPlan ?? [], this.recipes), this.currentWeekStart);
   }
 }

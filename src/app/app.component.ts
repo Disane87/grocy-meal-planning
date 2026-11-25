@@ -131,13 +131,8 @@ export class AppComponent implements OnInit {
     return this.currentWeekStart.isoWeek();
   }
 
-  onDragover(event: DragEvent, day: Date) {
-    // const elements = document.querySelectorAll(".dropzone.bg-blue-200");
-    // elements.forEach(element => {
-    //   this.renderer2.removeClass(element, 'bg-blue-200');
-    // })
-    // this.renderer2.addClass(event.target, 'bg-blue-200');
-    // console.log("dragover", event);
+  openSettings() {
+    // Settings panel follows in a later task
   }
 
   resetConfig() {

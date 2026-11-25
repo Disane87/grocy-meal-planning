@@ -1,7 +1,7 @@
 @if (isAppConfigured$ | async) {
 @if ((recipes$ | async); as recipes) {
 <div class="flex flex-col md:flex-row w-screen h-screen cursor-default overflow-hidden">
-  <div class="hidden md:flex flex-col p-4 gap-y-4 recipes md:w-[15%] border-r min-h-0 overflow-hidden">
+  <div class="hidden md:flex flex-col p-4 recipes w-[272px] flex-none border-r min-h-0 overflow-hidden">
     <app-recipe-sidebar [recipes]="recipes" [recipeSearch]="recipeSearch" (recipeSearchChange)="recipeSearch = $event"
       (refreshRecipes)="onRefreshRecipes()" (importRecipe)="onImportRecipe()">
     </app-recipe-sidebar>
@@ -9,12 +9,9 @@
   @if ((mealPlan$ | async); as mealPlan) {
   <div class="flex flex-col flex-1 h-full scheduler overflow-hidden min-w-0">
     <app-scheduler [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek"
-      [selectedMealPlanSection]="selectedMealPlanSection" [mealPlanSections]="(mealPlanSections$ | async)"
-      [mealPlan]="mealPlan" [recipes]="recipes" [grocyInfo]="(grocyInfo$ | async)"
-      (sectionChange)="selectSection($event)" (weekChange)="changeWeek($event)" (resetConfig)="resetConfig()"
-      (dragOver)="onDragover($event.event, $event.day)" (drop)="onDrop($event.event, $event.day, selectedMealPlanSection ?? -1)"
-      (addRecipe)="onAddRecipe({ day: $event, sectionId: selectedMealPlanSection ?? -1 })"
-      (refreshRecipes)="onRefreshRecipes()"
+      [mealPlanSections]="(mealPlanSections$ | async)" [mealPlan]="mealPlan" [recipes]="recipes"
+      [grocyInfo]="(grocyInfo$ | async)" (weekChange)="changeWeek($event)" (openSettings)="openSettings()"
+      (drop)="onDrop($event.event, $event.day, $event.sectionId)" (addRecipe)="onAddRecipe($event)"
       (importRecipe)="onImportRecipe()">
     </app-scheduler>
   </div>

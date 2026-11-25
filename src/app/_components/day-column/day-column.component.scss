@@ -1,9 +1,76 @@
 :host {
     display: flex;
-    flex: none;
     min-width: 0;
+    min-height: 0;
+    flex: 1 1 0%;
+}
 
-    @media (min-width: 768px) {
-        flex: 1 1 0%;
+.col.is-today {
+    background: var(--accent-surface);
+}
+
+.dropzone {
+    position: relative;
+    flex: 1;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.plan-btn,
+.drop-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.plan-btn {
+    width: 100%;
+    height: 100%;
+    min-height: 56px;
+    justify-content: center;
+    border-radius: 10px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1.5px var(--line-strong);
+    opacity: 0;
+    transition: opacity 200ms var(--ease), background-color 150ms var(--ease);
+}
+
+.col:hover .plan-btn,
+.plan-btn:focus-visible {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .plan-btn {
+        opacity: 1;
     }
+}
+
+.plan-btn:hover {
+    background: var(--surface);
+}
+
+.drop-hint {
+    display: none;
+    position: absolute;
+    inset: 0;
+    justify-content: center;
+    pointer-events: none;
+    border-radius: 10px;
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+    color: var(--accent);
+}
+
+.dropzone.is-over .drop-hint {
+    display: flex;
 }

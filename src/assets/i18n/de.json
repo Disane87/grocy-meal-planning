@@ -95,5 +95,10 @@
   "PLAN_FOR": "Planen für",
   "SECTION": "Abschnitt",
   "NO_SECTION": "Ohne Abschnitt",
-  "OPEN_IN_GROCY": "In Grocy öffnen"
+  "OPEN_IN_GROCY": "In Grocy öffnen",
+  "TODAY": "Heute",
+  "PLAN_MEAL": "Planen",
+  "DROP_HERE": "Hier ablegen",
+  "DAYS_PLANNED": "{{count}} von 7 Tagen geplant",
+  "SETTINGS": "Einstellungen"
 }

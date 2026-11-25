@@ -10,6 +10,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 
 import { DayColumnComponent } from './day-column.component';
+import { SectionGroup } from '../../interfaces/section-group.interface';
 
 describe('DayColumnComponent', () => {
   let component: DayColumnComponent;
@@ -39,5 +40,38 @@ describe('DayColumnComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  const groups: SectionGroup[] = [
+    { sectionId: 1, name: 'Mittag', meals: [] },
+    { sectionId: 2, name: 'Abend', meals: [] },
+  ];
+
+  it('renders one heading and one dropzone per section group', () => {
+    fixture.componentRef.setInput('groups', groups);
+    fixture.componentRef.setInput('showHeadings', true);
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.querySelectorAll('.section-heading').length).toBe(2);
+    expect(el.querySelectorAll('.dropzone').length).toBe(2);
+  });
+
+  it('renders no heading when showHeadings is false', () => {
+    fixture.componentRef.setInput('groups', [{ sectionId: -1, name: null, meals: [] }]);
+    fixture.componentRef.setInput('showHeadings', false);
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.querySelectorAll('.section-heading').length).toBe(0);
+    expect(el.querySelectorAll('.dropzone').length).toBe(1);
+  });
+
+  it('marks today with is-today', () => {
+    fixture.componentRef.setInput('day', new Date());
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.is-today')).toBeTruthy();
+  });
+
+  it('does not mark other days with is-today', () => {
+    expect(fixture.nativeElement.querySelector('.is-today')).toBeNull();
   });
 });

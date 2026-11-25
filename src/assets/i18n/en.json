@@ -95,5 +95,10 @@
   "PLAN_FOR": "Plan for",
   "SECTION": "Section",
   "NO_SECTION": "No section",
-  "OPEN_IN_GROCY": "Open in Grocy"
+  "OPEN_IN_GROCY": "Open in Grocy",
+  "TODAY": "Today",
+  "PLAN_MEAL": "Plan",
+  "DROP_HERE": "Drop here",
+  "DAYS_PLANNED": "{{count}} of 7 days planned",
+  "SETTINGS": "Settings"
 }

@@ -1,6 +1,17 @@
 :host {
     display: flex;
     flex-direction: row;
-    gap: 0.25rem; // gap-1
+    gap: 0.25rem;
     align-items: center;
+}
+
+.bar-btn {
+    height: 36px;
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+    color: var(--text-secondary);
+}
+
+.btn-icon.bar-btn {
+    width: 36px;
 }

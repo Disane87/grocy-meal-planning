@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
 import { AppConfigService } from '../../appconfig.service';
 
 @Component({
@@ -10,33 +9,20 @@ import { AppConfigService } from '../../appconfig.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SchedulerControlsComponent {
-  @Input() selectedMealPlanSection: number | null = null;
-  @Input() mealPlanSections: MealPlanSection[] | null = null;
-
-  @Output() sectionChange = new EventEmitter<number>();
   @Output() weekChange = new EventEmitter<number>();
-  @Output() resetConfig = new EventEmitter<void>();
-  @Output() refreshRecipes = new EventEmitter<void>();
+  @Output() openSettings = new EventEmitter<void>();
   @Output() importRecipe = new EventEmitter<void>();
 
   shareTooltip = '';
 
   constructor(private appConfigService: AppConfigService) {}
 
-  onSectionChange(sectionId: number) {
-    this.sectionChange.emit(sectionId);
-  }
-
   onWeekChange(week: number) {
     this.weekChange.emit(week);
   }
 
-  onResetConfig() {
-    this.resetConfig.emit();
-  }
-
-  onRefreshRecipes() {
-    this.refreshRecipes.emit();
+  onOpenSettings() {
+    this.openSettings.emit();
   }
 
   onImportRecipe() {
