@@ -1,6 +1,6 @@
 <div class="flex h-full flex-col gap-3">
     <div class="flex items-baseline justify-between px-2">
-        <h1 class="text-[18px] font-semibold">{{ 'RECIPES' | transloco }}</h1>
+        <h1 class="text-[20px] font-semibold">{{ 'RECIPES' | transloco }}</h1>
         <span class="text-[13px] tabular-nums text-muted">{{ recipes?.length ?? 0 }}</span>
     </div>
     <div class="flex flex-row gap-1">
@@ -19,8 +19,7 @@
         <app-grocy-recipe-list
             [recipes]="(recipes | filterArray:recipeSearch:['name'] | orderBy:'name')"></app-grocy-recipe-list>
     </div>
-    <button type="button" (click)="onImportRecipe()" class="btn w-full flex-none !bg-transparent"
-        style="box-shadow: inset 0 0 0 1px var(--line-strong)">
+    <button type="button" (click)="onImportRecipe()" class="btn w-full flex-none !bg-transparent shadow-[inset_0_0_0_1px_var(--line-strong)]">
         <i class="ph-duotone ph-link-simple" aria-hidden="true"></i>{{ 'RECIPE_IMPORT.TITLE' | transloco }}
     </button>
 </div>

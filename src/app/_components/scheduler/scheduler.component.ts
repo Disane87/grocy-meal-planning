@@ -29,9 +29,13 @@ export class SchedulerComponent implements OnChanges {
   @Output() importRecipe = new EventEmitter<void>();
 
   plannedDays = 0;
+  weekStartDate!: Date;
+  weekEndDate!: Date;
 
   ngOnChanges(): void {
     if (!this.currentWeekStart) return;
+    this.weekStartDate = this.currentWeekStart.toDate();
+    this.weekEndDate = this.currentWeekStart.add(6, 'day').toDate();
     this.plannedDays = countPlannedDays(visibleMeals(this.mealPlan ?? [], this.recipes), this.currentWeekStart);
   }
 }

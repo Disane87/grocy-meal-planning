@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 gap-3 px-3 md:grid-cols-7 md:gap-3 md:px-0 flex-1 min-h-0 overflow-auto md:overflow-hidden">
+<div class="grid grid-cols-1 gap-3 px-3 md:grid-cols-7 md:grid-rows-[minmax(0,1fr)] md:gap-3 md:px-0 flex-1 min-h-0 overflow-auto md:overflow-hidden">
     @for (day of days; track day.date.getTime()) {
     <app-day-column [day]="day.date" [groups]="day.groups" [showHeadings]="day.showHeadings" [recipes]="recipes"
         (drop)="drop.emit($event)" (addRecipe)="addRecipe.emit($event)">

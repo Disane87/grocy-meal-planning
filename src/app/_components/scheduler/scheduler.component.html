@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-[24px] font-semibold leading-tight tabular-nums">{{ 'WEEK' | transloco }} {{ currentWeek }}</h1>
         @if (currentWeekStart) {
-        <div class="text-[14px] text-muted">{{ currentWeekStart.toDate() | date:'d. MMM' }} – {{ currentWeekStart.add(6, 'day').toDate() | date:'d. MMM yyyy' }}</div>
+        <div class="text-[14px] text-muted">{{ weekStartDate | date:'d. MMM' }} – {{ weekEndDate | date:'d. MMM yyyy' }}</div>
         }
     </div>
     <app-scheduler-controls class="flex-1 min-w-[260px]" (weekChange)="weekChange.emit($event)"
