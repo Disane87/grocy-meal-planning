@@ -1,22 +1,25 @@
-<div class="flex flex-col h-full gap-4">
-    <h1 class="font-bold text-2xl">{{ 'RECIPES' | transloco }}</h1>
+<div class="flex h-full flex-col gap-3">
+    <div class="flex items-baseline justify-between px-2">
+        <h1 class="text-[20px] font-semibold">{{ 'RECIPES' | transloco }}</h1>
+        <span class="text-[13px] tabular-nums text-muted">{{ recipes?.length ?? 0 }}</span>
+    </div>
     <div class="flex flex-row gap-1">
-        <input [ngModel]="recipeSearch" (ngModelChange)="onRecipeSearchChange($event)" type="text"
-            [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
-            [title]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
-            class="glass-input py-2 px-4 flex-1 min-w-0" />
-        <button type="button" (click)="onImportRecipe()" [title]="'RECIPE_IMPORT.TITLE' | transloco"
-            class="control-btn-primary !rounded !px-2">
-            <mat-icon svgIcon="link-plus"></mat-icon>
-        </button>
-        <button type="button" (click)="onRefreshRecipes()" title="Rezepte neu laden"
-            class="control-btn !rounded !px-2">
-            <mat-icon svgIcon="refresh"></mat-icon>
+        <div class="relative min-w-0 flex-1">
+            <i class="ph-duotone ph-magnifying-glass pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true"></i>
+            <input [ngModel]="recipeSearch" (ngModelChange)="onRecipeSearchChange($event)" type="text"
+                [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco" [attr.aria-label]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"
+                class="field w-full !h-10 !text-[14px] !pl-9" />
+        </div>
+        <button type="button" (click)="onRefreshRecipes()" [attr.aria-label]="'REFRESH_RECIPES' | transloco" [title]="'REFRESH_RECIPES' | transloco"
+            class="btn btn-icon flex-none">
+            <i class="ph-duotone ph-arrow-clockwise" aria-hidden="true"></i>
         </button>
     </div>
-    <div class="recipe-container overflow-auto gap-y-3 flex-1 min-h-0 flex flex-col">
-        <app-grocy-recipe-list
+    <div class="recipe-container flex min-h-0 flex-1 flex-col overflow-auto">
+        <app-grocy-recipe-list [tapToPlan]="tapToPlan" (recipeSelect)="recipeSelect.emit($event)"
             [recipes]="(recipes | filterArray:recipeSearch:['name'] | orderBy:'name')"></app-grocy-recipe-list>
     </div>
-    <app-made-by-banner></app-made-by-banner>
+    <button type="button" (click)="onImportRecipe()" class="btn w-full flex-none !bg-transparent shadow-[inset_0_0_0_1px_var(--line-strong)]">
+        <i class="ph-duotone ph-link-simple" aria-hidden="true"></i>{{ 'RECIPE_IMPORT.TITLE' | transloco }}
+    </button>
 </div>

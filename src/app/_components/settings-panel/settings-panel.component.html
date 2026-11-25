@@ -1,0 +1,52 @@
+<div class="flex flex-col gap-6 px-4 pb-24 pt-2 md:p-6">
+  <h2 class="hidden text-[20px] font-semibold md:block">{{ 'SETTINGS' | transloco }}</h2>
+
+  <section class="flex flex-col gap-2">
+    <h3 class="text-[14px] font-medium">{{ 'THEME' | transloco }}</h3>
+    <div class="seg" role="radiogroup" [attr.aria-label]="'THEME' | transloco">
+      @for (t of themes; track t.value) {
+      <button type="button" role="radio" [attr.data-test]="'theme-' + t.value" [attr.aria-checked]="darkMode.theme() === t.value"
+        (click)="darkMode.setTheme(t.value)">
+        <i class="ph-duotone ph-{{ t.icon }}" aria-hidden="true"></i>{{ t.label | transloco }}
+      </button>
+      }
+    </div>
+  </section>
+
+  <section class="surface-card flex flex-col gap-3 p-4">
+    <h3 class="text-[14px] font-medium">{{ 'GROCY_CONNECTION' | transloco }}</h3>
+    <div class="text-[13px] text-secondary">
+      <div class="break-all">{{ grocyUrl }}</div>
+      @if (grocyInfo?.grocy_version?.Version; as version) {
+      <div class="tabular-nums text-muted">Grocy {{ version }}</div>
+      }
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" class="btn" (click)="onShare()">
+        <i class="ph-duotone ph-share-network" aria-hidden="true"></i>{{ 'SHARE_LINK' | transloco }}
+      </button>
+      <button type="button" class="btn" data-test="logout" (click)="resetConfig.emit()">
+        <i class="ph-duotone ph-sign-out" aria-hidden="true"></i>{{ 'LOGOUT' | transloco }}
+      </button>
+    </div>
+    <p class="text-[12px] text-muted" role="status">
+      {{ (copied ? 'LINK_COPIED' : 'SHARE_LINK_HINT') | transloco }}
+    </p>
+  </section>
+
+  <button type="button" class="btn self-start" data-test="release-notes" (click)="showReleaseNotes.emit()">
+    <i class="ph-duotone ph-article" aria-hidden="true"></i>{{ 'WHATS_NEW' | transloco }}
+  </button>
+
+  <footer class="flex flex-col gap-2 text-[12px] text-muted">
+    <div class="flex gap-4">
+      <a class="inline-flex items-center gap-1 hover:text-[var(--accent)]" href="https://github.com/Disane87/grocy-meal-planning" target="_blank" rel="noopener">
+        <i class="ph-duotone ph-github-logo" aria-hidden="true"></i>GitHub
+      </a>
+      <a class="inline-flex items-center gap-1 hover:text-[var(--accent)]" href="https://blog.disane.dev/en/" target="_blank" rel="noopener">
+        <i class="ph-duotone ph-article" aria-hidden="true"></i>Blog
+      </a>
+    </div>
+    <span>{{ 'MADE_BY' | transloco }} Disane87</span>
+  </footer>
+</div>

@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Recipe } from '../../interfaces/recipe.interface';
+import { SectionGroup } from '../../interfaces/section-group.interface';
+import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
+import { groupBySection, showSectionHeadings } from '../../services/meal-plan-view';
 
 @Component({
   selector: 'app-recipe-picker-sheet',
@@ -12,12 +15,19 @@ import { Recipe } from '../../interfaces/recipe.interface';
 export class RecipePickerSheetComponent {
   recipes: Recipe[];
   searchTerm = '';
+  sectionId: number;
+  groups: SectionGroup[];
+  showSections: boolean;
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<RecipePickerSheetComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { recipes: Recipe[], onRefresh?: () => void }
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { recipes: Recipe[]; sections: MealPlanSection[]; sectionId: number; onRefresh?: () => void }
   ) {
     this.recipes = data.recipes;
+    this.groups = groupBySection([], data.sections);
+    // fall back to the first chip so the selection is always one the user can see
+    this.sectionId = this.groups.some(g => g.sectionId === data.sectionId) ? data.sectionId : this.groups[0].sectionId;
+    this.showSections = showSectionHeadings(this.groups);
   }
 
   onRefreshRecipes() {
@@ -35,7 +45,7 @@ export class RecipePickerSheetComponent {
   }
 
   selectRecipe(recipe: Recipe) {
-    this.bottomSheetRef.dismiss(recipe);
+    this.bottomSheetRef.dismiss({ recipe, sectionId: this.sectionId });
   }
 
   close() {

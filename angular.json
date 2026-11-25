@@ -32,16 +32,11 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "mdi.svg",
-                "input": "./node_modules/@mdi/angular-material",
-                "output": "./assets"
-              }
+              "src/assets"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/angular-calendar/css/angular-calendar.css",
+              "node_modules/@phosphor-icons/web/src/duotone/style.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -58,7 +53,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.25mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -117,7 +112,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/angular-calendar/css/angular-calendar.css",
+              "node_modules/@phosphor-icons/web/src/duotone/style.css",
               "src/styles.scss"
             ],
             "scripts": []

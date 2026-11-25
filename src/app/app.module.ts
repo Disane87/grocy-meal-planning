@@ -1,25 +1,18 @@
 import { LOCALE_ID, NgModule, inject, provideAppInitializer } from '@angular/core';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Base64Pipe } from './_pipes/base64.pipe';
 import { GrocyImagePipe } from './_pipes/grocy-image.pipe';
 import { OrderByPipe } from './_pipes/order-by.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DaysOfWeekPipe } from './_pipes/days-of-week.pipe';
-import { CurrentWeekPipe } from './_pipes/current-week.pipe';
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { IsTodayPipe } from './_pipes/is-today.pipe';
-import { IsWeekendPipe } from './_pipes/is-weekend.pipe';
 import dayjs from 'dayjs';
-import { PickObjectByValuePipe } from './_pipes/pick-object-by-value.pipe';
 import { GetRecipePipe } from './_pipes/get-recipe.pipe';
-import { NgForTrackByPropertyModule } from 'ng-for-track-by-property';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,10 +20,8 @@ import { TranslocoRootModule } from './transloco-root.module';
 import { DndModule } from 'ngx-drag-drop';
 import { FormsModule } from '@angular/forms';
 import { FilterArrayPipe } from './_pipes/filter-array.pipe';
-import { HighlightSearchPipe } from './_pipes/highlight-search.pipe';
 import { GrocyConfigComponent } from './_components/grocy-config/grocy-config.component';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-import { MadeByBannerComponent } from './_components/made-by-banner/made-by-banner.component';
 import {
   language,
   preloadTranslation,
@@ -40,14 +31,19 @@ import { TranslocoService } from '@jsverse/transloco';
 import { GrocyRecipeCardComponent } from './_components/grocy-recipe-card/grocy-recipe-card.component';
 import { GrocyRecipeListComponent } from './_components/grocy-recipe-list/grocy-recipe-list.component';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
-import { ThemeToggleComponent } from './_components/theme-toggle/theme-toggle.component';
 import { RecipeSidebarComponent } from './_components/recipe-sidebar/recipe-sidebar.component';
 import { SchedulerComponent } from './_components/scheduler/scheduler.component';
+import { SettingsPanelComponent } from './_components/settings-panel/settings-panel.component';
 import { SchedulerControlsComponent } from './_components/scheduler-controls/scheduler-controls.component';
 import { WeekViewComponent } from './_components/week-view/week-view.component';
 import { DayColumnComponent } from './_components/day-column/day-column.component';
+import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
+import { BottomNavComponent } from './_components/bottom-nav/bottom-nav.component';
+import { DayStripComponent } from './_components/day-strip/day-strip.component';
+import { DayDetailComponent } from './_components/day-detail/day-detail.component';
+import { MobileShellComponent } from './_components/mobile-shell/mobile-shell.component';
 
 registerLocaleData(localeDe);
 
@@ -59,27 +55,25 @@ dayjs.locale(language);
     GrocyConfigComponent,
     GrocyRecipeCardComponent,
     GrocyRecipeListComponent,
-    MadeByBannerComponent,
     ReleaseNotesModalComponent,
-    ThemeToggleComponent,
-    Base64Pipe,
+    SettingsPanelComponent,
     GrocyImagePipe,
     OrderByPipe,
-    DaysOfWeekPipe,
-    CurrentWeekPipe,
     IsTodayPipe,
-    IsWeekendPipe,
-    PickObjectByValuePipe,
     GetRecipePipe,
     FilterArrayPipe,
-    HighlightSearchPipe,
     RecipeSidebarComponent,
     SchedulerComponent,
     SchedulerControlsComponent,
     WeekViewComponent,
     DayColumnComponent,
     RecipePickerSheetComponent,
+    PlanRecipeSheetComponent,
     RecipeImportDialogComponent,
+    BottomNavComponent,
+    DayStripComponent,
+    DayDetailComponent,
+    MobileShellComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -87,11 +81,9 @@ dayjs.locale(language);
     CommonModule,
     DndModule,
     FormsModule,
-    MatIconModule,
     MatDialogModule,
     MatBottomSheetModule,
     MatButtonModule,
-    NgForTrackByPropertyModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     TranslocoRootModule,
@@ -111,10 +103,4 @@ dayjs.locale(language);
     }),
   ]
 })
-export class AppModule {
-  constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    iconRegistry.addSvgIconSet(
-      domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')
-    );
-  }
-}
+export class AppModule {}

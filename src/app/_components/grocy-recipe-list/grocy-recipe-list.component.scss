@@ -1,5 +1,56 @@
 :host {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; // gap-y-2
+    gap: 2px;
+}
+
+.recipe-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: grab;
+    color: var(--text-primary);
+    transition: background-color 150ms var(--ease);
+}
+
+.recipe-row:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.recipe-row:hover {
+    background: var(--surface-muted);
+}
+
+.thumb {
+    width: 36px;
+    height: 36px;
+    flex: none;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--surface-muted);
+}
+
+.grip {
+    margin-left: auto;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 150ms var(--ease);
+}
+
+.recipe-row:hover .grip {
+    opacity: 1;
+}
+
+.recipe-row.is-tap {
+    width: 100%;
+    height: 56px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 }

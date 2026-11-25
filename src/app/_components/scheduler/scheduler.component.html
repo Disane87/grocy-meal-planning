@@ -1,28 +1,22 @@
-<div class="flex flex-row items-center w-full info">
-    <div class="controls flex flex-row gap-1 p-4 h-16 mx-auto md:ml-auto md:mr-0">
-        <app-scheduler-controls [selectedMealPlanSection]="selectedMealPlanSection"
-            [mealPlanSections]="mealPlanSections" (sectionChange)="onSectionChange($event)"
-            (weekChange)="onWeekChange($event)" (resetConfig)="onResetConfig()"
-            (refreshRecipes)="onRefreshRecipes()"
-            (importRecipe)="onImportRecipe()">
-        </app-scheduler-controls>
+<div class="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 px-6 pb-4 pt-5">
+    <div>
+        <h1 class="text-[24px] font-semibold leading-tight tabular-nums">{{ 'WEEK' | transloco }} {{ currentWeek }}</h1>
+        @if (currentWeekStart) {
+        <div class="text-[14px] text-muted">{{ weekStartDate | date:'d. MMM' }} – {{ weekEndDate | date:'d. MMM yyyy' }}</div>
+        }
     </div>
+    <app-scheduler-controls class="flex-1 min-w-[260px]" (weekChange)="weekChange.emit($event)"
+        (openSettings)="openSettings.emit()">
+    </app-scheduler-controls>
 </div>
-<div class="flex flex-col flex-1 min-h-0 overflow-hidden">
-    <app-week-view [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek" [mealPlan]="mealPlan"
-        [recipes]="recipes" (dragOver)="onDragOver($event)" (drop)="onDrop($event)"
-        (addRecipe)="onAddRecipe($event)">
+<div class="flex flex-col flex-1 min-h-0 overflow-hidden px-6">
+    <app-week-view [currentWeekStart]="currentWeekStart" [mealPlan]="mealPlan" [recipes]="recipes"
+        [sections]="mealPlanSections" (drop)="drop.emit($event)" (addRecipe)="addRecipe.emit($event)">
     </app-week-view>
-
-    @if (grocyInfo?.grocy_version; as grocyConfigVersion) {
-    <div class="text-xs text-center border-t pt-4 gap-2 flex flex-row justify-center items-center h-12">
-        <span
-            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-600 ring-1 ring-inset ring-blue-500/10">
-            Grocy version: {{grocyConfigVersion.Version }}
-        </span>
-        <span
-            class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-600 ring-1 ring-inset ring-yellow-500/10">
-            Date: {{ grocyConfigVersion.ReleaseDate | date }}</span>
+    <div class="flex flex-row justify-between pb-5 pt-3 text-[12px] text-muted">
+        <span class="tabular-nums">{{ 'DAYS_PLANNED' | transloco:{ count: plannedDays } }}</span>
+        @if (grocyInfo?.grocy_version?.Version; as version) {
+        <span>Grocy {{ version }}</span>
+        }
     </div>
-    }
 </div>

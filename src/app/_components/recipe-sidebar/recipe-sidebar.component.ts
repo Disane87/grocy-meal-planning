@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, booleanAttribute } from '@angular/core';
 import { Recipe } from '../../interfaces/recipe.interface';
 
 @Component({
@@ -14,6 +14,9 @@ export class RecipeSidebarComponent {
   @Output() recipeSearchChange = new EventEmitter<string | null>();
   @Output() refreshRecipes = new EventEmitter<void>();
   @Output() importRecipe = new EventEmitter<void>();
+  /** Mobile: rows are tappable buttons emitting recipeSelect instead of drag sources */
+  @Input({ transform: booleanAttribute }) tapToPlan = false;
+  @Output() recipeSelect = new EventEmitter<Recipe>();
 
   onRecipeSearchChange(value: string) {
     this.recipeSearch = value;

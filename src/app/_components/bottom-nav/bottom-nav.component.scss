@@ -1,0 +1,40 @@
+:host {
+    display: block;
+    background: var(--surface);
+    box-shadow: inset 0 1px 0 var(--line);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 64px;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 88px;
+    min-height: 48px;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 150ms var(--ease);
+}
+
+.tab.on {
+    color: var(--text-primary);
+}
+
+.tab i {
+    font-size: 22px;
+    line-height: 1;
+}

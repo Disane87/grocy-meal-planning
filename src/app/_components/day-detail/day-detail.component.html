@@ -1,0 +1,33 @@
+@if (date) {
+<div class="flex items-baseline justify-between gap-2 pb-3 pt-1">
+  <h2 class="text-[16px] font-semibold">
+    @if (isToday) {
+    {{ 'TODAY_WEEKDAY' | transloco:{ weekday: (date | date:'EEEE') } }}
+    } @else {
+    {{ date | date:'EEEE, d. MMM' }}
+    }
+  </h2>
+  <span class="text-[12px] tabular-nums text-muted">
+    {{ (mealCount === 1 ? 'MEAL_COUNT_ONE' : 'MEAL_COUNT') | transloco:{ count: mealCount } }}
+  </span>
+</div>
+}
+<div class="flex flex-col gap-4">
+  @for (group of groups; track group.sectionId) {
+  <section class="flex flex-col gap-3">
+    @if (showHeadings) {
+    <h3 class="text-[13px] font-medium text-secondary">{{ group.name ?? ('NO_SECTION' | transloco) }}</h3>
+    }
+    @for (meal of group.meals; track meal.id) {
+    @if (meal.recipe_id && (meal.recipe_id | getRecipe:recipes); as recipe) {
+    <app-grocy-recipe-card [recipe]="recipe" [meal]="meal" variant="large"></app-grocy-recipe-card>
+    }
+    }
+    @if (!group.meals.length) {
+    <button type="button" class="plan-row" (click)="onAdd(group.sectionId)">
+      <i class="ph-duotone ph-plus" aria-hidden="true"></i>{{ 'PLAN_A_MEAL' | transloco }}
+    </button>
+    }
+  </section>
+  }
+</div>

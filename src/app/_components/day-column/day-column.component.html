@@ -1,36 +1,31 @@
-<div class="day flex-none md:flex-1 overflow-hidden flex flex-col w-full md:w-1/7 md:border-b-0
-  rounded-xl md:rounded-none shadow-sm md:shadow-none mb-2 md:mb-0" [ngClass]="{
-    'day-today': day | isToday,
-    'day-weekend': (day | isWeekend) && !(day | isToday),
-    'day-normal': !(day | isWeekend) && !(day | isToday)
-  }">
-  <div class="flex flex-row md:flex-col px-3 py-2 md:p-4 w-full md:text-center days-header items-center md:items-stretch" [ngClass]="{
-      'header-today': day | isToday,
-      'header-weekend': (day | isWeekend) && !(day | isToday)
-    }">
-    <div class="font-semibold mr-2 md:mr-0 md:w-full">{{ day | date:'EEEE' }}</div>
-    <div class="text-sm md:text-base opacity-50">{{ day | date:'d. MMM yyyy'}}</div>
-    <button type="button" (click)="onAddRecipe()" class="md:hidden ml-auto add-recipe-btn p-2 rounded-full flex items-center justify-center min-w-[44px] min-h-[44px]"
-      [title]="'ADD_RECIPE' | transloco">
-      <mat-icon svgIcon="plus"></mat-icon>
-    </button>
-  </div>
-  @if (plannedMeals.length > 0) {
-  <div class="flex flex-row md:flex-col gap-2 px-3 pb-3 md:p-4 w-full meals md:flex-1 overflow-x-auto md:overflow-x-hidden overflow-y-hidden md:overflow-y-auto" [id]="day.toISOString()">
-    @for (plannedMeal of plannedMeals; track plannedMeal.id) {
-    <div class="min-w-[150px] md:min-w-0">
-      @if (plannedMeal.recipe_id && (plannedMeal.recipe_id | getRecipe:recipes); as recipe) {
-      <app-grocy-recipe-card [recipe]="recipe" [meal]="plannedMeal"></app-grocy-recipe-card>
-      }
-    </div>
+<div class="col group/col flex min-w-0 flex-1 flex-col gap-2 rounded-xl p-2 min-h-0"
+  [class.is-today]="day | isToday">
+  <div class="flex items-baseline gap-1.5 px-1 pb-1">
+    <span class="text-[13px] font-medium" [class.text-[var(--accent)]]="day | isToday" [class.text-muted]="!(day | isToday)">{{ day | date:'EEE' }}</span>
+    <span class="font-display text-[20px] font-semibold tabular-nums" [class.text-[var(--accent)]]="day | isToday">{{ day | date:'d' }}</span>
+    @if (day | isToday) {
+    <span class="ml-auto text-[12px] font-medium text-[var(--accent)]">{{ 'TODAY' | transloco }}</span>
     }
-    <div class="dropzone hidden md:block h-full min-h-32" dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)">
-    </div>
   </div>
-  } @else {
-  <div class="hidden md:flex flex-col gap-y-2 p-4 w-full meals flex-1 overflow-auto" [id]="day.toISOString()">
-    <div class="dropzone h-full min-h-32" dndDropzone (dndDragover)="onDragover($event)" (dndDrop)="onDrop($event)">
-    </div>
+  <div class="flex min-h-0 flex-1 flex-col gap-3 md:overflow-y-auto md:overflow-x-hidden">
+    @for (group of groups; track group.sectionId) {
+    <section class="flex flex-1 flex-col gap-2">
+      @if (showHeadings) {
+      <h3 class="section-heading px-1 text-[13px] font-medium text-secondary">{{ group.name ?? ('NO_SECTION' | transloco) }}</h3>
+      }
+      @for (meal of group.meals; track meal.id) {
+      @if (meal.recipe_id && (meal.recipe_id | getRecipe:recipes); as recipe) {
+      <app-grocy-recipe-card [recipe]="recipe" [meal]="meal" variant="compact"></app-grocy-recipe-card>
+      }
+      }
+      <div class="dropzone" dndDropzone dndDragoverClass="is-over" (dndDrop)="onDrop($event, group.sectionId)">
+        <button type="button" class="plan-btn" (click)="onAddRecipe(group.sectionId)"
+          [attr.aria-label]="'ADD_RECIPE' | transloco">
+          <i class="ph-duotone ph-plus" aria-hidden="true"></i>{{ 'PLAN_MEAL' | transloco }}
+        </button>
+        <span class="drop-hint"><i class="ph-duotone ph-arrow-down" aria-hidden="true"></i>{{ 'DROP_HERE' | transloco }}</span>
+      </div>
+    </section>
+    }
   </div>
-  }
 </div>

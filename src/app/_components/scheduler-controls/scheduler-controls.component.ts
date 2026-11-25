@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
-import { AppConfigService } from '../../appconfig.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Output, EventEmitter, inject } from '@angular/core';
+import { ShareLinkService } from '../../services/share-link.service';
 
 @Component({
   selector: 'app-scheduler-controls',
@@ -10,55 +9,25 @@ import { AppConfigService } from '../../appconfig.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SchedulerControlsComponent {
-  @Input() selectedMealPlanSection: number | null = null;
-  @Input() mealPlanSections: MealPlanSection[] | null = null;
-
-  @Output() sectionChange = new EventEmitter<number>();
   @Output() weekChange = new EventEmitter<number>();
-  @Output() resetConfig = new EventEmitter<void>();
-  @Output() refreshRecipes = new EventEmitter<void>();
-  @Output() importRecipe = new EventEmitter<void>();
+  @Output() openSettings = new EventEmitter<void>();
 
-  shareTooltip = '';
+  private readonly shareLink = inject(ShareLinkService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  copied = false;
 
-  constructor(private appConfigService: AppConfigService) {}
-
-  onSectionChange(sectionId: number) {
-    this.sectionChange.emit(sectionId);
+  async onShare() {
+    if ((await this.shareLink.share()) !== 'copied') return;
+    this.copied = true;
+    this.cdr.markForCheck();
+    setTimeout(() => { this.copied = false; this.cdr.markForCheck(); }, 2000);
   }
 
   onWeekChange(week: number) {
     this.weekChange.emit(week);
   }
 
-  onResetConfig() {
-    this.resetConfig.emit();
-  }
-
-  onRefreshRecipes() {
-    this.refreshRecipes.emit();
-  }
-
-  onImportRecipe() {
-    this.importRecipe.emit();
-  }
-
-  async onShare() {
-    const config = this.appConfigService.getConfig();
-    if (!config.grocyUrl || !config.grocyApiKey) return;
-
-    const params = new URLSearchParams({
-      serverUrl: config.grocyUrl,
-      apiKey: config.grocyApiKey,
-    });
-    const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-
-    if (navigator.share) {
-      await navigator.share({ title: 'Grocy Meal Planning', url: shareUrl });
-    } else {
-      await navigator.clipboard.writeText(shareUrl);
-      this.shareTooltip = 'Link kopiert!';
-      setTimeout(() => this.shareTooltip = '', 2000);
-    }
+  onOpenSettings() {
+    this.openSettings.emit();
   }
 }

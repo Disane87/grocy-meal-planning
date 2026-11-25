@@ -1,55 +1,54 @@
 <div class="flex flex-col justify-center items-center min-h-screen w-screen p-4">
-  <div
-    class="glass-card-strong p-4 sm:p-6 md:p-8 justify-center flex flex-col items-center w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
-    <img src="assets/images/logo.png" alt="Grocy Meal Planning"
-      class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain mb-4" />
+  <div class="surface-card flex w-full max-w-md flex-col items-center justify-center p-6 md:p-8">
+    <img src="assets/images/logo.png" alt="Grocy Meal Planning" class="mb-4 h-24 w-24 object-contain" />
 
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2">{{ 'CONFIG_HEADLINE' | transloco}}</h1>
-    <span class="text-sm sm:text-base text-[--text-muted] text-center mb-6">{{ 'CONFIG_SUBTITLE' | transloco }}</span>
+    <h1 class="mb-2 text-center text-[24px] font-semibold">{{ 'CONFIG_HEADLINE' | transloco }}</h1>
+    <span class="mb-6 text-center text-[14px] text-muted">{{ 'CONFIG_SUBTITLE' | transloco }}</span>
 
-    <form #configForm="ngForm" class="flex flex-col gap-4 justify-center items-stretch w-full">
-      <div class="flex flex-col">
-        <input name="grocyUrl" required [(ngModel)]="grocyUrl" type="text" [placeholder]="'GROCY_URL' | transloco"
-          class="glass-input py-3 px-4 text-base w-full" />
-        <span class="text-xs sm:text-sm text-[--text-muted] mt-2">{{ 'GROCY_URL_HINT' | transloco }}</span>
+    <form #configForm="ngForm" class="flex w-full flex-col items-stretch justify-center gap-4" (ngSubmit)="configForm.valid ? setConfig() : configForm.form.markAllAsTouched()">
+      <div class="flex flex-col gap-1">
+        <input name="grocyUrl" #urlField="ngModel" required [(ngModel)]="grocyUrl" type="url" inputmode="url"
+          [placeholder]="'GROCY_URL' | transloco" [attr.aria-label]="'GROCY_URL' | transloco"
+          [attr.aria-invalid]="urlField.invalid && urlField.touched" aria-describedby="grocyUrlHint"
+          class="field w-full" />
+        @if (urlField.invalid && urlField.touched) {
+        <span class="text-[13px] text-(--danger)" role="alert">{{ 'CONFIG_FIELD_REQUIRED' | transloco }}</span>
+        }
+        <span id="grocyUrlHint" class="text-[13px] text-muted">{{ 'GROCY_URL_HINT' | transloco }}</span>
       </div>
 
-      <input name="grocyApiKey" required [(ngModel)]="grocyApiKey" type="password"
-        [placeholder]="'GROCY_APP_KEY' | transloco"
-        class="glass-input py-3 px-4 text-base w-full" />
+      <div class="flex flex-col gap-1">
+        <input name="grocyApiKey" #keyField="ngModel" required [(ngModel)]="grocyApiKey" type="password"
+          [placeholder]="'GROCY_APP_KEY' | transloco" [attr.aria-label]="'GROCY_APP_KEY' | transloco"
+          [attr.aria-invalid]="keyField.invalid && keyField.touched" class="field w-full" />
+        @if (keyField.invalid && keyField.touched) {
+        <span class="text-[13px] text-(--danger)" role="alert">{{ 'CONFIG_FIELD_REQUIRED' | transloco }}</span>
+        }
+      </div>
 
-      <button [disabled]="!configForm.valid" (click)="setConfig()"
-        class="disabled:opacity-75 bg-gradient-to-r from-violet-500 to-indigo-600 gap-2 flex flex-row items-center justify-center enabled:hover:from-violet-600 enabled:hover:to-indigo-700 text-white py-3 px-4 rounded-lg min-h-12 text-base font-medium enabled:hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-200">
-        <mat-icon class="" svgIcon="check"></mat-icon>
+      <button type="submit" class="btn btn-primary">
+        <i class="ph-duotone ph-check" aria-hidden="true"></i>
         <span>{{ 'CONFIGURE' | transloco }}</span>
       </button>
     </form>
 
-    <div class="glass-card mt-6 p-4 border-l-4 !border-l-teal-500 w-full" role="alert">
-      <div class="flex flex-col sm:flex-row">
-        <div class="py-1 shrink-0 mb-2 sm:mb-0">
-          <svg class="fill-current h-6 w-6 text-teal-500 mr-0 sm:mr-4 mx-auto sm:mx-0"
-            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path
-              d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-          </svg>
-        </div>
-        <div class="text-center sm:text-left">
-          <p class="font-bold text-sm sm:text-base">{{ 'CONFIG_PRIVACY_HINT' | transloco }}</p>
-          <p class="text-xs sm:text-sm mt-1 text-[--text-secondary]">{{ 'CONFIG_PRIVACY_HINT_TEXT' | transloco }}</p>
-        </div>
+    <div class="mt-6 flex w-full flex-row gap-3 rounded-xl bg-(--accent-surface) p-4" role="note">
+      <i class="ph-duotone ph-info mt-0.5 text-[18px] text-(--accent)" aria-hidden="true"></i>
+      <div>
+        <p class="text-[14px] font-medium">{{ 'CONFIG_PRIVACY_HINT' | transloco }}</p>
+        <p class="mt-1 text-[13px] text-secondary">{{ 'CONFIG_PRIVACY_HINT_TEXT' | transloco }}</p>
       </div>
     </div>
 
   </div>
-  <div class="socials p-4 text-[--text-muted] text-xl sm:text-2xl flex flex-row gap-4 mt-4">
-    <a href="https://github.com/Disane87/grocy-meal-planning" target="_blank" rel="noopener" title="GitHub Repository"
-      class="hover:text-[--accent] transition-colors">
-      <mat-icon svgIcon="github"></mat-icon>
+  <div class="socials p-2 text-muted text-[20px] flex flex-row gap-4 mt-4">
+    <a href="https://github.com/Disane87/grocy-meal-planning" target="_blank" rel="noopener" title="GitHub Repository" aria-label="GitHub Repository"
+      class="flex h-10 w-10 items-center justify-center hover:text-(--accent) transition-colors">
+      <i class="ph-duotone ph-github-logo" aria-hidden="true"></i>
     </a>
-    <a href="https://blog.disane.dev/en" target="_blank" rel="noopener" title="Blog"
-      class="hover:text-[--accent] transition-colors">
-      <mat-icon svgIcon="post-outline"></mat-icon>
+    <a href="https://blog.disane.dev/en" target="_blank" rel="noopener" title="Blog" aria-label="Blog"
+      class="flex h-10 w-10 items-center justify-center hover:text-(--accent) transition-colors">
+      <i class="ph-duotone ph-article" aria-hidden="true"></i>
     </a>
   </div>
 </div>
