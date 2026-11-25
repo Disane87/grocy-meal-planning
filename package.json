@@ -38,6 +38,7 @@
     "@mdi/angular-material": "^7.2.96",
     "@ngneat/overview": "6.1.1",
     "@ngxpert/hot-toast": "^5.1.2",
+    "@phosphor-icons/web": "^2.1.2",
     "@tailwindcss/postcss": "^4.1.16",
     "angular-calendar": "^0.32.0",
     "date-fns": "^4.1.0",
