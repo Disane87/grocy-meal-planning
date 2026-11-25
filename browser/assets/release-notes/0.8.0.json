@@ -1,0 +1,39 @@
+{
+  "version": "0.8.0",
+  "date": "2026-11-25T08:51:10.228Z",
+  "features": [],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [
+    "apply new design to dialogs, config and toasts; remove legacy styles",
+    "replace glass tokens with warm neutral design tokens"
+  ],
+  "documentation": [
+    "add UI redesign implementation plan",
+    "add UI redesign design spec"
+  ],
+  "other": [
+    "Merge branch 'feat/ui-redesign'",
+    "fix(plan): reload meal plan sections after reconfiguration",
+    "fix(ui): address final review findings",
+    "fix(ui): use primary text for active segment label",
+    "fix(ui): polish after final review",
+    "fix(settings): shared share service, header share, release notes toast, dialog style",
+    "feat(settings): settings tab and desktop settings panel",
+    "feat(mobile): app shell with day strip, day detail and bottom navigation",
+    "fix(desktop): keep day columns scrollable inside fixed grid row",
+    "feat(desktop): single-week grid grouped by meal plan section",
+    "fix(plan): fall back to a visible section chip in sheets and share section load",
+    "feat(plan): plan meals into sections from sheets and drag and drop",
+    "fix(card): touch fallback for compact actions, dim whole done card",
+    "feat(card): redesign recipe card with visible actions",
+    "refactor(icons): replace Material Design Icons with Phosphor duotone",
+    "test: repair broken spec setup so the suite runs green",
+    "fix(plan): compare recipe ids numerically in visibleMeals",
+    "feat(plan): add pure meal plan view helpers",
+    "chore(release): 0.7.6",
+    "fix(images): request resized recipe pictures from Grocy"
+  ]
+}
