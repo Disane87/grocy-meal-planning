@@ -45,6 +45,16 @@ describe('meal-plan-view', () => {
     expect(visibleMeals([ok], null)).toEqual([]);
   });
 
+  it('visibleMeals tolerates string recipe_id', () => {
+    const m = meal({ recipe_id: '1' as any });
+    expect(visibleMeals([m], [{ id: 1 }] as Recipe[])).toEqual([m]);
+  });
+
+  it('mealsForDay uses local date late in the evening', () => {
+    const m = meal({ day: '2026-11-23' });
+    expect(mealsForDay([m], new Date(2026, 10, 23, 23, 30))).toEqual([m]);
+  });
+
   it('mealsForDay matches by date string', () => {
     const m = meal({});
     expect(mealsForDay([m, meal({ day: '2026-11-24' })], new Date(2026, 10, 23, 15))).toEqual([m]);

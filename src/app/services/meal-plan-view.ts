@@ -10,8 +10,8 @@ dayjs.extend(isoWeek);
 export const NO_SECTION_ID = -1;
 
 export function visibleMeals(meals: Partial<Meal>[], recipes: Recipe[] | null): Partial<Meal>[] {
-  const ids = new Set((recipes ?? []).map(r => r.id));
-  return meals.filter(m => m.type === 'recipe' && ids.has(m.recipe_id as number));
+  const ids = new Set((recipes ?? []).map(r => Number(r.id)));
+  return meals.filter(m => m.type === 'recipe' && ids.has(Number(m.recipe_id)));
 }
 
 export function mealsForDay(meals: Partial<Meal>[], day: Date): Partial<Meal>[] {
