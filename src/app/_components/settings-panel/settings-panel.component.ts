@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { AppConfigService } from '../../appconfig.service';
 import { GrocySystemInfo } from '../../interfaces/grocy-system-info-interface';
+import { ShareLinkService } from '../../services/share-link.service';
 import { DarkModeService, Theme } from '../../services/dark-mode.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class SettingsPanelComponent {
 
   protected readonly darkMode = inject(DarkModeService);
   private readonly appConfig = inject(AppConfigService);
+  private readonly shareLink = inject(ShareLinkService);
   private readonly cdr = inject(ChangeDetectorRef);
 
   readonly themes: { value: Theme; label: string; icon: string }[] = [
@@ -32,19 +34,9 @@ export class SettingsPanelComponent {
   }
 
   async onShare() {
-    const config = this.appConfig.getConfig();
-    if (!config.grocyUrl || !config.grocyApiKey) return;
-
-    const params = new URLSearchParams({ serverUrl: config.grocyUrl, apiKey: config.grocyApiKey });
-    const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-
-    if (navigator.share) {
-      await navigator.share({ title: 'Grocy Meal Planning', url: shareUrl });
-    } else {
-      await navigator.clipboard.writeText(shareUrl);
-      this.copied = true;
-      this.cdr.markForCheck();
-      setTimeout(() => { this.copied = false; this.cdr.markForCheck(); }, 2000);
-    }
+    if ((await this.shareLink.share()) !== 'copied') return;
+    this.copied = true;
+    this.cdr.markForCheck();
+    setTimeout(() => { this.copied = false; this.cdr.markForCheck(); }, 2000);
   }
 }

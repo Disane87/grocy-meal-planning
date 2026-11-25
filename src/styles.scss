@@ -312,35 +312,11 @@ textarea {
 
 /* ── Unified control height ── */
 .scheduler-controls button,
-.control-select,
-app-theme-toggle button {
+.control-select {
   height: 2.5rem !important;
   min-height: 2.5rem !important;
   display: flex !important;
   align-items: center !important;
-}
-
-/* ── Theme Toggle ── */
-app-theme-toggle button {
-  background: var(--surface-muted) !important;
-  color: var(--text-secondary) !important;
-  border: 0 !important;
-}
-app-theme-toggle button:hover {
-  background: var(--line-strong) !important;
-  color: var(--text-primary) !important;
-}
-app-theme-toggle .dropdown-menu {
-  background: var(--surface) !important;
-  border-color: var(--line) !important;
-}
-app-theme-toggle .dropdown-menu button {
-  color: var(--text-secondary) !important;
-}
-app-theme-toggle .dropdown-menu button:hover,
-app-theme-toggle .dropdown-menu button.selected {
-  background: var(--accent-surface) !important;
-  color: var(--text-primary) !important;
 }
 
 /* ── Layout surfaces ── */
@@ -585,4 +561,19 @@ html, body {
     font-size: 18px;
     line-height: 1;
   }
+}
+
+/* Right-docked settings dialog */
+.settings-panel-dialog .mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 20px 0 0 20px;
+  --mdc-dialog-container-color: var(--surface);
+  --mat-dialog-container-shape: 20px 0 0 20px;
+  --mat-dialog-container-color: var(--surface);
+  --mdc-dialog-container-elevation-shadow: 0 4px 12px rgba(0, 0, 0, .16);
+  height: 100vh;
+}
+.dark .settings-panel-dialog .mat-mdc-dialog-container {
+  --mdc-dialog-container-elevation-shadow: none;
+  --mat-dialog-container-elevation-shadow: none;
+  box-shadow: none;
 }

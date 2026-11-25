@@ -117,5 +117,6 @@
   "LINK_COPIED": "Link copied",
   "SHARE_LINK_HINT": "The link contains your API key, share it only with people you trust",
   "WHATS_NEW": "What's new",
-  "MADE_BY": "Made with TailwindCSS by"
+  "MADE_BY": "Made with TailwindCSS by",
+  "NO_RELEASE_NOTES": "No release notes for this version"
 }

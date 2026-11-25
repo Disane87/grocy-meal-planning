@@ -20,6 +20,8 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ReleaseNotesModalComponent } from './_components/release-notes-modal/release-notes-modal.component';
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { TranslocoService } from '@jsverse/transloco';
 import { take, takeUntil } from 'rxjs';
 import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
 import { NO_SECTION_ID, initialDay, shiftDay } from './services/meal-plan-view';
@@ -42,7 +44,9 @@ export class AppComponent implements OnInit {
     private appConfigService: AppConfigService,
     private releaseNotesService: ReleaseNotesService,
     private dialog: MatDialog,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private toast: HotToastService,
+    private transloco: TranslocoService
   ) { }
   private refreshRecipes$ = new BehaviorSubject<void>(undefined);
   recipes$ = this.refreshRecipes$.pipe(switchMap(() => {
@@ -173,6 +177,7 @@ export class AppComponent implements OnInit {
     version.subscribe(async ({ current }) => {
       const note = await this.releaseNotesService.loadReleaseNotes(current);
       if (note) this.showReleaseNotesModal(note, current);
+      else this.toast.info(this.transloco.translate('NO_RELEASE_NOTES'));
     });
   }
 
