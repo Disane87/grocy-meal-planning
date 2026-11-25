@@ -324,7 +324,8 @@ export class GrocyService {
     }
 
     const request = () =>
-      this.request<Blob>('get', `files/${fileGroup}/${btoa(fileName)}`, {
+      // Grocy resizes and caches server-side; originals can be several MB each.
+      this.request<Blob>('get', `files/${fileGroup}/${btoa(fileName)}?force_serve_as=picture&best_fit_width=600&best_fit_height=600`, {
         responseType: 'blob',
       });
     const image$ = this.httpRequest(request).pipe(
