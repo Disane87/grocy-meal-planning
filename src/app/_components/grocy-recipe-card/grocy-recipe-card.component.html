@@ -11,8 +11,8 @@
     <span class="absolute left-2 top-2 flex h-6 items-center rounded-xl bg-[var(--surface)] px-2 text-[12px] font-medium text-[var(--text-secondary)]">{{ 'AI_SUGGESTION' | transloco }}</span>
     }
   </div>
-  <div class="p-3">
-    <div class="text-[16px] font-medium leading-snug line-clamp-2" [class.opacity-[.55]]="meal?.done" [class.line-through]="meal?.done">{{ recipe.name }}</div>
+  <div class="p-3" [class.opacity-[.55]]="meal?.done">
+    <div class="text-[16px] font-medium leading-snug line-clamp-2" [class.line-through]="meal?.done">{{ recipe.name }}</div>
     @if (meal?.recipe_servings) {
     <div class="mt-1 text-[12px] tabular-nums text-[var(--text-muted)]">{{ 'SERVINGS' | transloco:{ count: meal?.recipe_servings } }}</div>
     }
@@ -46,10 +46,10 @@
       [src]="(('recipepictures' | grocyImage:recipe.picture_file_name) | async)" [alt]="recipe.name">
     }
     @if (meal?.userfields?.ai_planned == '1') {
-    <span class="absolute left-2 top-2 flex h-6 items-center rounded-xl bg-[var(--surface)] px-2 text-[12px] font-medium text-[var(--text-secondary)]">{{ 'AI_SUGGESTION' | transloco }}</span>
+    <span class="absolute bottom-2 left-2 flex h-6 items-center rounded-xl bg-[var(--surface)] px-2 text-[12px] font-medium text-[var(--text-secondary)]">{{ 'AI_SUGGESTION' | transloco }}</span>
     }
   </div>
-  <div class="absolute right-0 top-0 flex gap-1 p-1.5 opacity-0 transition-[opacity] duration-200 group-hover:opacity-100 group-focus-within:opacity-100">
+  <div class="absolute right-0 top-0 flex gap-1 p-1.5 opacity-0 transition-[opacity] duration-200 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100">
     @if (meal && meal.done == 0) {
     <button type="button" (click)="doneMeal(meal)" [attr.aria-label]="'COOKED' | transloco" [title]="'COOKED' | transloco"
       class="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-on)] transition-colors duration-150">
