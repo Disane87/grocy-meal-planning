@@ -58,11 +58,11 @@
 
   --text-primary: #f5f1ec;
   --text-secondary: #c9c0b6;
-  --text-muted: #a39a90;
+  --text-muted: #aaa197;
 
-  --accent: #e0703f;
+  --accent: #e88459;
   --accent-on: #1c1917;
-  --accent-surface: rgba(224, 112, 63, .14);
+  --accent-surface: rgba(232, 132, 89, .14);
 
   --danger: #f4a090;
   --danger-surface: rgba(244, 160, 144, .12);
@@ -233,11 +233,6 @@ html, body {
   padding-right: env(safe-area-inset-right);
 }
 
-/* Hot toast notifications — offset from safe area top */
-.hot-toast-container {
-  top: env(safe-area-inset-top) !important;
-}
-
 /* Recipe picker bottom sheet — bottom safe area for home indicator */
 .recipe-picker-bottom-sheet .mat-bottom-sheet-container {
   padding-bottom: env(safe-area-inset-bottom) !important;
@@ -302,6 +297,7 @@ html, body {
 
 /* ── Hot Toast ── */
 .hot-toast-container {
+  top: env(safe-area-inset-top) !important; /* offset from safe area */
   z-index: 99999 !important;
 }
 .hot-toast-bar-base {

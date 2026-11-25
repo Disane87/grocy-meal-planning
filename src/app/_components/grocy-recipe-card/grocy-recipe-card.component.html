@@ -52,17 +52,17 @@
   <div class="absolute right-0 top-0 flex gap-1 p-1.5 opacity-0 transition-[opacity] duration-200 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100">
     @if (meal && meal.done == 0) {
     <button type="button" (click)="doneMeal(meal)" [attr.aria-label]="'COOKED' | transloco" [title]="'COOKED' | transloco"
-      class="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-on)] transition-colors duration-150">
+      class="flex h-7 w-7 [@media(hover:none)]:h-10 [@media(hover:none)]:w-10 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-on)] transition-colors duration-150">
       <i class="ph-duotone ph-check" aria-hidden="true"></i>
     </button>
     }
     <button type="button" (click)="openRecipe(meal?.recipe_id || recipe.id)" [attr.aria-label]="'RECIPE' | transloco" [title]="'RECIPE' | transloco"
-      class="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--surface)] text-[var(--text-primary)] ring-1 ring-inset ring-[var(--line-strong)] transition-colors duration-150">
+      class="flex h-7 w-7 [@media(hover:none)]:h-10 [@media(hover:none)]:w-10 items-center justify-center rounded-lg bg-[var(--surface)] text-[var(--text-primary)] ring-1 ring-inset ring-[var(--line-strong)] transition-colors duration-150">
       <i class="ph-duotone ph-book-open" aria-hidden="true"></i>
     </button>
     @if (meal && meal.done == 0) {
     <button type="button" (click)="deleteMeal(meal)" [attr.aria-label]="'REMOVE' | transloco" [title]="'REMOVE' | transloco"
-      class="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--surface)] text-[var(--text-primary)] ring-1 ring-inset ring-[var(--line-strong)] transition-colors duration-150">
+      class="flex h-7 w-7 [@media(hover:none)]:h-10 [@media(hover:none)]:w-10 items-center justify-center rounded-lg bg-[var(--surface)] text-[var(--text-primary)] ring-1 ring-inset ring-[var(--line-strong)] transition-colors duration-150">
       <i class="ph-duotone ph-trash" aria-hidden="true"></i>
     </button>
     }

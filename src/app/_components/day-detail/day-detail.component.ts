@@ -29,6 +29,7 @@ export class DayDetailComponent implements OnChanges, OnInit, OnDestroy {
   private start: { x: number; y: number } | null = null;
   private readonly startListener = (e: TouchEvent) => this.onTouchStart(e);
   private readonly endListener = (e: TouchEvent) => this.onTouchEnd(e);
+  private readonly cancelListener = () => (this.start = null);
 
   constructor(private el: ElementRef<HTMLElement>) {}
 
@@ -36,11 +37,13 @@ export class DayDetailComponent implements OnChanges, OnInit, OnDestroy {
     // Passive listeners: vertical scrolling is never blocked
     this.el.nativeElement.addEventListener('touchstart', this.startListener, { passive: true });
     this.el.nativeElement.addEventListener('touchend', this.endListener, { passive: true });
+    this.el.nativeElement.addEventListener('touchcancel', this.cancelListener, { passive: true });
   }
 
   ngOnDestroy(): void {
     this.el.nativeElement.removeEventListener('touchstart', this.startListener);
     this.el.nativeElement.removeEventListener('touchend', this.endListener);
+    this.el.nativeElement.removeEventListener('touchcancel', this.cancelListener);
   }
 
   ngOnChanges(): void {
