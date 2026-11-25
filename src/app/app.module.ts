@@ -45,6 +45,7 @@ import { SchedulerComponent } from './_components/scheduler/scheduler.component'
 import { SchedulerControlsComponent } from './_components/scheduler-controls/scheduler-controls.component';
 import { WeekViewComponent } from './_components/week-view/week-view.component';
 import { DayColumnComponent } from './_components/day-column/day-column.component';
+import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
 
@@ -78,6 +79,7 @@ dayjs.locale(language);
     WeekViewComponent,
     DayColumnComponent,
     RecipePickerSheetComponent,
+    PlanRecipeSheetComponent,
     RecipeImportDialogComponent,
   ],
   bootstrap: [AppComponent],

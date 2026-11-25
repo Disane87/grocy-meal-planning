@@ -5,6 +5,14 @@
       <i class="ph-duotone ph-x" aria-hidden="true"></i>
     </button>
   </div>
+  @if (showSections) {
+  <div class="px-4 pt-3 flex flex-row gap-2 overflow-x-auto" role="group" [attr.aria-label]="'SECTION' | transloco">
+    @for (group of groups; track group.sectionId) {
+    <button type="button" class="chip" [class.active]="group.sectionId === sectionId" [attr.aria-pressed]="group.sectionId === sectionId"
+      (click)="sectionId = group.sectionId">{{ group.name ?? ('NO_SECTION' | transloco) }}</button>
+    }
+  </div>
+  }
   <div class="p-4 border-b border-[var(--glass-border)] flex flex-row gap-2">
     <input type="text" [(ngModel)]="searchTerm"
       [placeholder]="'RECIPE_SEARCH_PLACEHOLDER' | transloco"

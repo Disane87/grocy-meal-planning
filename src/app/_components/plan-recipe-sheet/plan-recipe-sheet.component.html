@@ -1,0 +1,30 @@
+<div class="grab" aria-hidden="true"></div>
+<div class="flex flex-col gap-4 p-4">
+  <div class="flex flex-row items-center justify-between gap-2">
+    <h2 class="text-lg font-semibold min-w-0 truncate">{{ 'PLAN_FOR' | transloco }}: {{ data.recipe.name }}</h2>
+    <button type="button" (click)="close()" [attr.aria-label]="'CLOSE' | transloco" class="btn btn-icon">
+      <i class="ph-duotone ph-x" aria-hidden="true"></i>
+    </button>
+  </div>
+  @if (showSections) {
+  <div class="flex flex-row gap-2 overflow-x-auto" role="group" [attr.aria-label]="'SECTION' | transloco">
+    @for (group of groups; track group.sectionId) {
+    <button type="button" class="chip" [class.active]="group.sectionId === sectionId" [attr.aria-pressed]="group.sectionId === sectionId"
+      (click)="sectionId = group.sectionId">{{ group.name ?? ('NO_SECTION' | transloco) }}</button>
+    }
+  </div>
+  }
+  <div class="flex flex-row gap-1">
+    @for (day of days; track day) {
+    <button type="button" class="day-btn" (click)="selectDay(day)">
+      <span>{{ day | date:'EEE' }}</span>
+      <span class="num">{{ day | date:'d' }}</span>
+    </button>
+    }
+  </div>
+  <button type="button" class="btn" (click)="openInGrocy()">
+    <i class="ph-duotone ph-arrow-square-out" aria-hidden="true"></i>
+    {{ 'OPEN_IN_GROCY' | transloco }}
+  </button>
+</div>
+<div style="height: env(safe-area-inset-bottom)"></div>

@@ -12,8 +12,8 @@
       [selectedMealPlanSection]="selectedMealPlanSection" [mealPlanSections]="(mealPlanSections$ | async)"
       [mealPlan]="mealPlan" [recipes]="recipes" [grocyInfo]="(grocyInfo$ | async)"
       (sectionChange)="selectSection($event)" (weekChange)="changeWeek($event)" (resetConfig)="resetConfig()"
-      (dragOver)="onDragover($event.event, $event.day)" (drop)="onDrop($event.event, $event.day)"
-      (addRecipe)="onAddRecipe($event)"
+      (dragOver)="onDragover($event.event, $event.day)" (drop)="onDrop($event.event, $event.day, selectedMealPlanSection ?? -1)"
+      (addRecipe)="onAddRecipe({ day: $event, sectionId: selectedMealPlanSection ?? -1 })"
       (refreshRecipes)="onRefreshRecipes()"
       (importRecipe)="onImportRecipe()">
     </app-scheduler>

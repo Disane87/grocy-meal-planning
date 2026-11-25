@@ -91,5 +91,9 @@
   "COOKED": "Cooked",
   "RECIPE": "Recipe",
   "AI_SUGGESTION": "AI suggestion",
-  "SERVINGS": "{{count}} servings"
+  "SERVINGS": "{{count}} servings",
+  "PLAN_FOR": "Plan for",
+  "SECTION": "Section",
+  "NO_SECTION": "No section",
+  "OPEN_IN_GROCY": "Open in Grocy"
 }

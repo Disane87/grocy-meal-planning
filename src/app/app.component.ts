@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { Subject, BehaviorSubject, switchMap } from 'rxjs';
+import { Subject, BehaviorSubject, switchMap, combineLatest } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -19,6 +19,8 @@ import { ReleaseNotesModalComponent } from './_components/release-notes-modal/re
 import { RecipePickerSheetComponent } from './_components/recipe-picker-sheet/recipe-picker-sheet.component';
 import { RecipeImportDialogComponent } from './_components/recipe-import-dialog/recipe-import-dialog.component';
 import { take } from 'rxjs';
+import { PlanRecipeSheetComponent } from './_components/plan-recipe-sheet/plan-recipe-sheet.component';
+import { NO_SECTION_ID } from './services/meal-plan-view';
 
 @Component({
   selector: 'app-root',
@@ -161,11 +163,13 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onAddRecipe(day: Date) {
-    this.recipes$.pipe(take(1)).subscribe(recipes => {
+  onAddRecipe(event: { day: Date; sectionId?: number }) {
+    combineLatest([this.recipes$.pipe(take(1)), this.mealPlanSections$.pipe(take(1))]).subscribe(([recipes, sections]) => {
       const sheetRef = this.bottomSheet.open(RecipePickerSheetComponent, {
         data: {
           recipes,
+          sections,
+          sectionId: event.sectionId ?? this.selectedMealPlanSection ?? NO_SECTION_ID,
           onRefresh: () => {
             this.refreshRecipes$.next();
             this.recipes$.pipe(take(1)).subscribe(updated => {
@@ -176,49 +180,53 @@ export class AppComponent implements OnInit {
         panelClass: 'recipe-picker-bottom-sheet',
       });
 
-      sheetRef.afterDismissed().subscribe((recipe: Recipe | undefined) => {
-        if (recipe) {
-          const stringDate = dayjs(day).format('YYYY-MM-DD');
-          const meal: Partial<Meal> = {
-            day: stringDate,
-            recipe_id: recipe.id,
-            recipe_servings: 4,
-            section_id: (this.selectedMealPlanSection ?? -1).toString(),
-            type: 'recipe',
-          };
-          this.grocyService.postMeal(meal).subscribe((data) => {
-            meal.id = parseInt(data.created_object_id);
-            this.refreshMealPlan$.next();
-          });
-        }
+      sheetRef.afterDismissed().subscribe((result: { recipe: Recipe; sectionId: number } | undefined) => {
+        if (result) this.planRecipe(result.recipe, event.day, result.sectionId);
       });
     });
   }
 
-  onDrop(event: DndDropEvent, day: Date) {
-    const dragData: RecipeDragData = event.data;
-    const eventRecipe: Recipe = dragData.recipe;
-    const stringDate = dayjs(day).format('YYYY-MM-DD');
-
-    if (dragData.meal && !event.event.shiftKey) {
-      this.grocyService
-        .updateMeal({
-          id: dragData.meal.id,
-          day: stringDate,
-        })
-        .subscribe();
-    } else {
-      const meal: Partial<Meal> = {
-        day: stringDate,
-        recipe_id: eventRecipe.id,
-        recipe_servings: 4,
-        section_id: (this.selectedMealPlanSection ?? -1).toString(),
-        type: 'recipe',
-      };
-      this.grocyService.postMeal(meal).subscribe((data) => {
-        meal.id = parseInt(data.created_object_id);
-        this.refreshMealPlan$.next();
+  onPlanRecipeFromList(recipe: Recipe) {
+    this.mealPlanSections$.pipe(take(1)).subscribe(sections => {
+      const sheetRef = this.bottomSheet.open(PlanRecipeSheetComponent, {
+        data: {
+          recipe,
+          weekStart: this.currentWeekStart,
+          sections,
+          sectionId: this.selectedMealPlanSection ?? NO_SECTION_ID,
+        },
+        panelClass: 'recipe-picker-bottom-sheet',
       });
-    }
+
+      sheetRef.afterDismissed().subscribe((result: { day: Date; sectionId: number } | { openInGrocy: true } | undefined) => {
+        if (!result) return;
+        if ('openInGrocy' in result) this.grocyService.openGrocyRecipe(recipe.id);
+        else this.planRecipe(recipe, result.day, result.sectionId);
+      });
+    });
+  }
+
+  planRecipe(recipe: Recipe, day: Date, sectionId: number) {
+    this.selectSection(sectionId);
+    const meal: Partial<Meal> = {
+      day: dayjs(day).format('YYYY-MM-DD'),
+      recipe_id: recipe.id,
+      recipe_servings: 4,
+      section_id: String(sectionId),
+      type: 'recipe',
+    };
+    this.grocyService.postMeal(meal).subscribe(() => this.refreshMealPlan$.next());
+  }
+
+  moveMeal(mealId: number, day: Date, sectionId: number) {
+    this.grocyService
+      .updateMeal({ id: mealId, day: dayjs(day).format('YYYY-MM-DD'), section_id: String(sectionId) })
+      .subscribe();
+  }
+
+  onDrop(event: DndDropEvent, day: Date, sectionId: number) {
+    const dragData: RecipeDragData = event.data;
+    if (dragData.meal && !event.event.shiftKey) this.moveMeal(dragData.meal.id, day, sectionId);
+    else this.planRecipe(dragData.recipe, day, sectionId);
   }
 }
