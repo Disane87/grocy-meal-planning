@@ -23,7 +23,7 @@
 }
 .seg button[aria-checked='true'] {
   background: var(--accent-surface);
-  color: var(--accent);
+  color: var(--text-primary);
 }
 @media (prefers-reduced-motion: reduce) {
   .seg button { transition: none; }
