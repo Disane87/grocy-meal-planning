@@ -1,3 +1,8 @@
+## [0.7.6](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.5...v0.7.6) (2026-11-25)
+
+### Bug Fixes
+
+* **images:** request resized recipe pictures from Grocy ([0909e0f](https://github.com/Disane87/grocy-meal-planning/commit/0909e0f3fa8eb0a94f8d3263fc88ec588333a28a))
 ## [0.7.5](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.4...v0.7.5) (2026-10-09)
 ## [0.7.4](https://github.com/Disane87/grocy-meal-planning/compare/v0.7.3...v0.7.4) (2026-09-02)
 
