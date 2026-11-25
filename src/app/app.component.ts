@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { Subject, BehaviorSubject, switchMap, combineLatest } from 'rxjs';
+import { Subject, BehaviorSubject, switchMap, combineLatest, shareReplay } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
   }));
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;
-  mealPlanSections$ = this.grocyService.getMealPlanSections();
+  mealPlanSections$ = this.grocyService.getMealPlanSections().pipe(shareReplay({ bufferSize: 1, refCount: false }));
   refreshMealPlan$ = new Subject<void>();
 
   selectedMealPlanSection: number | null = localStorage.getItem(

@@ -24,8 +24,9 @@ export class RecipePickerSheetComponent {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: { recipes: Recipe[]; sections: MealPlanSection[]; sectionId: number; onRefresh?: () => void }
   ) {
     this.recipes = data.recipes;
-    this.sectionId = data.sectionId;
     this.groups = groupBySection([], data.sections);
+    // fall back to the first chip so the selection is always one the user can see
+    this.sectionId = this.groups.some(g => g.sectionId === data.sectionId) ? data.sectionId : this.groups[0].sectionId;
     this.showSections = showSectionHeadings(this.groups);
   }
 

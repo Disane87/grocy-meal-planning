@@ -23,8 +23,9 @@ export class PlanRecipeSheetComponent {
     private bottomSheetRef: MatBottomSheetRef<PlanRecipeSheetComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: { recipe: Recipe; weekStart: Dayjs; sections: MealPlanSection[]; sectionId: number }
   ) {
-    this.sectionId = data.sectionId;
     this.groups = groupBySection([], data.sections);
+    // fall back to the first chip so the selection is always one the user can see
+    this.sectionId = this.groups.some(g => g.sectionId === data.sectionId) ? data.sectionId : this.groups[0].sectionId;
     this.showSections = showSectionHeadings(this.groups);
     this.days = Array.from({ length: 7 }, (_, i) => data.weekStart.add(i, 'day').toDate());
   }
