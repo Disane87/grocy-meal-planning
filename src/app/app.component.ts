@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { BehaviorSubject, switchMap, combineLatest, shareReplay, map, filter } from 'rxjs';
+import { BehaviorSubject, switchMap, map } from 'rxjs';
 
 dayjs.extend(isoWeek);
 
@@ -53,13 +53,6 @@ export class AppComponent implements OnInit {
   }));
 
   isAppConfigured$ = this.appConfigService.isAppConfigured$;
-  // keyed on config: source completes after one HTTP call, so refCount alone would never reset the cache
-  mealPlanSections$ = this.isAppConfigured$.pipe(
-    filter(Boolean),
-    switchMap(() => this.grocyService.getMealPlanSections()),
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
-
   selectedMealPlanSection: number | null = localStorage.getItem(
     'selectedMealPlanSection'
   )
@@ -194,11 +187,11 @@ export class AppComponent implements OnInit {
   }
 
   onAddRecipe(event: { day: Date; sectionId?: number }) {
-    combineLatest([this.recipes$.pipe(take(1)), this.mealPlanSections$.pipe(take(1))]).subscribe(([recipes, sections]) => {
+    this.recipes$.pipe(take(1)).subscribe(recipes => {
       const sheetRef = this.bottomSheet.open(RecipePickerSheetComponent, {
         data: {
           recipes,
-          sections,
+          sections: [],
           sectionId: event.sectionId ?? this.selectedMealPlanSection ?? NO_SECTION_ID,
           onRefresh: () => {
             this.refreshRecipes$.next();
@@ -217,22 +210,20 @@ export class AppComponent implements OnInit {
   }
 
   onPlanRecipeFromList(recipe: Recipe) {
-    this.mealPlanSections$.pipe(take(1)).subscribe(sections => {
-      const sheetRef = this.bottomSheet.open(PlanRecipeSheetComponent, {
-        data: {
-          recipe,
-          weekStart: this.currentWeekStart,
-          sections,
-          sectionId: this.selectedMealPlanSection ?? NO_SECTION_ID,
-        },
-        panelClass: 'recipe-picker-bottom-sheet',
-      });
+    const sheetRef = this.bottomSheet.open(PlanRecipeSheetComponent, {
+      data: {
+        recipe,
+        weekStart: this.currentWeekStart,
+        sections: [],
+        sectionId: this.selectedMealPlanSection ?? NO_SECTION_ID,
+      },
+      panelClass: 'recipe-picker-bottom-sheet',
+    });
 
-      sheetRef.afterDismissed().subscribe((result: { day: Date; sectionId: number } | { openInGrocy: true } | undefined) => {
-        if (!result) return;
-        if ('openInGrocy' in result) this.grocyService.openGrocyRecipe(recipe.id);
-        else this.planRecipe(recipe, result.day, result.sectionId);
-      });
+    sheetRef.afterDismissed().subscribe((result: { day: Date; sectionId: number } | { openInGrocy: true } | undefined) => {
+      if (!result) return;
+      if ('openInGrocy' in result) this.grocyService.openGrocyRecipe(recipe.id);
+      else this.planRecipe(recipe, result.day, result.sectionId);
     });
   }
 
