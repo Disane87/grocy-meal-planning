@@ -1,0 +1,15 @@
+{
+  "version": "0.9.0",
+  "date": "2026-11-27T09:21:38.018Z",
+  "features": [],
+  "fixes": [],
+  "breaking": [],
+  "improvements": [],
+  "maintenance": [],
+  "styling": [],
+  "documentation": [],
+  "other": [
+    "Merge branch 'feat/three-week-view'",
+    "feat(plan): show previous, current and next week and hide meal plan sections"
+  ]
+}
