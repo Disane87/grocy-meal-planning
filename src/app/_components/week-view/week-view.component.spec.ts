@@ -35,12 +35,14 @@ describe('WeekViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders one week with 7 day columns', () => {
-    expect(fixture.nativeElement.querySelectorAll('app-day-column').length).toBe(7);
+  it('renders previous, current and next week (21 day columns)', () => {
+    expect(fixture.nativeElement.querySelectorAll('app-day-column').length).toBe(21);
+    expect(component.days[0].date).toEqual(dayjs('2026-11-16').toDate());
+    expect(component.days[20].date).toEqual(dayjs('2026-12-06').toDate());
   });
 
   it('groups the meals of a day into their section', () => {
-    const tuesday = component.days[1];
+    const tuesday = component.days[8];
     expect(tuesday.groups.find(g => g.sectionId === 5)?.meals.length).toBe(1);
   });
 });

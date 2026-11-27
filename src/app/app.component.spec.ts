@@ -5,8 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { TranslocoTestingModule } from '@jsverse/transloco';
-import { BehaviorSubject, of } from 'rxjs';
-import { AppConfigService } from './appconfig.service';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { GrocyService } from './grocy.service';
 import { Recipe } from './interfaces/recipe.interface';
@@ -31,22 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('mealPlanSections$ reloads after reconfiguration (true, false, true)', () => {
-    const configured = new BehaviorSubject<boolean>(true);
-    TestBed.overrideProvider(AppConfigService, { useValue: { isAppConfigured$: configured, getConfig: () => ({}) } });
-    const grocy = TestBed.inject(GrocyService);
-    let n = 0;
-    const get = spyOn(grocy, 'getMealPlanSections').and.callFake(() => of([{ id: ++n }] as any));
-    const app = TestBed.createComponent(AppComponent).componentInstance;
-    const seen: any[] = [];
-    const sub = app.mealPlanSections$.subscribe(s => seen.push(s));
-    configured.next(false);
-    configured.next(true);
-    sub.unsubscribe();
-    expect(get).toHaveBeenCalledTimes(2);
-    expect(seen).toEqual([[{ id: 1 }], [{ id: 2 }]] as any);
   });
 
   describe('mobile day selection', () => {

@@ -5,12 +5,13 @@ import { Recipe } from '../../interfaces/recipe.interface';
 import { MealPlanSection } from '../../interfaces/meal-plan-section.interface';
 import { SectionGroup } from '../../interfaces/section-group.interface';
 import { groupBySection, mealsForDay, showSectionHeadings, visibleMeals } from '../../services/meal-plan-view';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface DayView {
   date: Date;
   groups: SectionGroup[];
   showHeadings: boolean;
+  past: boolean;
 }
 
 @Component({
@@ -34,10 +35,13 @@ export class WeekViewComponent implements OnChanges {
   ngOnChanges(): void {
     if (!this.currentWeekStart) return;
     const meals = visibleMeals(this.mealPlan ?? [], this.recipes);
-    this.days = Array.from({ length: 7 }, (_, i) => {
-      const date = this.currentWeekStart.add(i, 'day').toDate();
+    // previous, current and next week, one row each
+    const start = this.currentWeekStart.subtract(1, 'week');
+    this.days = Array.from({ length: 21 }, (_, i) => {
+      const d = start.add(i, 'day');
+      const date = d.toDate();
       const groups = groupBySection(mealsForDay(meals, date), this.sections);
-      return { date, groups, showHeadings: showSectionHeadings(groups) };
+      return { date, groups, showHeadings: showSectionHeadings(groups), past: d.isBefore(dayjs(), 'day') };
     });
   }
 }

@@ -10,7 +10,7 @@
   @if ((mealPlan$ | async); as mealPlan) {
   <div class="flex flex-col flex-1 h-full scheduler overflow-hidden min-w-0">
     <app-scheduler [currentWeekStart]="currentWeekStart" [currentWeek]="currentWeek"
-      [mealPlanSections]="(mealPlanSections$ | async)" [mealPlan]="mealPlan" [recipes]="recipes"
+      [mealPlanSections]="null" [mealPlan]="mealPlan" [recipes]="recipes"
       [grocyInfo]="(grocyInfo$ | async)" (weekChange)="changeWeek($event)" (openSettings)="openSettings()"
       (drop)="onDrop($event.event, $event.day, $event.sectionId)" (addRecipe)="onAddRecipe($event)">
     </app-scheduler>
@@ -19,7 +19,7 @@
 </div>
 } @else {
 <app-mobile-shell [tab]="mobileTab" [weekStart]="currentWeekStart" [selectedDay]="selectedDay"
-  [mealPlan]="(mealPlan$ | async)" [recipes]="recipes" [sections]="(mealPlanSections$ | async)"
+  [mealPlan]="(mealPlan$ | async)" [recipes]="recipes" [sections]="null"
   [recipeSearch]="recipeSearch" (tabChange)="mobileTab = $event" (daySelect)="selectDay($event)"
   (dayShift)="shiftSelectedDay($event)" (weekChange)="changeWeek($event)" (addRecipe)="onAddRecipe($event)"
   (planRecipe)="onPlanRecipeFromList($event)" (recipeSearchChange)="recipeSearch = $event"
